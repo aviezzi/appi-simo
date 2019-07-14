@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  db:
+    container_name: king_roger
+    restart: always
+    image: king_roger
+    build:
+      context: ./db
+
+    environment:
+      POSTGRES_USER: RobotBoy
+      POSTGRES_PASSWORD: RobotBoy  # To be moved to environment file
+      POSTGRES_DATABASE: KingRoger
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    networks:
+      - king_roger-facade
+  graphql:
+    container_name: facade
+    restart: always
+    image: graphile/postgraphile
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://RobotBoy:RobotBoy@db:5432/KingRoger # To be moved to environment file
+    expose:
+      - 6000
+    ports:
+      - 6000:5000
+    command: ["postgraphile", "--connection", $DATABASE_URL, "--host", "0.0.0.0", "--port", "5000", "--schema", "public"]
+    links:
+      - db
+    networks:
+      - king_roger-facade
+networks:
+  king_roger-facade:
