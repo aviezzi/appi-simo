@@ -1,0 +1,24 @@
+﻿@page "/"
+@inherits IndexComponent
+
+@if (Lights != null)
+{
+    <ol>
+        @foreach (var light in Lights)
+        {
+            <li onclick="@(() => Select(light.Id))" style="cursor: pointer">@light.LightType - @light.Price &euro;</li>
+        }
+    </ol>
+}
+
+<h3>Selected Light</h3>
+@if (Light != null)
+{
+    <div>
+        <h4>@Light.LightType - @Light.Price &euro;</h4>
+    </div>
+}
+else
+{
+    <h4>No one!</h4>
+}
