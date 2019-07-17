@@ -5,10 +5,11 @@ namespace AppiSimo.Client.Abstract
     using System.Threading.Tasks;
     using Model;
 
-    public interface ILightService : IBaseGraphQlService<Light>
+    public interface IResourceService<T>
+        where T : Entity, new()
     {
-        Task<ICollection<Light>> GetAsync();
+        Task<ICollection<T>> GetAsync();
 
-        Task<Light> GetAsync(Guid key);
+        Task<T> GetAsync(Guid key);
     }
 }
