@@ -4,16 +4,17 @@ namespace AppiSimo.Client.Services
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Abstract;
-	using GraphQL.Client.Http;
-	using Model;
+    using Model;
 
-    public class LightService : BaseGraphQlService<Light>, ILightService
+    public class LightService : IResourceService<Light>
     {
-		public LightService(GraphQLHttpClient client)
-			: base(client)
-		{
-		}
-		
+        readonly IGraphQlService<Light> _service;
+
+        public LightService(IGraphQlService<Light> service)
+        {
+            _service = service;
+        }
+
         public async Task<ICollection<Light>> GetAsync()
         {
             const string query =
@@ -29,7 +30,7 @@ namespace AppiSimo.Client.Services
 				}
 				";
 
-            return await GetAll(query, "allLights");
+            return await _service.GetAll(query, "allLights");
         }
 
         public async Task<Light> GetAsync(Guid key)
@@ -45,9 +46,9 @@ namespace AppiSimo.Client.Services
 				}
 				";
 
-            var result = await GetOne(query, "lightById", key);
+            var result = await _service.GetOne(query, "lightById", key);
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

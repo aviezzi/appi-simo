@@ -10,7 +10,7 @@ namespace AppiSimo.Client.Pages
     public class IndexComponent : ComponentBase
     {
         [Inject]
-        ILightService LightService { get; set; }
+        IResourceService<Light> LightService { get; set; }
 
         protected ICollection<Light> Lights { get; private set; }
         protected Light Light { get; private set; }

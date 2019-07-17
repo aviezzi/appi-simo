@@ -9,11 +9,12 @@ namespace AppiSimo.Client.Services
     using GraphQL.Common.Request;
     using Model;
 
-    public abstract class BaseGraphQlService<T> : IBaseGraphQlService<T>
+    public class GraphQlService<T> : IGraphQlService<T>
+        where T : Entity, new()
     {
         readonly GraphQLHttpClient _client;
 
-        protected BaseGraphQlService(GraphQLHttpClient client)
+        public GraphQlService(GraphQLHttpClient client)
         {
             _client = client;
         }
@@ -32,7 +33,7 @@ namespace AppiSimo.Client.Services
         public async Task<T> GetOne(string query, string name, Guid key)
         {
             var id = key;
-            
+
             var req = new GraphQLRequest
             {
                 Query = query,
