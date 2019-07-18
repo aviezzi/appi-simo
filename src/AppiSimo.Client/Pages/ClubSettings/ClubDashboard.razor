@@ -1,0 +1,25 @@
+@page "/club-dashboard/{page}"
+@page "/club-dashboard"
+
+@inherits ClubDashboardComponent
+
+<nav class="nav nav-pills nav-justified my-4">
+    <a class="@($"nav-item nav-link {(Page == "lights" ? "active" : string.Empty)}")" href="/club-dashboard/lights"><span class="oi oi-lightbulb mr-1"></span>Illuminazione</a>
+    <a class="@($"nav-item nav-link {(Page == "heats" ? "active" : string.Empty)}")" href="/club-dashboard/heats"><span class="oi oi-fire mr-1"></span>Riscaldamento</a>
+    <a class="@($"nav-item nav-link {(Page == "courts" ? "active" : string.Empty)}")" href="/club-dashboard/courts"><span class="oi oi-flash mr-1"></span>Campi</a>
+    <a class="@($"nav-item nav-link {(Page == "rates" ? "active" : string.Empty)}")" href="/club-dashboard/rates"><span class="oi oi-clock mr-1"></span>Tariffe</a>
+</nav>
+
+<div class="my-4">
+
+    @switch (Page)
+    {
+        case "lights":
+            <lightsview></lightsview>
+            break;
+        default:
+            <lightsview></lightsview>
+            break;
+    }
+
+</div>

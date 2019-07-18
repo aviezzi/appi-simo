@@ -1,0 +1,49 @@
+@inherits LightsComponent
+
+@if (Lights == null)
+{
+    <span>Loading ...</span>
+    return;
+}
+
+<div class="d-flex justify-content-end mb-2">
+    <button class="btn btn-outline-primary w-10" onclick="@(() => GoToCreate())">Crea</button>
+</div>
+
+<div class="d-flex justify-content-end mb-2">
+
+    <table class="table table-striped">
+
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                <span>#</span>
+            </th>
+            <th>Tipo</th>
+            <th>Prezzo</th>
+            <th>
+                <span class="oi oi-circle-check"></span>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var context in Lights.Select((value, i) => (Entity :value, Index : i)))
+        {
+            <tr>
+                <th>@($"{context.Index + 1}")</th>
+                <td>@($"{context.Entity.LightType}")</td>
+                <td>@($"{context.Entity.Price:0.00}")</td>
+                <td>
+                    <span class="@($"oi {(context.Entity.Enabled ? "oi-check" : string.Empty)}")"></span>
+                </td>
+
+                <td class="payiments-pointer align-middle" onclick="@(() => GoToEdit(context.Entity.Id))">
+                    <span class="oi oi-external-link"></span>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
