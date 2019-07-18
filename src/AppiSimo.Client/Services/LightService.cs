@@ -24,7 +24,8 @@ namespace AppiSimo.Client.Services
 				        nodes {
 				            id,
 				            lightType,
-							price
+							price,
+							enabled
 				        }
 				    }
 				}
@@ -41,8 +42,9 @@ namespace AppiSimo.Client.Services
 					lightById(id: $id) {
 						id,
 						lightType,
-						price
-					}
+						price,
+						enabled
+					}                                                                         
 				}
 				";
 

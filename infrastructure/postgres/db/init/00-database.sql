@@ -8,7 +8,9 @@ create table "Lights"
         constraint "PK_Lights"
             primary key,
     "LightType" text,
-    "Price" numeric not null
+    "Price" numeric not null,
+    "Enabled" boolean not null
+
 );
 
 alter table "Lights" owner to "RobotBoy";
