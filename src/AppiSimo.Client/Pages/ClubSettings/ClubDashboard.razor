@@ -14,11 +14,15 @@
 
     @switch (Page)
     {
+        case "":
         case "lights":
-            <lightsview></lightsview>
+            <LightsView></LightsView>
+            break;
+        case "heats":
+            <HeatsView></HeatsView>
             break;
         default:
-            <lightsview></lightsview>
+            <text>Pagina non trovata</text>
             break;
     }
 

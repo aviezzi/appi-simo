@@ -1,6 +1,6 @@
-@inherits LightsComponent
+@inherits HeatsComponent
 
-@if (Lights == null)
+@if (Heats == null)
 {
     <span>Loading ...</span>
     return;
@@ -29,11 +29,11 @@
         </thead>
 
         <tbody>
-        @foreach (var (entity, index) in Lights.Select((value, i) => (value, i)))
+        @foreach (var (entity, index) in Heats.Select((value, i) => (value, i)))
         {
             <tr>
                 <th>@($"{index + 1}")</th>
-                <td>@($"{entity.LightType}")</td>
+                <td>@($"{entity.HeatType}")</td>
                 <td>@($"{entity.Price:0.00}")</td>
                 <td>
                     <span class="@($"oi {(entity.Enabled ? "oi-check" : string.Empty)}")"></span>
