@@ -27,10 +27,14 @@ namespace AppiSimo.Client
             services.AddServerSideBlazor();
 
             services.AddSingleton(new GraphQLHttpClient("http://localhost:6000/graphql"));
+            
             services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();
+            services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
+            
             services.AddSingleton<IResourceService<Light>, LightService>();
             services.AddSingleton<IResourceService<Heat>, HeatService>();
+            services.AddSingleton<IResourceService<Court>, CourtService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
