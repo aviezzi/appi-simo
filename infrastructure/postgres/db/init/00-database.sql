@@ -23,3 +23,18 @@ create table "Heats"
 );
 
 alter table "Heats" owner to "RobotBoy";
+
+create table "Courts"
+(
+    "Id" uuid not null constraint "PK_Courts" primary key,
+    "Name" text,
+    "LightId" uuid not null constraint "FK_Courts_Lights_LightId" references "Lights" on delete cascade,
+    "HeatId" uuid not null constraint "FK_Courts_Heats_HeatId" references "Heats" on delete cascade,
+    "Enabled" boolean not null
+);
+
+alter table "Courts" owner to RobotBoy;
+
+create index "IX_Courts_LightId" on "Courts" ("LightId");
+create index "IX_Courts_HeatId" on "Courts" ("HeatId");
+

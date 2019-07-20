@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubSettings.Heats
+namespace AppiSimo.Client.Pages.ClubSettings.Courts
 {
     using System;
     using System.Collections.Generic;
@@ -7,25 +7,25 @@ namespace AppiSimo.Client.Pages.ClubSettings.Heats
     using Microsoft.AspNetCore.Components;
     using Model;
 
-    public class HeatsComponent : ComponentBase
+    public class CourtsComponent : ComponentBase
     {
         [Inject]
         IUriHelper UriHelper { get; set; }
 
         [Inject]
-        IResourceService<Heat> HeatService { get; set; }
+        IResourceService<Court> CourtService { get; set; }
 
-        protected ICollection<Heat> Heats { get; private set; }
+        protected ICollection<Court> Courts { get; private set; }
 
         protected override async Task OnInitAsync()
         {
-            Heats = await HeatService.GetAsync();
+            Courts = await CourtService.GetAsync();
         }
 
         protected void GoToEdit(Guid key) =>
-            UriHelper.NavigateTo($"/club-dashboard/heat/edit/{key}");
+            UriHelper.NavigateTo($"/club-dashboard/court/edit/{key}");
 
         protected void GoToCreate() =>
-            UriHelper.NavigateTo("/club-dashboard/heat/create");
+            UriHelper.NavigateTo("/club-dashboard/court/create");
     }
 }
