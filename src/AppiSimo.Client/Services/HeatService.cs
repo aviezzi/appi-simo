@@ -20,7 +20,7 @@ namespace AppiSimo.Client.Services
             const string query =
                 @"
  				{
-				    allHeats {
+				    heats {
 				        nodes {
 				            id,
 				            heatType,
@@ -31,7 +31,7 @@ namespace AppiSimo.Client.Services
 				}
 				";
 
-            return await _service.GetAll(query, "allHeats");
+            return await _service.GetAll(query, "heats");
         }
 
         public async Task<Heat> GetAsync(Guid key)
@@ -39,7 +39,7 @@ namespace AppiSimo.Client.Services
             const string query =
                 @"
 				query GetHeatById($id: UUID!) {
-					heatById(id: $id) {
+					heat(id: $id) {
 						id,
 						heatType,
 						price,
@@ -48,7 +48,7 @@ namespace AppiSimo.Client.Services
 				}
 				";
 
-            var result = await _service.GetOne(query, "heatById", key);
+            var result = await _service.GetOne(query, "heat", key);
 
             return result;
         }
