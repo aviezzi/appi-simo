@@ -20,7 +20,7 @@ namespace AppiSimo.Client.Services
             const string query =
                 @"
  				{
-				    allLights {
+				    lights {
 				        nodes {
 				            id,
 				            lightType,
@@ -31,7 +31,7 @@ namespace AppiSimo.Client.Services
 				}
 				";
 
-            return await _service.GetAll(query, "allLights");
+            return await _service.GetAll(query, "lights");
         }
 
         public async Task<Light> GetAsync(Guid key)
@@ -39,7 +39,7 @@ namespace AppiSimo.Client.Services
             const string query =
                 @"
 				query GetLightById($id: UUID!) {
-					lightById(id: $id) {
+					light(id: $id) {
 						id,
 						lightType,
 						price,
@@ -48,7 +48,7 @@ namespace AppiSimo.Client.Services
 				}
 				";
 
-            var result = await _service.GetOne(query, "lightById", key);
+            var result = await _service.GetOne(query, "light", key);
 
             return result;
         }
