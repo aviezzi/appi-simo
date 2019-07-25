@@ -39,6 +39,8 @@ namespace AppiSimo.Client.Pages.ClubSettings.LightDetail
             {
                 LightService.UpdateAsync(ViewModel.Light);
             }
+            
+            UriHelper.NavigateTo("/club-dashboard/lights");
         }
     }
 }

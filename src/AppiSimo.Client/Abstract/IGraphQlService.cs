@@ -15,7 +15,7 @@ namespace AppiSimo.Client.Abstract
         Task<T> GetOne(string query, string name, Guid key);
 
         Task<T> Mutate(string query, string name, object variables);
-		Task<T> Update(T variables)
+		Task<T> Update(T entity)
         {
 			var (name, fields) = GetEntityInfo();
 			var queryName = $@"update{name}";
@@ -34,8 +34,8 @@ namespace AppiSimo.Client.Abstract
             {
                 input = new
                 {
-                    id = variables.Id,
-                    patch = variables
+                    id = entity.Id,
+                    patch = entity
                 }
             };
 

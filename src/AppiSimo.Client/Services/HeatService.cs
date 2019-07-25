@@ -53,8 +53,8 @@ namespace AppiSimo.Client.Services
             return result;
         }
 
-		public Task<Light> UpdateAsync(Light light) => throw new NotImplementedException();
+		public Task<Heat> UpdateAsync(Heat heat) => _service.Update(heat);
 
-		public Task<Light> AddAsync(Light light) => throw new NotImplementedException();
+		public Task<Heat> AddAsync(Heat heat) => _service.Create(heat);
 	}
 }

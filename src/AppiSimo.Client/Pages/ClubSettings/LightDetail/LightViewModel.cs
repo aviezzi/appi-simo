@@ -15,7 +15,7 @@ namespace AppiSimo.Client.Pages.ClubSettings.LightDetail
 
         public LightViewModel(Light light)
         {
-            Light = light ?? throw new Exception("Light cannot be null.");
+            Light = light ?? throw new NullReferenceException("Light cannot be null.");
         }
 
         public bool IsNew => Light.Id == Guid.Empty;
