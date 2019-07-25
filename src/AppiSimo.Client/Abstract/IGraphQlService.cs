@@ -6,7 +6,6 @@ namespace AppiSimo.Client.Abstract
 	using System.Threading.Tasks;
 	using Extensions;
 	using Model;
-    using Newtonsoft.Json;
 
     public interface IGraphQlService<T>
         where T : Entity, new()
@@ -16,18 +15,7 @@ namespace AppiSimo.Client.Abstract
         Task<T> GetOne(string query, string name, Guid key);
 
         Task<T> Mutate(string query, string name, object variables);
-		
-		private (string, string) GetEntityInfo()
-		{
-			var name = typeof(T).Name;
-
-			var properties = typeof(T).GetProperties().Select(property => property.Name.ToCamelCase());
-			var select = string.Join(",", properties);
-
-			return (name, select);
-		}
-
-        Task<T> Update(T variables)
+		Task<T> Update(T variables)
         {
 			var (name, fields) = GetEntityInfo();
 			var queryName = $@"update{name}";
@@ -82,5 +70,15 @@ namespace AppiSimo.Client.Abstract
 
 			return Mutate(query, queryName, obj);
         }
-    }
+		
+		private (string, string) GetEntityInfo()
+		{
+			var name = typeof(T).Name;
+
+			var properties = typeof(T).GetProperties().Select(property => property.Name.ToCamelCase());
+			var select = string.Join(",", properties);
+
+			return (name, select);
+		}
+	}
 }

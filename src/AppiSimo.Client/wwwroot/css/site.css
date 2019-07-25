@@ -141,4 +141,9 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+    
+    .pointer {
+        cursor: pointer;
+    }
+    
 }
