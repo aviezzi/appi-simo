@@ -1,0 +1,16 @@
+@page "/club-dashboard/light/create"
+@page "/club-dashboard/light/edit/{id:guid}"
+
+@inherits LightDetailComponent
+
+<EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="name" @bind-Value="@ViewModel.Type" />
+    <InputNumber  id="name" @bind-Value="@ViewModel.Price" />
+    <InputCheckbox id="valid" @bind-Value="@ViewModel.Enable" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+

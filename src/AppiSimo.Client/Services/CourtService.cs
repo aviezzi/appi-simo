@@ -61,5 +61,9 @@ namespace AppiSimo.Client.Services
 
             return result;
         }
+
+        public Task<Light> UpdateAsync(Light light) => throw new NotImplementedException();
+
+        public Task<Light> AddAsync(Light light) => throw new NotImplementedException();
     }
 }

@@ -9,17 +9,36 @@ namespace AppiSimo.Client.Pages.ClubSettings.LightDetail
     public class LightDetailComponent : ComponentBase
     {
         [Inject]
-        IResourceService<Light> EndPoint { get; set; }
-        
+        IResourceService<Light> LightService { get; set; }
+
         [Inject]
         IUriHelper UriHelper { get; set; }
 
         [Parameter]
-        protected Guid Id { get; set; }
-        
-        protected async Task Save()
+        Guid Id { get; set; }
+
+        protected LightViewModel ViewModel { get; private set; } = new LightViewModel();
+
+        protected override async Task OnInitAsync()
         {
-            Console.WriteLine("Saved");
+            if (Id != Guid.Empty)
+            {
+                var light = await LightService.GetAsync(Id);
+                ViewModel = new LightViewModel(light);
+                StateHasChanged();
+            }
+        }
+        
+        protected void HandleValidSubmit()
+        {
+            if (ViewModel.IsNew)
+            {
+                LightService.AddAsync(ViewModel.Light);
+            }
+            else
+            {
+                LightService.UpdateAsync(ViewModel.Light);
+            }
         }
     }
 }
