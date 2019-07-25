@@ -23,9 +23,9 @@ namespace AppiSimo.Client.Pages.ClubSettings.Lights
         }
 
         protected void GoToEdit(Guid key) =>
-            UriHelper.NavigateTo($"/club-dashboard/lights/edit/{key}");
+            UriHelper.NavigateTo($"/club-dashboard/light/edit/{key}");
 
         protected void GoToCreate() =>
-            UriHelper.NavigateTo("/club-dashboard/lights/create");
+            UriHelper.NavigateTo("/club-dashboard/light/create");
     }
 }

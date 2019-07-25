@@ -11,5 +11,9 @@ namespace AppiSimo.Client.Abstract
         Task<ICollection<T>> GetAsync();
 
         Task<T> GetAsync(Guid key);
+
+        Task<Light> UpdateAsync(Light light);
+
+        Task<Light> AddAsync(Light light);
     }
 }
