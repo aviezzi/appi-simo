@@ -14,18 +14,24 @@
 
     @switch (Page)
     {
+        case "":
         case "lights":
-            <LightsView></LightsView>
+            <LightsView Lights="@Lights"></lightsview>
+
             break;
+
         case "heats":
-            <HeatsView></HeatsView>
+            <HeatsView Heats="@Heats"></heatsview>
+
             break;
+
         case "courts":
-            <CourtsView></CourtsView>
+            <CourtsView Courts="@Courts"></courtsview>
+
             break;
+
         default:
-            <LightsView></LightsView>
-            break;
+            throw new Exception("Not Found!");
     }
 
 </div>

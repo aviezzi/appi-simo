@@ -2,10 +2,11 @@ namespace AppiSimo.Client.Abstract
 {
     using System;
     using System.Collections.Generic;
-	using System.Linq;
-	using System.Threading.Tasks;
-	using Extensions;
-	using Model;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Extensions;
+    using Model;
+    using Newtonsoft.Json;
 
     public interface IGraphQlService<T>
         where T : Entity, new()
@@ -15,39 +16,45 @@ namespace AppiSimo.Client.Abstract
         Task<T> GetOne(string query, string name, Guid key);
 
         Task<T> Mutate(string query, string name, object variables);
-		Task<T> Update(T entity)
-        {
-			var (name, fields) = GetEntityInfo();
-			var queryName = $@"update{name}";
 
-			var query = $@"
-				mutation Update{name}($input: Update{name}Input!) {{
-				  {queryName}(input: $input) {{
-					{name.ToCamelCase()} {{
-			            {fields}
-					}}
-				  }}
+        Task<ICollection<T>> GetAsync(string fields)
+        {
+            var name = $@"{typeof(T).Name.ToCamelCase()}s";
+
+            var query = $@"
+ 				{{
+				    {name} {{
+				        nodes {{
+							{fields}
+				        }}
+				    }}
 				}}
 				";
-			
-            var obj = new
-            {
-                input = new
-                {
-                    id = entity.Id,
-                    patch = entity
-                }
-            };
 
-            return Mutate(query, queryName, obj);
+            return GetAll(query, name);
         }
 
-        Task<T> Create(T entity)
+        Task<T> GetAsync(Guid key, string fields)
         {
-			entity.Id = Guid.NewGuid();
-			
-			var (name, fields) = GetEntityInfo();
-			var queryName = $@"create{name}";
+            var name = $"{typeof(T).Name.ToCamelCase()}";
+
+            var query = $@"
+				query Get{name}ById($id: UUID!) {{
+					{name.ToCamelCase()}(id: $id) {{
+						{fields}
+					}}                                                                         
+				}}
+				";
+
+            return GetOne(query, name, key);
+        }
+
+        Task<T> CreateAsync(T entity, string fields)
+        {
+            entity.Id = Guid.NewGuid();
+
+            var name = typeof(T).Name;
+            var queryName = $@"create{name}";
 
             var query = $@"
 				mutation Create{name}($input: Create{name}Input!){{
@@ -60,25 +67,59 @@ namespace AppiSimo.Client.Abstract
 				}}
 				";
 
-			var obj = new
+            var variables = ParseEntity(entity);
+
+            var obj = new
             {
-                input = new Dictionary<string, object>()
+                input = new Dictionary<string, IDictionary<string, object>>
                 {
-                    [name.ToCamelCase()] = entity
+                    { name.ToCamelCase(), variables }
                 }
             };
 
-			return Mutate(query, queryName, obj);
+            var s = JsonConvert.SerializeObject(obj);
+
+            return Mutate(query, queryName, obj);
         }
-		
-		private (string, string) GetEntityInfo()
-		{
-			var name = typeof(T).Name;
 
-			var properties = typeof(T).GetProperties().Select(property => property.Name.ToCamelCase());
-			var select = string.Join(",", properties);
+        Task<T> UpdateAsync(T entity, string fields)
+        {
+            var name = typeof(T).Name;
+            var queryName = $@"update{name}";
 
-			return (name, select);
-		}
-	}
+            var query = $@"
+				mutation Update{name}($input: Update{name}Input!) {{
+				  {queryName}(input: $input) {{
+					{name.ToCamelCase()} {{
+			            {fields}
+					}}
+				  }}
+				}}
+				";
+
+            var patch = ParseEntity(entity);
+
+            var obj = new
+            {
+                input = new
+                {
+                    id = entity.Id, patch
+                }
+            };
+
+            return Mutate(query, queryName, obj);
+        }
+
+        Dictionary<string, object> ParseEntity(T entity) =>
+            typeof(T).GetProperties().Select(property =>
+                {
+                    var key = property.Name.ToCamelCase();
+                    var value = property.GetValue(entity);
+
+                    return typeof(Entity).IsAssignableFrom(property.PropertyType)
+                        ? (key: key + "Id", value: ((Entity) value)?.Id)
+                        : (key, value);
+                })
+                .ToDictionary(tuple => tuple.key, tuple => tuple.value);
+    }
 }

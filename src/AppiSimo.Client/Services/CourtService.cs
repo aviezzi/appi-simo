@@ -1,13 +1,15 @@
 namespace AppiSimo.Client.Services
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
-	using Abstract;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Abstract;
     using Model;
 
     public class CourtService : IResourceService<Court>
     {
+        const string fields = @"id, name, light { lightType, price, enabled }, heat { heatType, price, enabled }, enabled";
+
         readonly IGraphQlService<Court> _service;
 
         public CourtService(IGraphQlService<Court> service)
@@ -15,55 +17,12 @@ namespace AppiSimo.Client.Services
             _service = service;
         }
 
-        public async Task<ICollection<Court>> GetAsync()
-        {
-            const string query =
-                @"
- 				{
-                    courts{
-                        nodes {
-                            id,
-                            name,
-                            light {
-                                lightType,
-                                price,
-                                enabled
-                            },
-                            heat {
-                                heatType,
-                                price,
-                                enabled
-                            },
-                            enabled
-                        }
-                    }
-                }
-				";
+        public async Task<ICollection<Court>> GetAsync() => await _service.GetAsync(fields);
 
-            return await _service.GetAll(query, "courts");
-        }
+        public async Task<Court> GetAsync(Guid key) => await _service.GetAsync(key, fields);
 
-        public async Task<Court> GetAsync(Guid key)
-        {
-            const string query =
-                @"
-				query GetCourtById($id: UUID!) {
-					court(id: $id) {
-						id,
-						CourtType,
-						price,
-						enabled
-					}                                                                         
-				}
-				";
+        public Task<Court> AddAsync(Court court) => _service.CreateAsync(court, fields);
 
-            var result = await _service.GetOne(query, "court", key);
-
-            return result;
-        }
-
-        public Task<Court> UpdateAsync(Court light) => throw new NotImplementedException();
-
-        public Task<Court> AddAsync(Court light) => throw new NotImplementedException();
+        public Task<Court> UpdateAsync(Court court) => _service.UpdateAsync(court, fields);
     }
 }

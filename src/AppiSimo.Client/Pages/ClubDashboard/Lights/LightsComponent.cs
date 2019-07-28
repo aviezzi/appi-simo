@@ -1,9 +1,7 @@
-namespace AppiSimo.Client.Pages.ClubSettings.Lights
+namespace AppiSimo.Client.Pages.ClubDashboard.Lights
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
 
@@ -12,15 +10,8 @@ namespace AppiSimo.Client.Pages.ClubSettings.Lights
         [Inject]
         IUriHelper UriHelper { get; set; }
 
-        [Inject]
-        IResourceService<Light> LightService { get; set; }
-
-        protected ICollection<Light> Lights { get; private set; }
-
-        protected override async Task OnInitAsync()
-        {
-            Lights = await LightService.GetAsync();
-        }
+        [Parameter]
+        protected ICollection<Light> Lights { get; set; }
 
         protected void GoToEdit(Guid key) =>
             UriHelper.NavigateTo($"/club-dashboard/light/edit/{key}");

@@ -8,6 +8,8 @@ namespace AppiSimo.Client.Services
 
     public class LightService : IResourceService<Light>
     {
+        const string fields = @"id, lightType, price, enabled";
+
         readonly IGraphQlService<Light> _service;
 
         public LightService(IGraphQlService<Light> service)
@@ -15,48 +17,12 @@ namespace AppiSimo.Client.Services
             _service = service;
         }
 
-        public async Task<ICollection<Light>> GetAsync()
-        {
-            const string query =
-                @"
- 				{
-				    lights {
-				        nodes {
-				            id,
-				            lightType,
-							price,
-							enabled
-				        }
-				    }
-				}
-				";
+        public async Task<ICollection<Light>> GetAsync() => await _service.GetAsync(fields);
 
-            return await _service.GetAll(query, "lights");
-        }
+        public async Task<Light> GetAsync(Guid key) => await _service.GetAsync(key, fields);
 
-        public async Task<Light> GetAsync(Guid key)
-        {
-            const string query =
-                @"
-				query GetLightById($id: UUID!) {
-					light(id: $id) {
-						id,
-						lightType,
-						price,
-						enabled
-					}                                                                         
-				}
-				";
+        public Task<Light> AddAsync(Light light) => _service.CreateAsync(light, fields);
 
-            var result = await _service.GetOne(query, "light", key);
-
-            return result;
-        }
-
-        public Task<Light> UpdateAsync(Light light) 
-			=> _service.Update(light);
-
-		public  Task<Light> AddAsync(Light light)
-			=> _service.Create(light);
-	}
+        public Task<Light> UpdateAsync(Light light) => _service.UpdateAsync(light, fields);
+    }
 }

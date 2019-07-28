@@ -9,4 +9,8 @@
     <PackageReference Include="GraphQL.Client" Version="2.0.0-alpha.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Tools\Table\TableView.razor" />
+  </ItemGroup>
+
 </Project>
