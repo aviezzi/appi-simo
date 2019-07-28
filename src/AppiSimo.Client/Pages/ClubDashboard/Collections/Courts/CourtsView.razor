@@ -12,36 +12,32 @@
 
 <div class="d-flex justify-content-end mb-2">
 
-    <table class="table table-striped">
-
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col"><span>#</span></th>
-            <th>Nome</th>
+    <TableTemplate Items="@Courts" Context="court">
+    
+        <TableHeader>
+                
+           <th>Nome</th>
             <th>Luce</th>
             <th>Riscaldamento</th>
             <th><span class="oi oi-circle-check"></span></th>
             <th></th>
+        
+        </TableHeader>
+        
+        <RowTemplate>
+        
+            <td>@($"{@court.Name}")</td>
+            <td>@($"{@court.Light.LightType}")</td>
+            <td>@($"{@court.Heat.HeatType}")</td>
+            <td>
+                <span class="@($"oi {(@court.Enabled ? "oi-check" : string.Empty)}")"></span>
+            </td>
+            <td class="pointer align-middle" onclick="@(() => GoToEdit(@court.Id))">
+                <span class="oi oi-external-link"></span>
+            </td>
+        
+        </RowTemplate>
+        
+    </TableTemplate>
 
-        </tr>
-        </thead>
-
-        <tbody>
-        @foreach (var (entity, index) in Courts.Select((value, i) => (value, i)))
-        {
-            <tr>
-                <th>@($"{index + 1}")</th>
-                <td>@($"{entity.Name}")</td>
-                <td>@($"{entity.Light.LightType}")</td>
-                <td>@($"{entity.Heat.HeatType}")</td>
-                <td>
-                    <span class="@($"oi {(entity.Enabled ? "oi-check" : string.Empty)}")"></span>
-                </td>
-                <td class="pointer align-middle" onclick="@(() => GoToEdit(entity.Id))">
-                    <span class="oi oi-external-link"></span>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
 </div>
