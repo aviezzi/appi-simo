@@ -5,33 +5,33 @@
 
 <EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
 
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+    <dataannotationsvalidator/>
+    <validationsummary/>
 
-    <InputText id="name" @bind-Value = "@ViewModel.Name" />
+    <InputText id="name" @bind-Value="@ViewModel.Name"/>
 
-    <InputSelect @bind-Value = "@ViewModel.Light">
+    <InputSelect @bind-Value="@ViewModel.Light">
 
         <option value="">Selezionare una luce ...</option>
 
         @foreach (var light in ViewModel.Lights)
         {
-            <option value=@($"{light.Id}")>@light.LightType</option>
+            <option value="@light.Id">@light.LightType</option>
         }
-    </InputSelect>
+    </inputselect>
 
-    <InputSelect @bind-Value = "@ViewModel.Heat">
-                
+    <InputSelect @bind-Value="@ViewModel.Heat">
+
         <option value="">Selezionare un riscaldamento ...</option>
-        
+
         @foreach (var heats in ViewModel.Heats)
         {
-            <option value=@($"{heats.Id}")>@heats.HeatType</option>
+            <option value="@heats.Id">@heats.HeatType</option>
         }
-    
-    </InputSelect>
 
-    <InputCheckbox id="valid" @bind-Value = "@ViewModel.Enable" />
+    </inputselect>
+
+    <InputCheckbox id="valid" @bind-Value="@ViewModel.Enable"/>
 
     <button type="submit">Submit</button>
-</EditForm>
+</editform>
