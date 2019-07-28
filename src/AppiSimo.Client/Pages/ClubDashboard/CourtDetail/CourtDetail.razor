@@ -4,12 +4,13 @@
 @inherits CourtDetailComponent
 
 <EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
+
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputText id="name" @bind-Value="@ViewModel.Name" />
+    <InputText id="name" @bind-Value = "@ViewModel.Name" />
 
-    <InputSelect @bind-Value="@ViewModel.Light">
+    <InputSelect @bind-Value = "@ViewModel.Light">
 
         <option value="">Selezionare una luce ...</option>
 
@@ -19,7 +20,7 @@
         }
     </InputSelect>
 
-    <InputSelect @bind-Value="@ViewModel.Heat">
+    <InputSelect @bind-Value = "@ViewModel.Heat">
                 
         <option value="">Selezionare un riscaldamento ...</option>
         
@@ -30,7 +31,7 @@
     
     </InputSelect>
 
-    <InputCheckbox id="valid" @bind-Value="@ViewModel.Enable" />
+    <InputCheckbox id="valid" @bind-Value = "@ViewModel.Enable" />
 
     <button type="submit">Submit</button>
 </EditForm>

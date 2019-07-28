@@ -19,7 +19,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.LightDetail
 
         protected LightViewModel ViewModel { get; private set; } = new LightViewModel();
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnParametersSetAsync()
         {
             if (Id != Guid.Empty)
             {
