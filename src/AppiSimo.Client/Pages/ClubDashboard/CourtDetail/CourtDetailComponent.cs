@@ -24,8 +24,8 @@ namespace AppiSimo.Client.Pages.ClubDashboard.CourtDetail
         Guid Id { get; set; }
 
         protected CourtViewModel ViewModel { get; private set; } = new CourtViewModel();
-
-        protected override async Task OnInitAsync()
+        
+        protected override async Task OnParametersSetAsync()
         {
             var lights = await LightService.GetAsync();
             var heats = await HeatService.GetAsync();
@@ -33,11 +33,12 @@ namespace AppiSimo.Client.Pages.ClubDashboard.CourtDetail
             if (Id != Guid.Empty)
             {
                 var court = await CourtService.GetAsync(Id);
-
                 ViewModel = new CourtViewModel(lights, heats, court);
             }
-            
-            ViewModel = new CourtViewModel(lights, heats);
+            else
+            {
+                ViewModel = new CourtViewModel(lights, heats);
+            }
         }
 
         protected async Task HandleValidSubmit()

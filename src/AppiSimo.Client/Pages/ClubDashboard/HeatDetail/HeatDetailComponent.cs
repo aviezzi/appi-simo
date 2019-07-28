@@ -19,7 +19,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
 
         protected HeatViewModel ViewModel { get; private set; } = new HeatViewModel();
 
-        protected override async Task OnInitAsync()
+        protected override async Task OnParametersSetAsync()
         {
             if (Id != Guid.Empty)
             {

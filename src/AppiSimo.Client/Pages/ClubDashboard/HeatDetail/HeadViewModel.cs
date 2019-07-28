@@ -21,8 +21,8 @@ namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
         public bool IsNew => Heat.Id == Guid.Empty;
 
         [Required(ErrorMessage = "È obbligatorio inserire la tipologia del riscladamento.")]
-        public string Type { get => Heat.HeatType?? string.Empty; set => Heat.HeatType = value; }
-        
+        public string Type { get => Heat.HeatType ?? string.Empty; set => Heat.HeatType = value; }
+
         [Required(ErrorMessage = "È obbligatorio inserire un prezzo.")]
         public decimal Price { get => Heat.Price; set => Heat.Price = value; }
 
