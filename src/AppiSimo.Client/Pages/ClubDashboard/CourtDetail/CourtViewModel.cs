@@ -33,9 +33,9 @@ namespace AppiSimo.Client.Pages.ClubDashboard.CourtDetail
         [Required(ErrorMessage = "È obbligatorio inserire il nome del campo.")]
         public string Name { get => Court.Name ?? string.Empty; set => Court.Name = value; }
 
-        public string Light { get => $"{Court.Light.Id}"; set => Court.Light.Id = Guid.Parse(value); }
+        public Guid Light { get => Court.Light.Id; set => Court.Light.Id = value; }
 
-        public string Heat { get => $"{Court.Heat.Id}"; set => Court.Heat.Id = Guid.Parse(value); }
+        public Guid Heat { get => Court.Heat.Id; set => Court.Heat.Id = value; }
 
         public bool Enable { get => Court.Enabled; set => Court.Enabled = value; }
     }

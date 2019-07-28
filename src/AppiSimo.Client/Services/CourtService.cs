@@ -8,7 +8,7 @@ namespace AppiSimo.Client.Services
 
     public class CourtService : IResourceService<Court>
     {
-        const string fields = @"id, name, light { lightType, price, enabled }, heat { heatType, price, enabled }, enabled";
+        const string fields = @"id, name, light { lightType, price, enabled, id }, heat { heatType, price, enabled, id }, enabled";
 
         readonly IGraphQlService<Court> _service;
 
