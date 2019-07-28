@@ -28,15 +28,15 @@ namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
             }
         }
 
-        protected void HandleValidSubmit()
+        protected async Task HandleValidSubmit()
         {
             if (ViewModel.IsNew)
             {
-                HeatService.AddAsync(ViewModel.Heat);
+                await HeatService.AddAsync(ViewModel.Heat);
             }
             else
             {
-                HeatService.UpdateAsync(ViewModel.Heat);
+                await HeatService.UpdateAsync(ViewModel.Heat);
             }
 
             UriHelper.NavigateTo("/club-dashboard/heats");

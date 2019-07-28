@@ -40,15 +40,15 @@ namespace AppiSimo.Client.Pages.ClubDashboard.CourtDetail
             ViewModel = new CourtViewModel(lights, heats);
         }
 
-        protected void HandleValidSubmit()
+        protected async Task HandleValidSubmit()
         {
             if (ViewModel.IsNew)
             {
-                CourtService.AddAsync(ViewModel.Court);
+                await CourtService.AddAsync(ViewModel.Court);
             }
             else
             {
-                CourtService.UpdateAsync(ViewModel.Court);
+                await CourtService.UpdateAsync(ViewModel.Court);
             }
 
             UriHelper.NavigateTo("/club-dashboard/courts");

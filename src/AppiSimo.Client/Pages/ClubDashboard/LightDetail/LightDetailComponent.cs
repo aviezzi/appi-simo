@@ -25,19 +25,18 @@ namespace AppiSimo.Client.Pages.ClubDashboard.LightDetail
             {
                 var light = await LightService.GetAsync(Id);
                 ViewModel = new LightViewModel(light);
-                StateHasChanged();
             }
         }
         
-        protected void HandleValidSubmit()
+        protected async Task HandleValidSubmit()
         {
             if (ViewModel.IsNew)
             {
-                LightService.AddAsync(ViewModel.Light);
+                await LightService.AddAsync(ViewModel.Light);
             }
             else
             {
-                LightService.UpdateAsync(ViewModel.Light);
+                await LightService.UpdateAsync(ViewModel.Light);
             }
             
             UriHelper.NavigateTo("/club-dashboard/lights");
