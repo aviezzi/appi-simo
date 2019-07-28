@@ -12,32 +12,31 @@
 
 <div class="d-flex justify-content-end mb-2">
 
-
-<TableTemplate Items="@Lights" Context="light">
-
-    <TableHeader>
-        
-        <th>Tipo</th>
-        <th>Prezzo</th>
-        <th><span class="oi oi-circle-check"></span></th>
-        <th></th>
-
-    </TableHeader>
-
-    <RowTemplate>
-
-        <td>@($"{@light.LightType}")</td>
-        <td>@($"{@light.Price:0.00}")</td>
-        <td>
-            <span class="@($"oi {(@light.Enabled ? "oi-check" : string.Empty)}")"></span>
-        </td>
-
-        <td class="pointer align-middle" onclick="@(() => GoToEdit(@light.Id))">
-            <span class="oi oi-external-link"></span>
-        </td>
-
-    </RowTemplate>
-
-</TableTemplate>
+    <TableTemplate Items="@Lights" Context="light">
+    
+        <TableHeader>
+            
+            <th>Tipo</th>
+            <th>Prezzo</th>
+            <th><span class="oi oi-circle-check"></span></th>
+            <th></th>
+    
+        </TableHeader>
+    
+        <RowTemplate>
+    
+            <td>@($"{@light.LightType}")</td>
+            <td>@($"{@light.Price:0.00}")</td>
+            <td>
+                <span class="@($"oi {(@light.Enabled ? "oi-check" : string.Empty)}")"></span>
+            </td>
+    
+            <td class="pointer align-middle" onclick="@(() => GoToEdit(@light.Id))">
+                <span class="oi oi-external-link"></span>
+            </td>
+    
+        </RowTemplate>
+    
+    </TableTemplate>
 
 </div>
