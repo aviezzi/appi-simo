@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
+namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
 {
     using System;
     using System.ComponentModel.DataAnnotations;

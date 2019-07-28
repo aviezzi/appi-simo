@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Lights
+namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Lights
 {
     using System;
     using System.Collections.Generic;

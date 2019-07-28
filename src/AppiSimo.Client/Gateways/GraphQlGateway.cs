@@ -8,7 +8,7 @@ namespace AppiSimo.Client.Gateways
     using Extensions;
     using Model;
 
-    public class GraphQlGateway<T> : IGateway<T>
+    public abstract class GraphQlGateway<T> : IGateway<T>
         where T : Entity, new()
     {
         readonly string _fields;
