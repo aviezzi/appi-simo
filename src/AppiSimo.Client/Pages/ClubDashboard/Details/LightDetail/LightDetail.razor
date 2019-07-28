@@ -3,15 +3,14 @@
 
 @inherits LightDetailComponent
 
-<EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+    <dataannotationsvalidator/>
+    <validationsummary/>
 
-    <InputText id="type" @bind-value = "@ViewModel.Type" />
-    <InputNumber  id="price" @bind-value = "@ViewModel.Price" />
-    <InputCheckbox id="enabled" @bind-value = "@ViewModel.Enable" />
+    <InputText id="type" @bind-value="@ViewModel.Type"/>
+    <InputNumber id="price" @bind-value="@ViewModel.Price"/>
+    <InputCheckbox id="enabled" @bind-value="@ViewModel.Enable"/>
 
     <button type="submit">Submit</button>
-</EditForm>
-
+</editform>

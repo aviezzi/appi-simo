@@ -6,7 +6,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
     using Microsoft.AspNetCore.Components;
     using Model;
 
-    public class HeatDetailComponent : ComponentBase
+    public class HeatDetailComponent : DetailBaseComponent<Heat>
     {
         [Inject]
         IGateway<Heat> HeatService { get; set; }
@@ -30,16 +30,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
 
         protected async Task HandleValidSubmit()
         {
-            if (ViewModel.IsNew)
-            {
-                await HeatService.CreateAsync(ViewModel.Heat);
-            }
-            else
-            {
-                await HeatService.UpdateAsync(ViewModel.Heat);
-            }
-
-            UriHelper.NavigateTo("/club-dashboard/heats");
+            await base.HandleValidSubmit(ViewModel, "/club-dashboard/heats");
         }
     }
 }
