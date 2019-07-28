@@ -12,8 +12,8 @@ namespace AppiSimo.Client.Abstract
 
         Task<T> GetAsync(Guid key);
 
-        Task<T> UpdateAsync(T entity);
-
         Task<T> AddAsync(T entity);
+
+        Task<T> UpdateAsync(T entity);
     }
 }

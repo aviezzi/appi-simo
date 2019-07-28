@@ -8,6 +8,8 @@ namespace AppiSimo.Client.Services
 
     public class HeatService : IResourceService<Heat>
     {
+        const string fields = @"id, heatType, price, enabled";
+
         readonly IGraphQlService<Heat> _service;
 
         public HeatService(IGraphQlService<Heat> service)
@@ -15,46 +17,12 @@ namespace AppiSimo.Client.Services
             _service = service;
         }
 
-        public async Task<ICollection<Heat>> GetAsync()
-        {
-            const string query =
-                @"
- 				{
-				    heats {
-				        nodes {
-				            id,
-				            heatType,
-							price,
-							enabled
-				        }
-				    }
-				}
-				";
+        public async Task<ICollection<Heat>> GetAsync() => await _service.GetAsync(fields);
 
-            return await _service.GetAll(query, "heats");
-        }
+        public async Task<Heat> GetAsync(Guid key) => await _service.GetAsync(key, fields);
 
-        public async Task<Heat> GetAsync(Guid key)
-        {
-            const string query =
-                @"
-				query GetHeatById($id: UUID!) {
-					heat(id: $id) {
-						id,
-						heatType,
-						price,
-						enabled
-					}                                                                         
-				}
-				";
+        public Task<Heat> AddAsync(Heat heat) => _service.CreateAsync(heat, fields);
 
-            var result = await _service.GetOne(query, "heat", key);
-
-            return result;
-        }
-
-		public Task<Heat> UpdateAsync(Heat heat) => _service.Update(heat);
-
-		public Task<Heat> AddAsync(Heat heat) => _service.Create(heat);
-	}
+        public Task<Heat> UpdateAsync(Heat heat) => _service.UpdateAsync(heat, fields);
+    }
 }

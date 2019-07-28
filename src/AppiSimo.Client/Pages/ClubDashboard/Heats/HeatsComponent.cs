@@ -1,9 +1,7 @@
-namespace AppiSimo.Client.Pages.ClubSettings.Heats
+namespace AppiSimo.Client.Pages.ClubDashboard.Heats
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
 
@@ -12,15 +10,8 @@ namespace AppiSimo.Client.Pages.ClubSettings.Heats
         [Inject]
         IUriHelper UriHelper { get; set; }
 
-        [Inject]
-        IResourceService<Heat> HeatService { get; set; }
-
-        protected ICollection<Heat> Heats { get; private set; }
-
-        protected override async Task OnInitAsync()
-        {
-            Heats = await HeatService.GetAsync();
-        }
+        [Parameter]
+        protected ICollection<Heat> Heats { get; set; }
 
         protected void GoToEdit(Guid key) =>
             UriHelper.NavigateTo($"/club-dashboard/heat/edit/{key}");

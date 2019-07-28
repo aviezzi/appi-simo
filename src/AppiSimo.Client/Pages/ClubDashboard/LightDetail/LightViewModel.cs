@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubSettings.LightDetail
+namespace AppiSimo.Client.Pages.ClubDashboard.LightDetail
 {
     using System;
     using System.ComponentModel.DataAnnotations;

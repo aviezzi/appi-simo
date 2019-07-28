@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubSettings.HeatDetail
+namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
 {
     using System;
     using System.Threading.Tasks;
