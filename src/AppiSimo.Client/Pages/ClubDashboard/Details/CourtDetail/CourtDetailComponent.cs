@@ -6,7 +6,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
     using Microsoft.AspNetCore.Components;
     using Model;
 
-    public class CourtDetailComponent : ComponentBase
+    public class CourtDetailComponent : DetailBaseComponent<Court>
     {
         [Inject]
         IGateway<Light> LightService { get; set; }
@@ -16,9 +16,6 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
 
         [Inject]
         IGateway<Court> CourtService { get; set; }
-
-        [Inject]
-        IUriHelper UriHelper { get; set; }
 
         [Parameter]
         Guid Id { get; set; }
@@ -43,16 +40,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
 
         protected async Task HandleValidSubmit()
         {
-            if (ViewModel.IsNew)
-            {
-                await CourtService.CreateAsync(ViewModel.Court);
-            }
-            else
-            {
-                await CourtService.UpdateAsync(ViewModel.Court);
-            }
-
-            UriHelper.NavigateTo("/club-dashboard/courts");
+            await base.HandleValidSubmit(ViewModel, "/club-dashboard/courts");
         }
     }
 }

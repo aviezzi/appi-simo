@@ -5,11 +5,11 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
     using System.ComponentModel.DataAnnotations;
     using Model;
 
-    public class CourtViewModel
+    public class CourtViewModel : IDetailViewModel<Court>
     {
         public IEnumerable<Light> Lights { get; }
         public IEnumerable<Heat> Heats { get; }
-        public Court Court { get; }
+        public Court Entity { get; }
 
         public CourtViewModel()
             : this(new List<Light>(), new List<Heat>())
@@ -25,18 +25,18 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
         {
             Lights = lights ?? throw new NullReferenceException("Lights cannot be null.");
             Heats = heats ?? throw new NullReferenceException("Heats cannot be null.");
-            Court = court ?? throw new NullReferenceException("Court cannot be null.");
+            Entity = court ?? throw new NullReferenceException("Court cannot be null.");
         }
 
-        public bool IsNew => Court.Id == Guid.Empty;
+        public bool IsNew => Entity.Id == Guid.Empty;
 
         [Required(ErrorMessage = "È obbligatorio inserire il nome del campo.")]
-        public string Name { get => Court.Name ?? string.Empty; set => Court.Name = value; }
+        public string Name { get => Entity.Name ?? string.Empty; set => Entity.Name = value; }
 
-        public string Light { get => $"{Court.Light.Id}"; set => Court.Light.Id = Guid.Parse(value); }
+        public string Light { get => $"{Entity.Light.Id}"; set => Entity.Light.Id = Guid.Parse(value); }
 
-        public string Heat { get => $"{Court.Heat.Id}"; set => Court.Heat.Id = Guid.Parse(value); }
+        public string Heat { get => $"{Entity.Heat.Id}"; set => Entity.Heat.Id = Guid.Parse(value); }
 
-        public bool Enable { get => Court.Enabled; set => Court.Enabled = value; }
+        public bool Enable { get => Entity.Enabled; set => Entity.Enabled = value; }
     }
 }

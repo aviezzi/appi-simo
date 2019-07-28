@@ -4,9 +4,9 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
     using System.ComponentModel.DataAnnotations;
     using Model;
 
-    public class LightViewModel
+    public class LightViewModel : IDetailViewModel<Light>
     {
-        public Light Light { get; }
+        public Light Entity { get; }
 
         public LightViewModel()
             : this(new Light())
@@ -15,17 +15,17 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
 
         public LightViewModel(Light light)
         {
-            Light = light ?? throw new NullReferenceException("Light cannot be null.");
+            Entity = light ?? throw new NullReferenceException("Light cannot be null.");
         }
 
-        public bool IsNew => Light.Id == Guid.Empty;
+        public bool IsNew => Entity.Id == Guid.Empty;
 
         [Required(ErrorMessage = "È obbligatorio inserire la tipologia della luce.")]
-        public string Type { get => Light.LightType ?? string.Empty; set => Light.LightType = value; }
-        
-        [Required(ErrorMessage = "È obbligatorio inserire un prezzo.")]
-        public decimal Price { get => Light.Price; set => Light.Price = value; }
+        public string Type { get => Entity.LightType ?? string.Empty; set => Entity.LightType = value; }
 
-        public bool Enable { get => Light.Enabled; set => Light.Enabled = value; }
+        [Required(ErrorMessage = "È obbligatorio inserire un prezzo.")]
+        public decimal Price { get => Entity.Price; set => Entity.Price = value; }
+
+        public bool Enable { get => Entity.Enabled; set => Entity.Enabled = value; }
     }
 }

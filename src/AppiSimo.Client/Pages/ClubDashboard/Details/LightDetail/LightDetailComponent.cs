@@ -6,7 +6,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
     using Microsoft.AspNetCore.Components;
     using Model;
 
-    public class LightDetailComponent : ComponentBase
+    public class LightDetailComponent : DetailBaseComponent<Light>
     {
         [Inject]
         IGateway<Light> LightService { get; set; }
@@ -30,16 +30,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
 
         protected async Task HandleValidSubmit()
         {
-            if (ViewModel.IsNew)
-            {
-                await LightService.CreateAsync(ViewModel.Light);
-            }
-            else
-            {
-                await LightService.UpdateAsync(ViewModel.Light);
-            }
-
-            UriHelper.NavigateTo("/club-dashboard/lights");
+            await base.HandleValidSubmit(ViewModel, "/club-dashboard/lights");
         }
     }
 }

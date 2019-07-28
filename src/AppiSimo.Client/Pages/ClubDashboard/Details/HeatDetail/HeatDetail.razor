@@ -3,7 +3,7 @@
 
 @inherits HeatDetailComponent
 
-<EditForm Model="@ViewModel" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
     <dataannotationsvalidator/>
     <validationsummary/>
