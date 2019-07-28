@@ -9,7 +9,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.LightDetail
     public class LightDetailComponent : ComponentBase
     {
         [Inject]
-        IResourceService<Light> LightService { get; set; }
+        IGateway<Light> LightService { get; set; }
 
         [Inject]
         IUriHelper UriHelper { get; set; }
@@ -27,18 +27,18 @@ namespace AppiSimo.Client.Pages.ClubDashboard.LightDetail
                 ViewModel = new LightViewModel(light);
             }
         }
-        
+
         protected async Task HandleValidSubmit()
         {
             if (ViewModel.IsNew)
             {
-                await LightService.AddAsync(ViewModel.Light);
+                await LightService.CreateAsync(ViewModel.Light);
             }
             else
             {
                 await LightService.UpdateAsync(ViewModel.Light);
             }
-            
+
             UriHelper.NavigateTo("/club-dashboard/lights");
         }
     }

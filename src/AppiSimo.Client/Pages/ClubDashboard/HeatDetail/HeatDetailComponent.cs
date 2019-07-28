@@ -9,7 +9,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
     public class HeatDetailComponent : ComponentBase
     {
         [Inject]
-        IResourceService<Heat> HeatService { get; set; }
+        IGateway<Heat> HeatService { get; set; }
 
         [Inject]
         IUriHelper UriHelper { get; set; }
@@ -32,7 +32,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
         {
             if (ViewModel.IsNew)
             {
-                await HeatService.AddAsync(ViewModel.Heat);
+                await HeatService.CreateAsync(ViewModel.Heat);
             }
             else
             {

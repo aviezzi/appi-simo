@@ -1,6 +1,7 @@
 namespace AppiSimo.Client
 {
     using Abstract;
+    using Gateways;
     using GraphQL.Client.Http;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -31,10 +32,19 @@ namespace AppiSimo.Client
             services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();
             services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
-            
-            services.AddSingleton<IResourceService<Light>, LightService>();
-            services.AddSingleton<IResourceService<Heat>, HeatService>();
-            services.AddSingleton<IResourceService<Court>, CourtService>();
+
+            services.AddSingleton<IGateway<Light>>(provider => new LightGateway(
+                "id, lightType, price, enabled",
+                provider.GetService<IGraphQlService<Light>>()
+            ));
+            services.AddSingleton<IGateway<Heat>>(provider => new HeatGateway(
+                "id, heatType, price, enabled",
+                provider.GetService<IGraphQlService<Heat>>()
+            ));
+            services.AddSingleton<IGateway<Court>>(provider => new CourtGateway(
+                "id, name, light { lightType, price, enabled, id }, heat { heatType, price, enabled, id }, enabled",
+                provider.GetService<IGraphQlService<Court>>()
+            ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

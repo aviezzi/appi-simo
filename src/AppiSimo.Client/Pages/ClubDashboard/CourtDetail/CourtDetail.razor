@@ -12,7 +12,7 @@
 
     <InputSelect @bind-Value="@ViewModel.Light">
 
-        <option value="">Selezionare una luce ...</option>
+        <option value="@($"{Guid.Empty}")">Selezionare una luce ...</option>
 
         @foreach (var light in ViewModel.Lights)
         {
@@ -22,7 +22,7 @@
 
     <InputSelect @bind-Value="@ViewModel.Heat">
 
-        <option value="">Selezionare un riscaldamento ...</option>
+        <option value="@($"{Guid.Empty}")">Selezionare un riscaldamento ...</option>
 
         @foreach (var heats in ViewModel.Heats)
         {

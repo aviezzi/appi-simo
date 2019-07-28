@@ -9,13 +9,13 @@ namespace AppiSimo.Client.Pages.ClubDashboard.CourtDetail
     public class CourtDetailComponent : ComponentBase
     {
         [Inject]
-        IResourceService<Light> LightService { get; set; }
+        IGateway<Light> LightService { get; set; }
 
         [Inject]
-        IResourceService<Heat> HeatService { get; set; }
+        IGateway<Heat> HeatService { get; set; }
 
         [Inject]
-        IResourceService<Court> CourtService { get; set; }
+        IGateway<Court> CourtService { get; set; }
 
         [Inject]
         IUriHelper UriHelper { get; set; }
@@ -24,12 +24,12 @@ namespace AppiSimo.Client.Pages.ClubDashboard.CourtDetail
         Guid Id { get; set; }
 
         protected CourtViewModel ViewModel { get; private set; } = new CourtViewModel();
-        
+
         protected override async Task OnParametersSetAsync()
         {
             var lights = await LightService.GetAsync();
             var heats = await HeatService.GetAsync();
-            
+
             if (Id != Guid.Empty)
             {
                 var court = await CourtService.GetAsync(Id);
@@ -45,7 +45,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.CourtDetail
         {
             if (ViewModel.IsNew)
             {
-                await CourtService.AddAsync(ViewModel.Court);
+                await CourtService.CreateAsync(ViewModel.Court);
             }
             else
             {
