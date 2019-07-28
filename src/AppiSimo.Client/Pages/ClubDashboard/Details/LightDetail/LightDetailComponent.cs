@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
+namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
 {
     using System;
     using System.Threading.Tasks;
@@ -6,10 +6,10 @@ namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
     using Microsoft.AspNetCore.Components;
     using Model;
 
-    public class HeatDetailComponent : ComponentBase
+    public class LightDetailComponent : ComponentBase
     {
         [Inject]
-        IGateway<Heat> HeatService { get; set; }
+        IGateway<Light> LightService { get; set; }
 
         [Inject]
         IUriHelper UriHelper { get; set; }
@@ -17,14 +17,14 @@ namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
         [Parameter]
         Guid Id { get; set; }
 
-        protected HeatViewModel ViewModel { get; private set; } = new HeatViewModel();
+        protected LightViewModel ViewModel { get; private set; } = new LightViewModel();
 
         protected override async Task OnParametersSetAsync()
         {
             if (Id != Guid.Empty)
             {
-                var heat = await HeatService.GetAsync(Id);
-                ViewModel = new HeatViewModel(heat);
+                var light = await LightService.GetAsync(Id);
+                ViewModel = new LightViewModel(light);
             }
         }
 
@@ -32,14 +32,14 @@ namespace AppiSimo.Client.Pages.ClubDashboard.HeatDetail
         {
             if (ViewModel.IsNew)
             {
-                await HeatService.CreateAsync(ViewModel.Heat);
+                await LightService.CreateAsync(ViewModel.Light);
             }
             else
             {
-                await HeatService.UpdateAsync(ViewModel.Heat);
+                await LightService.UpdateAsync(ViewModel.Light);
             }
 
-            UriHelper.NavigateTo("/club-dashboard/heats");
+            UriHelper.NavigateTo("/club-dashboard/lights");
         }
     }
 }

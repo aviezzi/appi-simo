@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Heats
+namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Heats
 {
     using System;
     using System.Collections.Generic;

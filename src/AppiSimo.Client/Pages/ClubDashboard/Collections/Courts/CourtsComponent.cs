@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Courts
+namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Courts
 {
     using System;
     using System.Collections.Generic;

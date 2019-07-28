@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.CourtDetail
+namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
 {
     using System;
     using System.Threading.Tasks;
