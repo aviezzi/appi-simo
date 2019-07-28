@@ -13,13 +13,13 @@ namespace AppiSimo.Client.Pages.ClubDashboard
         protected string Page { get; set; } = string.Empty;
 
         [Inject]
-        IResourceService<Light> LightService { get; set; }    
+        IGateway<Light> LightService { get; set; }    
         
         [Inject]
-        IResourceService<Heat> HeatService { get; set; }     
+        IGateway<Heat> HeatService { get; set; }     
         
         [Inject]
-        IResourceService<Court> CourtService { get; set; }
+        IGateway<Court> CourtService { get; set; }
 
         protected ICollection<Light> Lights { get; private set; }
         protected ICollection<Heat> Heats { get; private set; }
