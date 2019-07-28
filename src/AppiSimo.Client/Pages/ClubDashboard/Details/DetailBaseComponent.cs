@@ -1,6 +1,5 @@
 namespace AppiSimo.Client.Pages.ClubDashboard.Details
 {
-    using System;
     using System.Threading.Tasks;
     using Abstract;
     using Microsoft.AspNetCore.Components;
@@ -10,10 +9,10 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details
         where T : Entity, new()
     {
         [Inject]
-        IGateway<T> Service { get; set; }
+        IUriHelper UriHelper { get; set; }
 
         [Inject]
-        IUriHelper UriHelper { get; set; }
+        protected IGateway<T> Service { get; set; }
 
         protected async Task HandleValidSubmit(IDetailViewModel<T> viewModel, string uri)
         {

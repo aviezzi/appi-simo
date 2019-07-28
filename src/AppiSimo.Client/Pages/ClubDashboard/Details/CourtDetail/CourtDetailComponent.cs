@@ -14,9 +14,6 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
         [Inject]
         IGateway<Heat> HeatService { get; set; }
 
-        [Inject]
-        IGateway<Court> CourtService { get; set; }
-
         [Parameter]
         Guid Id { get; set; }
 
@@ -29,7 +26,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
 
             if (Id != Guid.Empty)
             {
-                var court = await CourtService.GetAsync(Id);
+                var court = await Service.GetAsync(Id);
                 ViewModel = new CourtViewModel(lights, heats, court);
             }
             else
@@ -40,7 +37,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
 
         protected async Task HandleValidSubmit()
         {
-            await base.HandleValidSubmit(ViewModel, "/club-dashboard/courts");
+            await HandleValidSubmit(ViewModel, "/club-dashboard/courts");
         }
     }
 }
