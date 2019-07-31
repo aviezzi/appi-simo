@@ -27,7 +27,9 @@ namespace AppiSimo.Client.Services
             };
 
             var res = await _client.SendQueryAsync(req);
-            return res.GetDataFieldAs<ConnectionGraphQl<T>>(name).Nodes;
+            var o = res.GetDataFieldAs<ICollection<T>>(name);
+
+            return o;
         }
 
         public async Task<T> GetOne(string query, string name, Guid key)

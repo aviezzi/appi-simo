@@ -8,13 +8,13 @@ namespace AppiSimo.Client.Gateways
     using Extensions;
     using Model;
 
-    public abstract class GraphQlGateway<T> : IGateway<T>
+    public class GraphQlGateway<T> : IGateway<T>
         where T : Entity, new()
     {
         readonly string _fields;
         readonly IGraphQlService<T> _service;
 
-		protected GraphQlGateway(string fields, IGraphQlService<T> service)
+		public GraphQlGateway(string fields, IGraphQlService<T> service)
         {
             _fields = fields;
             _service = service;
@@ -27,9 +27,7 @@ namespace AppiSimo.Client.Gateways
             var query = $@"
  				{{
 				    {name} {{
-				        nodes {{
 							{_fields}
-				        }}
 				    }}
 				}}
 				";
