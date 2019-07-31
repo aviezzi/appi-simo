@@ -1,0 +1,57 @@
+@inherits RatesComponent 
+@using System.Globalization 
+ 
+ @if (Rates == null) 
+ { 
+     <span>Loading ...</span> 
+     return; 
+ } 
+ 
+ <div class="d-flex justify-content-end mb-2"> 
+     <button class="btn btn-outline-primary w-10" onclick="@(() => GoToCreate())">Crea</button> 
+ </div> 
+ 
+ <div class="d-flex justify-content-end mb-2"> 
+ 
+     <TableTemplate Items="@Rates" Context="rate"> 
+      
+         <TableHeader> 
+              
+             <th>Data Inzio</th> 
+             <th>Data Fine</th> 
+             <th>Orari</th> 
+             <th>Prezzi</th> 
+             <th></th> 
+      
+         </TableHeader> 
+      
+         <RowTemplate> 
+      
+             <td class="align-middle">@($"{@rate.Start:d}")</td> 
+             <td class="align-middle">@($"{@rate.End:d}")</td> 
+             <td class="align-middle"> 
+                  @foreach (var dailyRate in @rate.DailyRates) 
+                  { 
+                      <div> 
+                         <span>@($"dalle {dailyRate.Start.ToString(@"HH\:mm", CultureInfo.InvariantCulture)}")</span>
+                         <span>@($"alle {dailyRate.End.ToString(@"HH\:mm", CultureInfo.InvariantCulture)}")</span> 
+                      </div> 
+                  } 
+             </td> 
+      
+             <td class="align-middle"> 
+                 @foreach (var dailyRate in @rate.DailyRates) 
+                  { 
+                      <div>@($"{dailyRate.Price:0.00}") &euro;</div> 
+                  } 
+             </td> 
+      
+             <td class="payiments-pointer align-middle" onclick="@(() => GoToEdit(@rate.Id))"> 
+                 <span class="oi oi-external-link"></span> 
+             </td> 
+      
+         </RowTemplate> 
+      
+     </TableTemplate> 
+ 
+ </div> 
