@@ -32,18 +32,23 @@ namespace AppiSimo.Client
             services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();
             services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
+            services.AddSingleton<IGraphQlService<Rate>, GraphQlService<Rate>>();
 
-            services.AddSingleton<IGateway<Light>>(provider => new LightGateway(
+            services.AddSingleton<IGateway<Light>>(provider => new GraphQlGateway<Light>(
                 "id, lightType, price, enabled",
                 provider.GetService<IGraphQlService<Light>>()
             ));
-            services.AddSingleton<IGateway<Heat>>(provider => new HeatGateway(
+            services.AddSingleton<IGateway<Heat>>(provider => new GraphQlGateway<Heat>(
                 "id, heatType, price, enabled",
                 provider.GetService<IGraphQlService<Heat>>()
             ));
-            services.AddSingleton<IGateway<Court>>(provider => new CourtGateway(
+            services.AddSingleton<IGateway<Court>>(provider => new GraphQlGateway<Court>(
                 "id, name, light { lightType, price, enabled, id }, heat { heatType, price, enabled, id }, enabled",
                 provider.GetService<IGraphQlService<Court>>()
+            ));
+            services.AddSingleton<IGateway<Rate>>(provider => new GraphQlGateway<Rate>(
+                "id, start, end, dailyRates  { id, start, end, price }",
+                provider.GetService<IGraphQlService<Rate>>()
             ));
         }
 

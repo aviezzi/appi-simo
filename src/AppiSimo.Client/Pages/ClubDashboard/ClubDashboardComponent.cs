@@ -13,17 +13,21 @@ namespace AppiSimo.Client.Pages.ClubDashboard
         protected string Page { get; set; } = string.Empty;
 
         [Inject]
-        IGateway<Light> LightService { get; set; }    
-        
+        IGateway<Light> LightGateway { get; set; }
+
         [Inject]
-        IGateway<Heat> HeatService { get; set; }     
-        
+        IGateway<Heat> HeatGateway { get; set; }
+
         [Inject]
-        IGateway<Court> CourtService { get; set; }
+        IGateway<Court> CourtGateway { get; set; }
+
+        [Inject]
+        IGateway<Rate> RatesGateway { get; set; }
 
         protected ICollection<Light> Lights { get; private set; }
         protected ICollection<Heat> Heats { get; private set; }
         protected ICollection<Court> Courts { get; private set; }
+        protected ICollection<Rate> Rates { get; private set; }
 
         protected override async Task OnParametersSetAsync()
         {
@@ -33,23 +37,31 @@ namespace AppiSimo.Client.Pages.ClubDashboard
                 case "lights":
                     if (Lights is null)
                     {
-                        Lights = await LightService.GetAsync();
+                        Lights = await LightGateway.GetAsync();
                     }
 
                     break;
-                
+
                 case "heats":
                     if (Heats is null)
                     {
-                        Heats = await HeatService.GetAsync();
+                        Heats = await HeatGateway.GetAsync();
                     }
 
                     break;
-                
+
                 case "courts":
                     if (Courts is null)
                     {
-                        Courts = await CourtService.GetAsync();
+                        Courts = await CourtGateway.GetAsync();
+                    }
+
+                    break;
+
+                case "rates":
+                    if (Rates is null)
+                    {
+                        Rates = await RatesGateway.GetAsync();
                     }
 
                     break;

@@ -33,8 +33,27 @@ create table "Courts"
     "Enabled" boolean not null
 );
 
-alter table "Courts" owner to RobotBoy;
+alter table "Courts" owner to "RobotBoy";
 
 create index "IX_Courts_LightId" on "Courts" ("LightId");
 create index "IX_Courts_HeatId" on "Courts" ("HeatId");
 
+create table "Rates"
+(
+    "Id" uuid not null constraint "PK_Rates" primary key,
+    "Start" date,
+    "End" date
+);
+
+alter table "Rates" owner to "RobotBoy";
+
+create table "DailyRates"
+(
+    "Id" uuid not null constraint "PK_DailyRates" primary key,
+    "Start" time,
+    "End" time,
+    "Price" numeric not null,
+    "RateId" uuid not null constraint "FK_Rates_DailyRates_RateId" references "Rates" on delete cascade
+);
+
+alter table "DailyRates" owner to "RobotBoy";
