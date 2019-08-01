@@ -5,13 +5,16 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
     using Microsoft.AspNetCore.Components;
     using Model;
 
-    public class HeatDetailComponent : DetailBaseComponent<Heat>
+    public class HeatDetailComponent : DetailBaseComponent<Heat, HeatViewModel>
     {
         [Parameter]
         Guid Id { get; set; }
 
-        protected HeatViewModel ViewModel { get; private set; } = new HeatViewModel();
-
+        protected HeatDetailComponent()
+            : base("/club-dashboard/heats")
+        {
+        }
+        
         protected override async Task OnParametersSetAsync()
         {
             if (Id != Guid.Empty)
@@ -19,11 +22,6 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
                 var heat = await Service.GetAsync(Id);
                 ViewModel = new HeatViewModel(heat);
             }
-        }
-
-        protected async Task HandleValidSubmit()
-        {
-            await HandleValidSubmit(ViewModel, "/club-dashboard/heats");
         }
     }
 }

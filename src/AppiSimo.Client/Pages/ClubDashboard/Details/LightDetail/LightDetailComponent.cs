@@ -5,13 +5,16 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
     using Microsoft.AspNetCore.Components;
     using Model;
 
-    public class LightDetailComponent : DetailBaseComponent<Light>
+    public class LightDetailComponent : DetailBaseComponent<Light, LightViewModel>
     {
         [Parameter]
         Guid Id { get; set; }
 
-        protected LightViewModel ViewModel { get; private set; } = new LightViewModel();
-
+        protected LightDetailComponent()
+            : base("/club-dashboard/lights")
+        {
+        }
+        
         protected override async Task OnParametersSetAsync()
         {
             if (Id != Guid.Empty)
@@ -19,11 +22,6 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
                 var light = await Service.GetAsync(Id);
                 ViewModel = new LightViewModel(light);
             }
-        }
-
-        protected async Task HandleValidSubmit()
-        {
-            await HandleValidSubmit(ViewModel, "/club-dashboard/lights");
         }
     }
 }
