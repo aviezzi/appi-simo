@@ -6,7 +6,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
     using Microsoft.AspNetCore.Components;
     using Model;
 
-    public class CourtDetailComponent : DetailBaseComponent<Court>
+    public class CourtDetailComponent : DetailBaseComponent<Court, CourtViewModel>
     {
         [Inject]
         IGateway<Light> LightService { get; set; }
@@ -17,7 +17,10 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
         [Parameter]
         Guid Id { get; set; }
 
-        protected CourtViewModel ViewModel { get; private set; } = new CourtViewModel();
+        protected CourtDetailComponent()
+            : base("/club-dashboard/courts")
+        {
+        }
 
         protected override async Task OnParametersSetAsync()
         {
@@ -33,11 +36,6 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
             {
                 ViewModel = new CourtViewModel(lights, heats);
             }
-        }
-
-        protected async Task HandleValidSubmit()
-        {
-            await HandleValidSubmit(ViewModel, "/club-dashboard/courts");
         }
     }
 }
