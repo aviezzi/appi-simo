@@ -24,7 +24,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details
         
         protected TVm ViewModel { get; set; } = new TVm();
 
-        protected async Task HandleValidSubmit(string uri)
+        protected async Task HandleValidSubmit()
         {
             if (ViewModel.IsNew)
             {
@@ -35,7 +35,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details
                 await Service.UpdateAsync(ViewModel.Entity);
             }
 
-            UriHelper.NavigateTo(uri);
+            UriHelper.NavigateTo(_redirectUri);
         }
     }
 }

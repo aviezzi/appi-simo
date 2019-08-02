@@ -1,0 +1,28 @@
+@inherits RateDetailComponent
+
+@page "/club-settings/rates/create"
+@page "/club-settings/rates/edit/{id:guid}"
+
+<EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+
+    <dataannotationsvalidator></dataannotationsvalidator>
+    <validationsummary></validationsummary>
+
+    <InputDate id="name" @bind-Value="@ViewModel.StartDate"></InputDate>
+    <InputDate id="name" @bind-Value="@ViewModel.EndDate"></InputDate>
+
+    <button type="button" onclick="@Add">+++</button>
+
+    @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
+    {
+        <InputDate id="name" @bind-Value="@dailyRateViewModel.Start"></InputDate>
+        <InputDate id="name" @bind-Value="@dailyRateViewModel.End"></InputDate>
+        <InputNumber id="name" @bind-Value="@dailyRateViewModel.Price"></InputNumber>
+
+                                                             
+        <button type="button" onclick="@(() => Remove(dailyRateViewModel.Entity.Id))">---</button>
+    }
+
+    <button type="submit">Submit</button>
+
+</editform>
