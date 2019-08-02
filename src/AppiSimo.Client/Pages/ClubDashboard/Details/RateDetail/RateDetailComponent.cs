@@ -33,5 +33,16 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
                 ViewModel = new RateViewModel(courts);
             }
         }
+
+        protected void Add()
+        {
+            ViewModel.AddDailyRate();
+        }
+
+        protected void Remove(Guid id)
+        {
+            ViewModel.RemoveDailyRate(id);
+            StateHasChanged();
+        }
     }
 }
