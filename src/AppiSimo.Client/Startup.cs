@@ -27,7 +27,7 @@ namespace AppiSimo.Client
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddSingleton(new GraphQLHttpClient("http://localhost:6000/graphql"));
+            services.AddSingleton(new GraphQLHttpClient("http://localhost:8080/graphql"));
             
             services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();

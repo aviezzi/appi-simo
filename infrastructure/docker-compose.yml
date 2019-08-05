@@ -6,7 +6,6 @@ services:
     image: king_roger
     build:
       context: ./postgres
-
     environment:
       POSTGRES_USER: RobotBoy
       POSTGRES_PASSWORD: RobotBoy  # To be moved to environment file
@@ -15,26 +14,26 @@ services:
       - 5432
     ports:
       - 5432:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql
     networks:
-      - king_roger-facade
+      - king_roger-appi-simo-postgraphile
   graphql:
-    container_name: facade
+    image: albiberto/node-postgraphile
+    container_name: appi-simo-postgraphile
     restart: always
-    image: facade
-    build:
-      context: ../src/AppiSimo.Server
     depends_on:
       - db
     environment:
       DATABASE_URL: postgres://RobotBoy:RobotBoy@db:5432/KingRoger # To be moved to environment file
       PORT: 5000
     expose:
-      - 6000
+      - 5000
     ports:
-      - 6000:5000
+      - 8080:5000
     links:
       - db
     networks:
-      - king_roger-facade
+      - king_roger-appi-simo-postgraphile
 networks:
-  king_roger-facade:
+  king_roger-appi-simo-postgraphile:
