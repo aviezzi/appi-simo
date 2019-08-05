@@ -15,8 +15,8 @@
 
     @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
     {
-        <InputDate id="name" @bind-Value="@dailyRateViewModel.Start"></InputDate>
-        <InputDate id="name" @bind-Value="@dailyRateViewModel.End"></InputDate>
+        <InputLocalTime id="name" @bind-Value="@dailyRateViewModel.Start"></InputLocalTime>
+        <InputLocalTime id="name" @bind-Value="@dailyRateViewModel.End"></InputLocalTime>
         <InputNumber id="name" @bind-Value="@dailyRateViewModel.Price"></InputNumber>
 
                                                              
