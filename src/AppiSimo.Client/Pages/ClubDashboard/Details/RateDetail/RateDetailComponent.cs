@@ -44,5 +44,6 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
             ViewModel.RemoveDailyRate(id);
             StateHasChanged();
         }
+        
     }
 }
