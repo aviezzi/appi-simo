@@ -5,24 +5,23 @@
 
 <EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-    <dataannotationsvalidator></dataannotationsvalidator>
-    <validationsummary></validationsummary>
+    <DataAnnotationsCalidator></DataAnnotationsCalidator>
+    <ValidationSummary></ValidationSummary>
 
-    <InputDate id="name" @bind-Value="@ViewModel.StartDate"></InputDate>
-    <InputDate id="name" @bind-Value="@ViewModel.EndDate"></InputDate>
+    <InputLocalDate @bind-Value="@ViewModel.StartDate"></InputLocalDate>
+    <InputLocalDate @bind-Value="@ViewModel.EndDate"></InputLocalDate>
 
     <button type="button" onclick="@Add">+++</button>
 
     @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
     {
-        <InputLocalTime id="name" @bind-Value="@dailyRateViewModel.Start"></InputLocalTime>
-        <InputLocalTime id="name" @bind-Value="@dailyRateViewModel.End"></InputLocalTime>
-        <InputNumber id="name" @bind-Value="@dailyRateViewModel.Price"></InputNumber>
-
-                                                             
+        <InputLocalTime @bind-Value="@dailyRateViewModel.Start"></InputLocalTime>
+        <InputLocalTime @bind-Value="@dailyRateViewModel.End"></InputLocalTime>
+        <InputNumber @bind-Value="@dailyRateViewModel.Price"></InputNumber>
+                                                            
         <button type="button" onclick="@(() => Remove(dailyRateViewModel.Entity.Id))">---</button>
     }
 
     <button type="submit">Submit</button>
 
-</editform>
+</EditForm>

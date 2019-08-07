@@ -1,20 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AppiSimo.Client.Abstract;
+using AppiSimo.Client.Extensions;
+using AppiSimo.Client.Model;
+
 namespace AppiSimo.Client.Gateways
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Abstract;
-    using Extensions;
-    using Model;
-
     public class GraphQlGateway<T> : IGateway<T>
         where T : Entity, new()
     {
         readonly string _fields;
         readonly IGraphQlService<T> _service;
 
-		public GraphQlGateway(string fields, IGraphQlService<T> service)
+        public GraphQlGateway(string fields, IGraphQlService<T> service)
         {
             _fields = fields;
             _service = service;
@@ -74,7 +74,7 @@ namespace AppiSimo.Client.Gateways
             {
                 input = new Dictionary<string, IDictionary<string, object>>
                 {
-                    { name.ToCamelCase(), variables }
+                    {name.ToCamelCase(), variables}
                 }
             };
 
@@ -109,16 +109,33 @@ namespace AppiSimo.Client.Gateways
             return _service.Mutate(query, queryName, obj);
         }
 
-        static Dictionary<string, object> ParseEntity(T entity) =>
-            typeof(T).GetProperties().Select(property =>
+        static Dictionary<string, object> ParseEntity(object obj)
+        {
+            if (obj is Entity entity && entity.Id == Guid.Empty) entity.Id = Guid.NewGuid();
+
+            return obj.GetType().GetProperties().Select(property =>
                 {
                     var key = property.Name.ToCamelCase();
-                    var value = property.GetValue(entity);
+                    var value = property.GetValue(obj);
 
-                    return typeof(Entity).IsAssignableFrom(property.PropertyType)
-                        ? (key: key + "Id", value: ((Entity) value)?.Id)
-                        : (key, value);
+                    switch (value)
+                    {
+                        case IEnumerable<Entity> enumerable:
+                            return (key, new Dictionary<string, object>
+                            {
+                                ["create"] = enumerable.Select(ParseEntity)
+                            });
+                        case Entity e:
+
+                            return (key, value: new Dictionary<string, object>
+                            {
+                                ["create"] = ParseEntity(e)
+                            });
+                        default:
+                            return (key, value);
+                    };
                 })
                 .ToDictionary(tuple => tuple.key, tuple => tuple.value);
+        }
     }
 }
