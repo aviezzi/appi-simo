@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.RenderTree;
@@ -6,18 +8,19 @@ using NodaTime.Text;
 
 namespace AppiSimo.Client.Pages.Tools
 {
-    public class InputLocalTime : InputBase<LocalTime>
+    public class InputLocalDate : InputBase<LocalDate>
     {
-        static readonly LocalTimePattern Pattern = LocalTimePattern.CreateWithInvariantCulture("HH:mm");
-
-        protected override bool TryParseValueFromString(string value, out LocalTime result,
+        const string Pattern = "d";
+        readonly LocalDatePattern _pattern = LocalDatePattern.CreateWithInvariantCulture(Pattern);
+        
+        protected override bool TryParseValueFromString(string value, out LocalDate result,
             out string validationErrorMessage)
         {
             validationErrorMessage = "Error";
-            return Pattern.Parse(value).TryGetValue(default, out result);
+            return _pattern.Parse(value).TryGetValue(default, out result);
         }
 
-        protected override string FormatValueAsString(LocalTime value) => Pattern.Format(value);
+        protected override string FormatValueAsString(LocalDate value) =>  value.ToString(Pattern, CultureInfo.InvariantCulture);
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
