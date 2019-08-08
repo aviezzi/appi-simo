@@ -68,7 +68,7 @@ namespace AppiSimo.Client.Gateways
 				}}
 				";
 
-            var variables = ParseEntity(entity);
+            var variables = ParseEntity(entity, "create", (_, properties) => properties);
 
             var obj = new
             {
@@ -96,46 +96,50 @@ namespace AppiSimo.Client.Gateways
 				}}
 				";
 
-            var patch = ParseEntity(entity);
-
             var obj = new
             {
-                input = new
+                input = ParseEntity(entity, "updateById", (id, properties) => new Dictionary<string, object>
                 {
-                    id = entity.Id, patch
-                }
+                    ["id"] = id,
+                    ["patch"] = properties
+                })
             };
 
             return _service.Mutate(query, queryName, obj);
         }
 
-        static Dictionary<string, object> ParseEntity(object obj)
+        static Dictionary<string, object> ParseEntity(Entity entity, string action, Func<Guid, Dictionary<string, object>, Dictionary<string, object>> create)
         {
-            if (obj is Entity entity && entity.Id == Guid.Empty) entity.Id = Guid.NewGuid();
+            if (entity.Id == Guid.Empty) entity.Id = Guid.NewGuid();
 
-            return obj.GetType().GetProperties().Select(property =>
+            var id = entity.Id;
+            var properties = entity.GetType().GetProperties().Select(property =>
                 {
                     var key = property.Name.ToCamelCase();
-                    var value = property.GetValue(obj);
+                    var value = property.GetValue(entity);
 
                     switch (value)
                     {
                         case IEnumerable<Entity> enumerable:
                             return (key, new Dictionary<string, object>
                             {
-                                ["create"] = enumerable.Select(ParseEntity)
+                                [action] = enumerable.Select(e => ParseEntity(e, action, create))
                             });
                         case Entity e:
 
                             return (key, value: new Dictionary<string, object>
                             {
-                                ["create"] = ParseEntity(e)
+                                [action] = ParseEntity(e, action, create)
                             });
                         default:
                             return (key, value);
-                    };
+                    }
+
+                    ;
                 })
                 .ToDictionary(tuple => tuple.key, tuple => tuple.value);
+
+            return create(id, properties);
         }
     }
 }
