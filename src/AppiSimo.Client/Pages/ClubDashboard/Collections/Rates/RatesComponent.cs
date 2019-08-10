@@ -12,17 +12,11 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Rates
 
         [Parameter]
         protected ICollection<Rate> Rates { get; set; }
-
-        protected override void OnInit()
-        {
-            Console.WriteLine("Hello!");
-            base.OnInit();
-        }
-
+        
         protected void GoToEdit(Guid key) =>
-            UriHelper.NavigateTo($"/club-settings/rates/edit/{key}");
+            UriHelper.NavigateTo($"/club-dashboard/rates/edit/{key}");
 
         protected void GoToCreate() =>
-            UriHelper.NavigateTo("/club-settings/rates/create");
+            UriHelper.NavigateTo("/club-dashboard/rates/create");
     }
 }
