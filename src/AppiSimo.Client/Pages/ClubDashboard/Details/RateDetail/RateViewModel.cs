@@ -34,7 +34,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
         public LocalDate StartDate { get => Entity.Start; set => Entity.Start = value; }
 
         [Required(ErrorMessage = "È obbligatorio inserire la data di fine validita'.")]
-        public LocalDate EndDate { get => Entity.Start; set => Entity.Start = value; }
+        public LocalDate EndDate { get => Entity.End; set => Entity.End = value; }
 
         public IEnumerable<DailyRateViewModel> DailyRatesViewModel => Entity.DailyRates.Select(dr => new DailyRateViewModel(dr)).ToList();
 

@@ -1,7 +1,8 @@
+@using System.Globalization
 @inherits RateDetailComponent
 
-@page "/club-settings/rates/create"
-@page "/club-settings/rates/edit/{id:guid}"
+@page "/club-dashboard/rates/create"
+@page "/club-dashboard/rates/edit/{id:guid}"
 
 <EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
@@ -24,4 +25,20 @@
 
     <button type="submit">Submit</button>
 
+    <InputSelectT @bind-Value="@Selected">
+    
+        <option value="">Selezionare un riscaldamento ...</option>
+    
+        @foreach (var heats in GetStepsFromMidnight())
+        {
+            <option value="@Converter.LocalTime.FormatValueAsString(heats)">@Converter.LocalTime.FormatValueAsString(heats)</option>
+        }
+    
+    </InputSelectT>
+
 </EditForm>
+
+<h2>sep</h2>
+@Selected
+
+
