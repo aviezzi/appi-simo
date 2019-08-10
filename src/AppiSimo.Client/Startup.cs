@@ -37,7 +37,7 @@ namespace AppiSimo.Client
             services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
             services.AddSingleton<IGraphQlService<Rate>, GraphQlService<Rate>>();
 
-            services.AddSingleton<IConverters, DefaultConverters>();
+            services.AddSingleton<IConverters, ConvertersMap>();
             services.AddSingleton(provider => provider.GetService<IConverters>().LocalTime);
 
             services.AddSingleton<IGateway<Light>>(provider => new GraphQlGateway<Light>(

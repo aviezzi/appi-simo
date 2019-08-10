@@ -20,7 +20,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 
         public bool IsNew { get; }
 
-        [Required(ErrorMessage = "È obbligatorio inserire l'ora di inizio validita'.")]
+//        [Required(ErrorMessage = "È obbligatorio inserire l'ora di inizio validita'.")]
         public LocalTime Start { get => Entity.Start; set => Entity.Start = value; }
 
         [Required(ErrorMessage = "È obbligatorio inserire l'ora di fine validita'.")]
