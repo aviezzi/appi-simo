@@ -1,4 +1,3 @@
-@using System.Globalization
 @inherits RateDetailComponent
 
 @page "/club-dashboard/rates/create"
@@ -16,8 +15,28 @@
 
     @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
     {
-        <InputLocalTime @bind-Value="@dailyRateViewModel.Start"></InputLocalTime>
-        <InputLocalTime @bind-Value="@dailyRateViewModel.End"></InputLocalTime>
+        <InputSelectT @bind-Value="@dailyRateViewModel.Start">
+    
+            <option value="">...</option>
+    
+            @foreach (var step in GetStepsFromMidnight())
+            {
+                <option value="@Converter.LocalTime.FormatValueAsString(step)">@Converter.LocalTime.FormatValueAsString(step)</option>
+            }
+    
+        </InputSelectT>
+        
+        <InputSelectT @bind-Value="@dailyRateViewModel.End">
+    
+            <option value="">...</option>
+    
+            @foreach (var step in GetStepsFromMidnight())
+            {
+                <option value="@Converter.LocalTime.FormatValueAsString(step)">@Converter.LocalTime.FormatValueAsString(step)</option>
+            }
+    
+        </InputSelectT>
+        
         <InputNumber @bind-Value="@dailyRateViewModel.Price"></InputNumber>
                                                             
         <button type="button" onclick="@(() => Remove(dailyRateViewModel.Entity.Id))">---</button>
@@ -25,20 +44,6 @@
 
     <button type="submit">Submit</button>
 
-    <InputSelectT @bind-Value="@Selected">
-    
-        <option value="">Selezionare un riscaldamento ...</option>
-    
-        @foreach (var heats in GetStepsFromMidnight())
-        {
-            <option value="@Converter.LocalTime.FormatValueAsString(heats)">@Converter.LocalTime.FormatValueAsString(heats)</option>
-        }
-    
-    </InputSelectT>
-
 </EditForm>
-
-<h2>sep</h2>
-@Selected
 
 
