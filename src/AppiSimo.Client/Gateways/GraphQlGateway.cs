@@ -108,7 +108,7 @@ namespace AppiSimo.Client.Gateways
             return _service.Mutate(query, queryName, obj);
         }
 
-        static Dictionary<string, object> ParseEntity(Entity entity, string action, Func<Guid, Dictionary<string, object>, Dictionary<string, object>> create)
+        static Dictionary<string, object> ParseEntity(Entity entity, string action, Func<Guid, Dictionary<string, object>, Dictionary<string, object>> selector)
         {
             if (entity.Id == Guid.Empty) entity.Id = Guid.NewGuid();
 
@@ -123,23 +123,21 @@ namespace AppiSimo.Client.Gateways
                         case IEnumerable<Entity> enumerable:
                             return (key, new Dictionary<string, object>
                             {
-                                [action] = enumerable.Select(e => ParseEntity(e, action, create))
+                                [action] = enumerable.Select(e => ParseEntity(e, action, selector))
                             });
                         case Entity e:
 
                             return (key, value: new Dictionary<string, object>
                             {
-                                [action] = ParseEntity(e, action, create)
+                                [action] = ParseEntity(e, action, selector)
                             });
                         default:
                             return (key, value);
-                    }
-
-                    ;
+                    };
                 })
                 .ToDictionary(tuple => tuple.key, tuple => tuple.value);
 
-            return create(id, properties);
+            return selector(id, properties);
         }
     }
 }

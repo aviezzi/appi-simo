@@ -1,3 +1,6 @@
+using AppiSimo.Client.Converters;
+using NodaTime;
+
 namespace AppiSimo.Client
 {
     using Abstract;
@@ -33,6 +36,9 @@ namespace AppiSimo.Client
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();
             services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
             services.AddSingleton<IGraphQlService<Rate>, GraphQlService<Rate>>();
+
+            services.AddSingleton<IConverters, DefaultConverters>();
+            services.AddSingleton(provider => provider.GetService<IConverters>().LocalTime);
 
             services.AddSingleton<IGateway<Light>>(provider => new GraphQlGateway<Light>(
                 "id, lightType, price, enabled",
