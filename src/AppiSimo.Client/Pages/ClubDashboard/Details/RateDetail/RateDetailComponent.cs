@@ -17,27 +17,16 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 
         [Parameter] Guid Id { get; set; }
 
-        [Inject] IGateway<Court> CourtService { get; set; }
-
         protected override async Task OnParametersSetAsync()
         {
-            var courts = await CourtService.GetAsync();
-
             if (Id != Guid.Empty)
             {
                 var rate = await Service.GetAsync(Id);
-                ViewModel = new RateViewModel(courts, rate);
-            }
-            else
-            {
-                ViewModel = new RateViewModel(courts);
+                ViewModel = new RateViewModel(rate);   
             }
         }
 
-        protected void Add()
-        {
-            ViewModel.AddDailyRate();
-        }
+        protected void Add() => ViewModel.AddDailyRate();
 
         protected void Remove(Guid id)
         {
