@@ -21,10 +21,10 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
         public bool IsNew { get; }
 
 //        [Required(ErrorMessage = "È obbligatorio inserire l'ora di inizio validita'.")]
-        public LocalTime Start { get => Entity.Start; set => Entity.Start = value; }
+        public LocalTime? Start { get => Entity.Start; set => Entity.Start = value; }
 
         [Required(ErrorMessage = "È obbligatorio inserire l'ora di fine validita'.")]
-        public LocalTime End { get => Entity.End; set => Entity.End = value; }
+        public LocalTime? End { get => Entity.End; set => Entity.End = value; }
 
         [Required(ErrorMessage = "È obbligatorio inserire il prezzo.")]
         public decimal Price { get => Entity.Price; set => Entity.Price = value; }
