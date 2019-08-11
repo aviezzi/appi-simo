@@ -1,5 +1,5 @@
 @inherits RatesComponent 
-@using System.Globalization 
+
  
  @if (Rates == null) 
  { 
@@ -33,8 +33,8 @@
                   @foreach (var dailyRate in @rate.DailyRates) 
                   { 
                       <div> 
-                         <span>@($"dalle {dailyRate.Start.ToString(@"HH\:mm", CultureInfo.InvariantCulture)}")</span>
-                         <span>@($"alle {dailyRate.End.ToString(@"HH\:mm", CultureInfo.InvariantCulture)}")</span> 
+                         <span>@($"dalle {Converters.LocalTime.FormatValueAsString(dailyRate.Start)}")</span>
+                         <span>@($"alle {Converters.LocalTime.FormatValueAsString(dailyRate.End)}")</span> 
                       </div> 
                   } 
              </td> 

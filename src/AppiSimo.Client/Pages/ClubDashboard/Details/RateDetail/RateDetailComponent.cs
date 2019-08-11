@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using AppiSimo.Client.Abstract;
 using AppiSimo.Client.Model;
 using Microsoft.AspNetCore.Components;
-using NodaTime;
 
 namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 {
@@ -47,18 +44,5 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
             ViewModel.RemoveDailyRate(id);
             StateHasChanged();
         }
-
-        protected IEnumerable<LocalTime> GetStepsFromMidnight()
-        {
-            var step = LocalTime.Midnight;
-
-            do
-            {
-                yield return step;
-                step = step.PlusMinutes(30);
-            } while (step != LocalTime.Midnight);
-        }
-
-        protected LocalTime Selected { get; set; } 
     }
 }
