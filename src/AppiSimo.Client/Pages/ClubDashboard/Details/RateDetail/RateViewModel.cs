@@ -9,24 +9,14 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 
     public class RateViewModel : IDetailViewModel<Rate>
     {
-        public IEnumerable<Court> Courts { get; }
         public Rate Entity { get; }
 
         public RateViewModel()
-            : this(new List<Court>())
+            : this(new Rate())
         {
         }
-
-        public RateViewModel(IEnumerable<Court> courts)
-            : this(courts, new Rate())
-        {
-        }
-
-        public RateViewModel(IEnumerable<Court> courts, Rate rate)
-        {
-            Courts = courts ?? throw new NullReferenceException("Courts cannot be null.");
-            Entity = rate ?? throw new NullReferenceException("Rate cannot be null.");
-        }
+        
+        public RateViewModel(Rate rate) => Entity = rate ?? throw new NullReferenceException("Rate cannot be null.");
 
         public bool IsNew => Entity.Id == Guid.Empty;
 
@@ -36,7 +26,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
         [Required(ErrorMessage = "È obbligatorio inserire la data di fine validita'.")]
         public LocalDate EndDate { get => Entity.End; set => Entity.End = value; }
 
-        public IEnumerable<DailyRateViewModel> DailyRatesViewModel => Entity.DailyRates.Select(dr => new DailyRateViewModel(dr)).ToList();
+        public IEnumerable<DailyRateViewModel> DailyRatesViewModel => Entity.DailyRates.Select(dr => new DailyRateViewModel(dr));
 
         public void AddDailyRate() => Entity.DailyRates.Add(new DailyRate());
 
