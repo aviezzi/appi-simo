@@ -53,7 +53,7 @@ namespace AppiSimo.Client
                 provider.GetService<IGraphQlService<Court>>()
             ));
             services.AddSingleton<IGateway<Rate>>(provider => new GraphQlGateway<Rate>(
-                "id, start, end, dailyRates  { id, start, end, price }",
+                "id, name, start, end, dailyRates  { id, start, end, price }",
                 provider.GetService<IGraphQlService<Rate>>()
             ));
         }
