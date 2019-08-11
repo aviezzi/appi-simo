@@ -1,3 +1,4 @@
+@using AppiSimo.Client.Constants
 @inherits RateDetailComponent
 
 @page "/club-dashboard/rates/create"
@@ -19,7 +20,7 @@
     
             <option value="">...</option>
     
-            @foreach (var step in GetStepsFromMidnight())
+            @foreach (var step in LocalTimeSteps.FromMidnight)
             {
                 <option value="@Converter.LocalTime.FormatValueAsString(step)">@Converter.LocalTime.FormatValueAsString(step)</option>
             }
@@ -30,7 +31,7 @@
     
             <option value="">...</option>
     
-            @foreach (var step in GetStepsFromMidnight())
+            @foreach (var step in LocalTimeSteps.ToMidnight)
             {
                 <option value="@Converter.LocalTime.FormatValueAsString(step)">@Converter.LocalTime.FormatValueAsString(step)</option>
             }
