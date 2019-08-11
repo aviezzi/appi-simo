@@ -17,6 +17,7 @@
       
          <TableHeader> 
               
+             <th>Name</th> 
              <th>Data Inzio</th> 
              <th>Data Fine</th> 
              <th>Orari</th> 
@@ -27,6 +28,7 @@
       
          <RowTemplate> 
       
+             <td class="align-middle">@rate.Name</td> 
              <td class="align-middle">@($"{@rate.Start:d}")</td> 
              <td class="align-middle">@($"{@rate.End:d}")</td> 
              <td class="align-middle"> 
