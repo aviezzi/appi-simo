@@ -20,16 +20,19 @@ namespace AppiSimo.Client.Builders
         public string BuildCreateQuery(Rate rate) =>
             $@"{{
                 ""rate"": {{
-                    ""id"":{rate.Id},
-                    ""name"":{rate.Name},
-                    ""start"":{rate.Start},
-                    ""end"":{rate.End},
+                    ""id"":""{rate.Id}"",
+                    ""name"":""{rate.Name}"",
+                    ""start"":""{rate.Start}"",
+                    ""end"":""{rate.End}"",
                     ""dailyRates"": {{
-                        ""create"":[{string.Join(",", rate.DailyRates.Select(dr =>
-                            $"id:{dr.Id}" +
-                            $"start:{_converter.FormatValueAsString(dr.Start)}" +
-                            $"end:{_converter.FormatValueAsString(dr.End)}" +
-                            $"price:{dr.Price}"))
+                        ""create"":[{
+                            string.Join(",", rate.DailyRates.Select(dr =>
+                                "{" +
+                                $@"""id"":""{Guid.NewGuid()}""," +
+                                $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
+                                $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
+                                $@"""price"":{dr.Price}" +
+                                "}"))
                         }]
                     }}
                 }}
