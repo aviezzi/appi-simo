@@ -7,7 +7,7 @@
 }
 
 <div class="d-flex justify-content-end mb-2">
-    <button class="btn btn-outline-primary w-10" onclick="@(() => GoToCreate())">Crea</button>
+    <button class="btn btn-outline-primary w-10" @onclick="GoToCreate">Crea</button>
 </div>
 
 <div class="d-flex justify-content-end mb-2">
@@ -32,7 +32,7 @@
             <td>
                 <span class="@($"oi {(@court.Enabled ? "oi-check" : string.Empty)}")"></span>
             </td>
-            <td class="pointer align-middle" onclick="@(() => GoToEdit(@court.Id))">
+            <td class="pointer align-middle" onclick="() => GoToEdit(court.Id)">
                 <span class="oi oi-external-link"></span>
             </td>
         

@@ -5,12 +5,13 @@
 
 <EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-    <dataannotationsvalidator/>
-    <validationsummary/>
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
 
-    <InputText id="name" @bind-Value = "@ViewModel.Type"/>
-    <InputNumber id="name" @bind-Value = "@ViewModel.Price"/>
-    <InputCheckbox id="valid" @bind-Value = "@ViewModel.Enable"/>
+
+    <InputText id="name" @bind-Value = "@ViewModel.Type"></InputText>
+    <InputNumber id="name" @bind-Value = "@ViewModel.Price"></InputNumber>
+    <InputCheckbox id="valid" @bind-Value = "@ViewModel.Enable"></InputCheckbox>
 
     <button type="submit">Submit</button>
-</editform>
+</EditForm>

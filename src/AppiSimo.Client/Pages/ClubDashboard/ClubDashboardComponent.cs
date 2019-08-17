@@ -9,8 +9,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard
 
     public class ClubDashboardComponent : ComponentBase
     {
-        [Parameter]
-        protected string Page { get; set; } = string.Empty;
+        [Parameter] protected string Page { get; set; }
 
         [Inject]
         IGateway<Light> LightGateway { get; set; }
@@ -33,7 +32,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard
         {
             switch (Page)
             {
-                case "":
+                case null:
                 case "lights":
                     if (Lights is null)
                     {

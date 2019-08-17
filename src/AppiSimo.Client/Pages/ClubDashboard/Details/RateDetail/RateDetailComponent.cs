@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AppiSimo.Client.Abstract;
 using AppiSimo.Client.Model;
 using Microsoft.AspNetCore.Components;
+using NodaTime;
 
 namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 {
@@ -13,7 +14,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
         {
         }
 
-        [Inject] protected IConverters Converter { get; set; }
+        [Inject] protected ITypeConverter<LocalTime?> Converter { get; set; }
 
         [Parameter] Guid Id { get; set; }
 

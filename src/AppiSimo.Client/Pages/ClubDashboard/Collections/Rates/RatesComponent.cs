@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AppiSimo.Client.Abstract;
 using AppiSimo.Client.Model;
 using Microsoft.AspNetCore.Components;
+using NodaTime;
 
 namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Rates
 {
@@ -10,7 +11,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Rates
     {
         [Inject] IUriHelper UriHelper { get; set; }
 
-        [Inject] protected IConverters Converters { get; set; }
+        [Inject] protected ITypeConverter<LocalTime?> Converter { get; set; }
 
         [Parameter] protected ICollection<Rate> Rates { get; set; }
 

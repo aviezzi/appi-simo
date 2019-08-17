@@ -54,7 +54,7 @@ namespace AppiSimo.Client.Services
                 Variables = variables
             };
 
-            var res = await _client.SendQueryAsync(req);
+            var res = await _client.SendMutationAsync(req);
             return res.ExtGetDataFieldAs<T>(name);
         }
     }
