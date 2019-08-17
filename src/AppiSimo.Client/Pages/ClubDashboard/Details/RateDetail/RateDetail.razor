@@ -6,7 +6,7 @@
 
 <EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-    <DataAnnotationsCalidator></DataAnnotationsCalidator>
+    <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
 
     <InputText @bind-Value="@ViewModel.Name"></InputText>
@@ -14,7 +14,7 @@
     <InputLocalDate @bind-Value="@ViewModel.StartDate"></InputLocalDate>
     <InputLocalDate @bind-Value="@ViewModel.EndDate"></InputLocalDate>
 
-    <button type="button" onclick="@Add">+++</button>
+    <button type="button" @onclick="Add">+++</button>
 
     @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
     {
@@ -24,7 +24,7 @@
     
             @foreach (var step in LocalTimeSteps.FromMidnight)
             {
-                <option value="@Converter.LocalTime.FormatValueAsString(step)">@Converter.LocalTime.FormatValueAsString(step)</option>
+                <option value="@Converter.FormatValueAsString(step)">@Converter.FormatValueAsString(step)</option>
             }
     
         </InputSelectT>
@@ -35,14 +35,14 @@
     
             @foreach (var step in LocalTimeSteps.ToMidnight)
             {
-                <option value="@Converter.LocalTime.FormatValueAsString(step)">@Converter.LocalTime.FormatValueAsString(step)</option>
+                <option value="@Converter.FormatValueAsString(step)">@Converter.FormatValueAsString(step)</option>
             }
     
         </InputSelectT>
         
         <InputNumber @bind-Value="@dailyRateViewModel.Price"></InputNumber>
                                                             
-        <button type="button" onclick="@(() => Remove(dailyRateViewModel.Entity.Id))">---</button>
+        <button type="button" @onclick="() => Remove(dailyRateViewModel.Entity.Id)">---</button>
     }
 
     <button type="submit">Submit</button>

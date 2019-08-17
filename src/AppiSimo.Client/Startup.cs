@@ -1,19 +1,18 @@
+using AppiSimo.Client.Abstract;
+using AppiSimo.Client.Builders;
 using AppiSimo.Client.Converters;
-using NodaTime;
+using AppiSimo.Client.Gateways;
+using AppiSimo.Client.Model;
+using AppiSimo.Client.Services;
+using GraphQL.Client.Http;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace AppiSimo.Client
 {
-    using Abstract;
-    using Gateways;
-    using GraphQL.Client.Http;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using Model;
-    using Services;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,32 +29,30 @@ namespace AppiSimo.Client
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            services.AddSingleton<IConverters, ConvertersMap>();
+            services.AddSingleton(provider => provider.GetService<IConverters>().LocalTime);
+
             services.AddSingleton(new GraphQLHttpClient("http://localhost:8080/graphql"));
-            
+
+            services.AddSingleton<IStringQueryBuilder<Light>, LightQueryBuilder>();
+            services.AddSingleton<IStringQueryBuilder<Heat>, HeatQueryBuilder>();
+            services.AddSingleton<IStringQueryBuilder<Court>, CourtsQueryBuilder>();
+            services.AddSingleton<IStringQueryBuilder<Rate>, RateQueryBuilder>();
+
+            services.AddSingleton<IObjectQueryBuilder<Light>, QueryBuilderWrapper<Light>>();
+            services.AddSingleton<IObjectQueryBuilder<Heat>, QueryBuilderWrapper<Heat>>();
+            services.AddSingleton<IObjectQueryBuilder<Court>, QueryBuilderWrapper<Court>>();
+            services.AddSingleton<IObjectQueryBuilder<Rate>, QueryBuilderWrapper<Rate>>();
+
             services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();
             services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
             services.AddSingleton<IGraphQlService<Rate>, GraphQlService<Rate>>();
-
-            services.AddSingleton<IConverters, ConvertersMap>();
-            services.AddSingleton(provider => provider.GetService<IConverters>().LocalTime);
-
-            services.AddSingleton<IGateway<Light>>(provider => new GraphQlGateway<Light>(
-                "id, lightType, price, enabled",
-                provider.GetService<IGraphQlService<Light>>()
-            ));
-            services.AddSingleton<IGateway<Heat>>(provider => new GraphQlGateway<Heat>(
-                "id, heatType, price, enabled",
-                provider.GetService<IGraphQlService<Heat>>()
-            ));
-            services.AddSingleton<IGateway<Court>>(provider => new GraphQlGateway<Court>(
-                "id, name, light { lightType, price, enabled, id }, heat { heatType, price, enabled, id }, enabled",
-                provider.GetService<IGraphQlService<Court>>()
-            ));
-            services.AddSingleton<IGateway<Rate>>(provider => new GraphQlGateway<Rate>(
-                "id, name, start, end, dailyRates  { id, start, end, price }",
-                provider.GetService<IGraphQlService<Rate>>()
-            ));
+            
+            services.AddSingleton<IGateway<Light>, GraphQlGateway<Light>>();
+            services.AddSingleton<IGateway<Heat>, GraphQlGateway<Heat>>();
+            services.AddSingleton<IGateway<Court>, GraphQlGateway<Court>>();
+            services.AddSingleton<IGateway<Rate>, GraphQlGateway<Rate>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

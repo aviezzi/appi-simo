@@ -14,19 +14,19 @@
 
     @switch (Page)
     {
-        case "":
+        case null:
         case "lights":
-            <LightsView Lights="@Lights"></lightsview>
+            <LightsView Lights="@Lights"></LightsView>
 
             break;
 
         case "heats":
-            <HeatsView Heats="@Heats"></heatsview>
+            <HeatsView Heats="@Heats"></HeatsView>
 
             break;
 
         case "courts":
-            <CourtsView Courts="@Courts"></courtsview>
+            <CourtsView Courts="@Courts"></CourtsView>
 
             break;       
         
