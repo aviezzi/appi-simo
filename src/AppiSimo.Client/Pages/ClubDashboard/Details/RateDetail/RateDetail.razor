@@ -19,34 +19,32 @@
     @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
     {
         <InputSelectT @bind-Value="@dailyRateViewModel.Start">
-    
+
             <option value="">...</option>
-    
+
             @foreach (var step in LocalTimeSteps.FromMidnight)
             {
                 <option value="@Converter.FormatValueAsString(step)">@Converter.FormatValueAsString(step)</option>
             }
-    
+
         </InputSelectT>
-        
+
         <InputSelectT @bind-Value="@dailyRateViewModel.End">
-    
+
             <option value="">...</option>
-    
+
             @foreach (var step in LocalTimeSteps.ToMidnight)
             {
                 <option value="@Converter.FormatValueAsString(step)">@Converter.FormatValueAsString(step)</option>
             }
-    
+
         </InputSelectT>
-        
+
         <InputNumber @bind-Value="@dailyRateViewModel.Price"></InputNumber>
-                                                            
+
         <button type="button" @onclick="() => Remove(dailyRateViewModel.Entity.Id)">---</button>
     }
 
     <button type="submit">Submit</button>
 
 </EditForm>
-
-

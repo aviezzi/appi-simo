@@ -13,7 +13,7 @@ namespace AppiSimo.Client.Abstract
     {
     }
 
-    public interface IObjectQueryBuilder<in T> : IQueryBuilder<T, object>
+    public interface IQueryBuilder<in T> : IQueryBuilder<T, object>
         where T : IEntity
     {
     }

@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using AppiSimo.Client.Abstract;
-using AppiSimo.Client.Model;
-using Microsoft.AspNetCore.Components;
-using NodaTime;
-
 namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Rates
 {
+    using System;
+    using System.Collections.Generic;
+    using AppiSimo.Client.Abstract;
+    using AppiSimo.Client.Model;
+    using Microsoft.AspNetCore.Components;
+    using NodaTime;
+
     public class RatesComponent : ComponentBase
     {
         [Inject] IUriHelper UriHelper { get; set; }

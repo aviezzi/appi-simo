@@ -9,7 +9,7 @@ namespace AppiSimo.Client.Extensions
     {
         public static T ExtGetDataFieldAs<T>(this GraphQLResponse response, string value)
         {
-            var values = value.Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries);
+            var values = value.Split(new[] {"."}, StringSplitOptions.RemoveEmptyEntries);
             object data = response.Data as JObject;
             data = values.Aggregate(data, (current, val) => (current as JObject)?.GetValue(val));
             return

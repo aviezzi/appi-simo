@@ -2,12 +2,10 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using Model;
+    using AppiSimo.Client.Model;
 
     public class HeatViewModel : IDetailViewModel<Heat>
     {
-        public Heat Entity { get; }
-
         public HeatViewModel()
             : this(new Heat())
         {
@@ -18,14 +16,28 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
             Entity = heat ?? throw new NullReferenceException("Heat cannot be null.");
         }
 
-        public bool IsNew => Entity.Id == Guid.Empty;
-
         [Required(ErrorMessage = "È obbligatorio inserire la tipologia del riscladamento.")]
-        public string Type { get => Entity.HeatType ?? string.Empty; set => Entity.HeatType = value; }
+        public string Type
+        {
+            get => Entity.HeatType ?? string.Empty;
+            set => Entity.HeatType = value;
+        }
 
         [Required(ErrorMessage = "È obbligatorio inserire un prezzo.")]
-        public decimal Price { get => Entity.Price; set => Entity.Price = value; }
+        public decimal Price
+        {
+            get => Entity.Price;
+            set => Entity.Price = value;
+        }
 
-        public bool Enable { get => Entity.Enabled; set => Entity.Enabled = value; }
+        public bool Enable
+        {
+            get => Entity.Enabled;
+            set => Entity.Enabled = value;
+        }
+
+        public Heat Entity { get; }
+
+        public bool IsNew => Entity.Id == Guid.Empty;
     }
 }

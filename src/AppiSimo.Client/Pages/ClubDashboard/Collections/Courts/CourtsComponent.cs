@@ -2,16 +2,14 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Courts
 {
     using System;
     using System.Collections.Generic;
+    using AppiSimo.Client.Model;
     using Microsoft.AspNetCore.Components;
-    using Model;
 
     public class CourtsComponent : ComponentBase
     {
-        [Inject]
-        IUriHelper UriHelper { get; set; }
+        [Inject] IUriHelper UriHelper { get; set; }
 
-        [Parameter]
-        public ICollection<Court> Courts { get; set; }
+        [Parameter] protected ICollection<Court> Courts { get; set; }
 
         protected void GoToEdit(Guid key) =>
             UriHelper.NavigateTo($"/club-dashboard/court/edit/{key}");

@@ -3,11 +3,11 @@ namespace AppiSimo.Client.Services
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Abstract;
-    using Extensions;
+    using AppiSimo.Client.Abstract;
+    using AppiSimo.Client.Extensions;
+    using AppiSimo.Client.Model;
     using GraphQL.Client.Http;
     using GraphQL.Common.Request;
-    using Model;
 
     public class GraphQlService<T> : IGraphQlService<T>
         where T : Entity, new()
@@ -22,14 +22,12 @@ namespace AppiSimo.Client.Services
         public async Task<ICollection<T>> GetAll(string query, string name)
         {
             var req = new GraphQLRequest
-            {
-                Query = query
-            };
+                      {
+                          Query = query
+                      };
 
             var res = await _client.SendQueryAsync(req);
-            var o = res.GetDataFieldAs<ICollection<T>>(name);
-
-            return o;
+            return res.GetDataFieldAs<ICollection<T>>(name);
         }
 
         public async Task<T> GetOne(string query, string name, Guid key)
@@ -37,10 +35,10 @@ namespace AppiSimo.Client.Services
             var id = key;
 
             var req = new GraphQLRequest
-            {
-                Query = query,
-                Variables = new { id }
-            };
+                      {
+                          Query = query,
+                          Variables = new {id}
+                      };
 
             var res = await _client.SendQueryAsync(req);
             return res.ExtGetDataFieldAs<T>(name);
@@ -49,10 +47,10 @@ namespace AppiSimo.Client.Services
         public async Task<T> Mutate(string query, string name, object variables)
         {
             var req = new GraphQLRequest
-            {
-                Query = query,
-                Variables = variables
-            };
+                      {
+                          Query = query,
+                          Variables = variables
+                      };
 
             var res = await _client.SendMutationAsync(req);
             return res.ExtGetDataFieldAs<T>(name);

@@ -1,8 +1,8 @@
-using NodaTime;
-
 namespace AppiSimo.Client.Abstract
 {
-    public interface IConverters 
+    using NodaTime;
+
+    public interface IConverters
     {
         ITypeConverter<LocalTime?> LocalTime { get; }
     }

@@ -4,19 +4,21 @@
 <table class="table table-striped">
 
     <thead class="thead-dark">
-        <tr>
-            <th scope="col"><span>#</span></th>
-            @TableHeader
-        </tr>
+    <tr>
+        <th scope="col">
+            <span>#</span>
+        </th>
+        @TableHeader
+    </tr>
     </thead>
 
     <tbody>
-        @foreach (var item in Items.Select((value, i) => (value, i)))
-        {
-            <tr>
-                <th>@($"{item.i + 1}")</th>
-                @RowTemplate(item.value)
-            </tr>
-        }
+    @foreach (var item in Items.Select((value, i) => (value, i)))
+    {
+        <tr>
+            <th>@($"{item.i + 1}")</th>
+            @RowTemplate(item.value)
+        </tr>
+    }
     </tbody>
 </table>
