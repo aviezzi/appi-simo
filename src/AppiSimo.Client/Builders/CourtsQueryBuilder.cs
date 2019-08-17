@@ -10,26 +10,27 @@ namespace AppiSimo.Client.Builders
 
         public string BuildCreateQuery(Court court) =>
             $@"{{
-                ""id"":{court.Id},
-                ""patch"":
-                {{
-                    ""name"":{court.Name} ,
-                    ""lightId"":{court.Light.Id},
-                    ""heatId"":{court.Heat.Id},
-                    ""enabled"":{court.Enabled}
+                ""court"": {{
+                    ""id"":""{court.Id}"",
+                    ""name"":""{court.Name}"",
+                    ""lightId"":""{court.Light.Id}"",
+                    ""heatId"":""{court.Heat.Id}"",
+                    ""enabled"":{court.Enabled.ToString().ToLowerInvariant()}
                 }}
             }}";
 
-        public string BuildUpdateQuery(Court court) =>
-            $@"{{
-                ""court"":
+        public string BuildUpdateQuery(Court court)
+        {
+            return $@"{{
+                ""id"":""{court.Id}"",
+                ""patch"":
                 {{
-                    ""id"":{court.Id},
-                    ""name"":{court.Name} ,
-                    ""lightId"":{court.Light.Id},
-                    ""heatId"":{court.Heat.Id},
-                    ""enabled"":{court.Enabled}
+                    ""name"":""{court.Name}"",
+                    ""lightId"":""{court.Light.Id}"",
+                    ""heatId"":""{court.Heat.Id}"",
+                    ""enabled"":{court.Enabled.ToString().ToLowerInvariant()}
                 }}
             }}";
+        }
     }
 }
