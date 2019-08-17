@@ -2,19 +2,18 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
 {
     using System;
     using System.Threading.Tasks;
+    using AppiSimo.Client.Model;
     using Microsoft.AspNetCore.Components;
-    using Model;
 
     public class LightDetailComponent : DetailBaseComponent<Light, LightViewModel>
     {
-        [Parameter]
-        Guid Id { get; set; }
-
         protected LightDetailComponent()
             : base("/club-dashboard/lights")
         {
         }
-        
+
+        [Parameter] Guid Id { get; set; }
+
         protected override async Task OnParametersSetAsync()
         {
             if (Id != Guid.Empty)

@@ -3,7 +3,6 @@ namespace AppiSimo.Client.Abstract
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Model;
 
     public interface IGraphQlService<T>
         where T : IEntity, new()

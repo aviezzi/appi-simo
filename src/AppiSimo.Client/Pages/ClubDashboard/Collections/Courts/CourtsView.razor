@@ -13,31 +13,33 @@
 <div class="d-flex justify-content-end mb-2">
 
     <TableTemplate Items="@Courts" Context="court">
-    
+
         <TableHeader>
-                
-           <th>Nome</th>
+
+            <th>Nome</th>
             <th>Luce</th>
             <th>Riscaldamento</th>
-            <th><span class="oi oi-circle-check"></span></th>
+            <th>
+                <span class="oi oi-circle-check"></span>
+            </th>
             <th></th>
-        
+
         </TableHeader>
-        
+
         <RowTemplate>
-        
-            <td>@($"{@court.Name}")</td>
-            <td>@($"{@court.Light.LightType}")</td>
-            <td>@($"{@court.Heat.HeatType}")</td>
+
+            <td>@($"{court.Name}")</td>
+            <td>@($"{court.Light.LightType}")</td>
+            <td>@($"{court.Heat.HeatType}")</td>
             <td>
-                <span class="@($"oi {(@court.Enabled ? "oi-check" : string.Empty)}")"></span>
+                <span class="@($"oi {(court.Enabled ? "oi-check" : string.Empty)}")"></span>
             </td>
             <td class="pointer align-middle" @onclick="() => GoToEdit(court.Id)">
                 <span class="oi oi-external-link"></span>
             </td>
-        
+
         </RowTemplate>
-        
+
     </TableTemplate>
 
 </div>

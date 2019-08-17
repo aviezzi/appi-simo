@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using NodaTime;
-
 namespace AppiSimo.Client.Constants
 {
+    using System.Collections.Generic;
+    using NodaTime;
+
     public static class LocalTimeSteps
     {
         public static IEnumerable<LocalTime> FromMidnight { get; } = GetStepsFromMidnight();

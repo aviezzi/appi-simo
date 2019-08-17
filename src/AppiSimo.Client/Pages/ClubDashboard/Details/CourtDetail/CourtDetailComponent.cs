@@ -2,25 +2,22 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
 {
     using System;
     using System.Threading.Tasks;
-    using Abstract;
+    using AppiSimo.Client.Abstract;
+    using AppiSimo.Client.Model;
     using Microsoft.AspNetCore.Components;
-    using Model;
 
     public class CourtDetailComponent : DetailBaseComponent<Court, CourtViewModel>
     {
-        [Inject]
-        IGateway<Light> LightService { get; set; }
-
-        [Inject]
-        IGateway<Heat> HeatService { get; set; }
-
-        [Parameter]
-        Guid Id { get; set; }
-
         protected CourtDetailComponent()
             : base("/club-dashboard/courts")
         {
         }
+
+        [Inject] IGateway<Light> LightService { get; set; }
+
+        [Inject] IGateway<Heat> HeatService { get; set; }
+
+        [Parameter] Guid Id { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {

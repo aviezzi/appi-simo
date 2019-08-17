@@ -17,25 +17,22 @@
         case null:
         case "lights":
             <LightsView Lights="@Lights"></LightsView>
-
             break;
 
         case "heats":
             <HeatsView Heats="@Heats"></HeatsView>
-
             break;
 
         case "courts":
             <CourtsView Courts="@Courts"></CourtsView>
+            break;
 
-            break;       
-        
         case "rates":
             <RatesView Rates="@Rates"></RatesView>
             break;
 
         default:
-            throw new Exception("Not Found!");
+            throw new Exception("Dashboard nested page not found!");
     }
 
 </div>
