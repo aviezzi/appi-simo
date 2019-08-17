@@ -1,39 +1,32 @@
 namespace AppiSimo.Client.Pages.ClubDashboard.Details
 {
     using System.Threading.Tasks;
-    using Abstract;
+    using AppiSimo.Client.Abstract;
     using Microsoft.AspNetCore.Components;
-    using Model;
 
-    public abstract class DetailBaseComponent<T, TVm> : ComponentBase
-        where T : Entity, new()
-        where TVm : IDetailViewModel<T>, new()
+    public abstract class DetailBaseComponent<T, TViewModel> : ComponentBase
+        where T : IEntity, new()
+        where TViewModel : IDetailViewModel<T>, new()
     {
         readonly string _redirectUri;
-
-        [Inject]
-        IUriHelper UriHelper { get; set; }
-
-        [Inject]
-        protected IGateway<T> Service { get; set; }
 
         protected DetailBaseComponent(string redirectUri)
         {
             _redirectUri = redirectUri;
         }
-        
-        protected TVm ViewModel { get; set; } = new TVm();
+
+        [Inject] IUriHelper UriHelper { get; set; }
+
+        [Inject] protected IGateway<T> Service { get; set; }
+
+        protected TViewModel ViewModel { get; set; } = new TViewModel();
 
         protected async Task HandleValidSubmit()
         {
             if (ViewModel.IsNew)
-            {
                 await Service.CreateAsync(ViewModel.Entity);
-            }
             else
-            {
                 await Service.UpdateAsync(ViewModel.Entity);
-            }
 
             UriHelper.NavigateTo(_redirectUri);
         }

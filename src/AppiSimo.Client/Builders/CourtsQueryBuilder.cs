@@ -1,8 +1,8 @@
-using AppiSimo.Client.Abstract;
-using AppiSimo.Client.Model;
-
 namespace AppiSimo.Client.Builders
 {
+    using AppiSimo.Client.Abstract;
+    using AppiSimo.Client.Model;
+
     public class CourtsQueryBuilder : IStringQueryBuilder<Court>
     {
         public string Fields =>
@@ -19,9 +19,8 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdateQuery(Court court)
-        {
-            return $@"{{
+        public string BuildUpdateQuery(Court court) =>
+            $@"{{
                 ""id"":""{court.Id}"",
                 ""patch"":
                 {{
@@ -31,6 +30,5 @@ namespace AppiSimo.Client.Builders
                     ""enabled"":{court.Enabled.ToString().ToLowerInvariant()}
                 }}
             }}";
-        }
     }
 }

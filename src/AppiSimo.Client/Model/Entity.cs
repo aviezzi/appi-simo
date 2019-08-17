@@ -1,25 +1,19 @@
 namespace AppiSimo.Client.Model
 {
     using System;
-    using Abstract;
+    using AppiSimo.Client.Abstract;
 
     public abstract class Entity : IEntity
     {
         public Guid Id { get; set; }
 
-        protected bool Equals(Entity other) => Id.Equals(other.Id);
+        bool Equals(IEntity other) => Id.Equals(other.Id);
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(objA: null, obj))
-            {
-                return false;
-            }
+            if (ReferenceEquals(null, obj)) return false;
 
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
+            if (ReferenceEquals(this, obj)) return true;
 
             return obj.GetType() == GetType() && Equals((Entity) obj);
         }

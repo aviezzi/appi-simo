@@ -1,19 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AppiSimo.Client.Abstract;
-using AppiSimo.Client.Extensions;
-using AppiSimo.Client.Model;
-
 namespace AppiSimo.Client.Gateways
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using AppiSimo.Client.Abstract;
+    using AppiSimo.Client.Extensions;
+
     public class GraphQlGateway<T> : IGateway<T>
-        where T : Entity, new()
+        where T : IEntity, new()
     {
-        readonly IObjectQueryBuilder<T> _builder;
+        readonly IQueryBuilder<T> _builder;
         readonly IGraphQlService<T> _service;
 
-        public GraphQlGateway(IObjectQueryBuilder<T> builder, IGraphQlService<T> service)
+        public GraphQlGateway(IQueryBuilder<T> builder, IGraphQlService<T> service)
         {
             _builder = builder;
             _service = service;
@@ -65,9 +64,9 @@ namespace AppiSimo.Client.Gateways
 				}}";
 
             var obj = new
-            {
-                input = _builder.BuildCreateQuery(entity)
-            };
+                      {
+                          input = _builder.BuildCreateQuery(entity)
+                      };
 
             return _service.Mutate(query, queryName, obj);
         }
@@ -87,9 +86,9 @@ namespace AppiSimo.Client.Gateways
 				}}";
 
             var obj = new
-            {
-                input = _builder.BuildUpdateQuery(entity)
-            };
+                      {
+                          input = _builder.BuildUpdateQuery(entity)
+                      };
 
             return _service.Mutate(query, queryName, obj);
         }

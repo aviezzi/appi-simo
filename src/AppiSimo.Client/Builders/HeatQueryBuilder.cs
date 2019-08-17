@@ -1,8 +1,8 @@
-using AppiSimo.Client.Abstract;
-using AppiSimo.Client.Model;
-
 namespace AppiSimo.Client.Builders
 {
+    using AppiSimo.Client.Abstract;
+    using AppiSimo.Client.Model;
+
     public class HeatQueryBuilder : IStringQueryBuilder<Heat>
     {
         public string Fields => "id, heatType, price, enabled";

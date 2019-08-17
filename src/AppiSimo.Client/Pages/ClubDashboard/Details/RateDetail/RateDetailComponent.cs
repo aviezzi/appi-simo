@@ -1,12 +1,12 @@
-using System;
-using System.Threading.Tasks;
-using AppiSimo.Client.Abstract;
-using AppiSimo.Client.Model;
-using Microsoft.AspNetCore.Components;
-using NodaTime;
-
 namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 {
+    using System;
+    using System.Threading.Tasks;
+    using AppiSimo.Client.Abstract;
+    using AppiSimo.Client.Model;
+    using Microsoft.AspNetCore.Components;
+    using NodaTime;
+
     public class RateDetailComponent : DetailBaseComponent<Rate, RateViewModel>
     {
         protected RateDetailComponent()
@@ -23,7 +23,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
             if (Id != Guid.Empty)
             {
                 var rate = await Service.GetAsync(Id);
-                ViewModel = new RateViewModel(rate);   
+                ViewModel = new RateViewModel(rate);
             }
         }
 

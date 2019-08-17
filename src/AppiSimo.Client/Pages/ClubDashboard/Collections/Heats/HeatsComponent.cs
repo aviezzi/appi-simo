@@ -2,13 +2,12 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Heats
 {
     using System;
     using System.Collections.Generic;
+    using AppiSimo.Client.Model;
     using Microsoft.AspNetCore.Components;
-    using Model;
 
     public class HeatsComponent : ComponentBase
     {
-        [Inject]
-        IUriHelper UriHelper { get; set; }
+        [Inject] IUriHelper UriHelper { get; set; }
 
         [Parameter] protected ICollection<Heat> Heats { get; set; }
 

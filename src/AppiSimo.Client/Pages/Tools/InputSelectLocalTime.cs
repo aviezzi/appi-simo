@@ -1,20 +1,17 @@
-using AppiSimo.Client.Abstract;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.RenderTree;
-
 namespace AppiSimo.Client.Pages.Tools
 {
+    using AppiSimo.Client.Abstract;
+    using Microsoft.AspNetCore.Components;
+    using Microsoft.AspNetCore.Components.Forms;
+    using Microsoft.AspNetCore.Components.RenderTree;
+
     public class InputSelectT<T> : InputBase<T>
     {
         [Inject] ITypeConverter<T> Converter { get; set; }
 
         [Parameter] RenderFragment ChildContent { get; set; }
 
-        protected override string FormatValueAsString(T value)
-        {
-            return Converter.FormatValueAsString(value);
-        }
+        protected override string FormatValueAsString(T value) => Converter.FormatValueAsString(value);
 
         protected override bool TryParseValueFromString(
             string value,
@@ -32,8 +29,8 @@ namespace AppiSimo.Client.Pages.Tools
             builder.AddAttribute(2, "class", CssClass);
             builder.AddAttribute(3, "value", BindConverter.FormatValue(CurrentValueAsString));
             builder.AddAttribute(4, "onchange",
-                EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value,
-                    CurrentValueAsString));
+                                 EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value,
+                                                                            CurrentValueAsString));
             builder.AddContent(5, ChildContent);
             builder.CloseElement();
         }

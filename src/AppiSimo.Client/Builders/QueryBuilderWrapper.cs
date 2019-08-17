@@ -1,11 +1,10 @@
-using AppiSimo.Client.Abstract;
-using AppiSimo.Client.Model;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 namespace AppiSimo.Client.Builders
 {
-    public class QueryBuilderWrapper<T> : IObjectQueryBuilder<T> 
+    using AppiSimo.Client.Abstract;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+
+    public class QueryBuilderWrapper<T> : IQueryBuilder<T>
         where T : IEntity
     {
         readonly IStringQueryBuilder<T> _builder;
@@ -16,15 +15,11 @@ namespace AppiSimo.Client.Builders
         }
 
         public string Fields => _builder.Fields;
-        
+
         public object BuildCreateQuery(T entity) => ParseValueFromString(_builder.BuildCreateQuery(entity));
 
         public object BuildUpdateQuery(T entity) => ParseValueFromString(_builder.BuildUpdateQuery(entity));
 
-        static object ParseValueFromString(string query)
-        {
-            var a = JsonConvert.DeserializeObject<JObject>(query);
-            return a;
-        }
+        static object ParseValueFromString(string query) => JsonConvert.DeserializeObject<JObject>(query);
     }
 }
