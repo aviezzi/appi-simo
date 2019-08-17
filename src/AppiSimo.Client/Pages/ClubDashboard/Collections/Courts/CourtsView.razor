@@ -32,7 +32,7 @@
             <td>
                 <span class="@($"oi {(@court.Enabled ? "oi-check" : string.Empty)}")"></span>
             </td>
-            <td class="pointer align-middle" onclick="() => GoToEdit(court.Id)">
+            <td class="pointer align-middle" @onclick="() => GoToEdit(court.Id)">
                 <span class="oi oi-external-link"></span>
             </td>
         
