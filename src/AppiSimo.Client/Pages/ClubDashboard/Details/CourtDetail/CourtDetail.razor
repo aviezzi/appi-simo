@@ -5,8 +5,8 @@
 
 <EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-    <dataannotationsvalidator/>
-    <validationsummary/>
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
 
     <InputText id="name" @bind-Value="@ViewModel.Name"/>
 
@@ -18,7 +18,7 @@
         {
             <option value="@light.Id">@light.LightType</option>
         }
-    </inputselect>
+    </InputSelect>
 
     <InputSelect @bind-Value="@ViewModel.Heat">
 
@@ -29,9 +29,9 @@
             <option value="@heats.Id">@heats.HeatType</option>
         }
 
-    </inputselect>
+    </InputSelect>
 
-    <InputCheckbox id="valid" @bind-Value="@ViewModel.Enable"/>
+    <InputCheckbox id="valid" @bind-Value="@ViewModel.Enable"></InputCheckbox>
 
     <button type="submit">Submit</button>
-</editform>
+</EditForm>

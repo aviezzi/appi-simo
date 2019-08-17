@@ -19,4 +19,8 @@
     <_ContentIncludedByDefault Remove="Pages\ClubDashboard\LightDetail\LightDetail.razor" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Wrappers" />
+  </ItemGroup>
+
 </Project>

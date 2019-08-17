@@ -6,7 +6,7 @@
     <ol>
         @foreach (var light in Lights)
         {
-            <li onclick="@(() => Select(light.Id))" style="cursor: pointer">@light.LightType - @light.Price &euro;</li>
+            <li @onclick="() => Select(light.Id)" style="cursor: pointer">@light.LightType - @light.Price &euro;</li>
         }
     </ol>
 }

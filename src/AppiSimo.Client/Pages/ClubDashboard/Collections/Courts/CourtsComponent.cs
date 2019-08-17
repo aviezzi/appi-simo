@@ -11,7 +11,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Courts
         IUriHelper UriHelper { get; set; }
 
         [Parameter]
-        protected ICollection<Court> Courts { get; set; }
+        public ICollection<Court> Courts { get; set; }
 
         protected void GoToEdit(Guid key) =>
             UriHelper.NavigateTo($"/club-dashboard/court/edit/{key}");

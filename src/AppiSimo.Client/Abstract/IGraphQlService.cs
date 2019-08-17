@@ -6,7 +6,7 @@ namespace AppiSimo.Client.Abstract
     using Model;
 
     public interface IGraphQlService<T>
-        where T : Entity, new()
+        where T : IEntity, new()
     {
         Task<ICollection<T>> GetAll(string query, string name);
 
