@@ -6,15 +6,20 @@ namespace AppiSimo.Client.Converters
 
     public class LocalTimeConverter : ITypeConverter<LocalTime?>
     {
-        // TODO: Create specific converter
-        static readonly LocalTimePattern Pattern = LocalTimePattern.CreateWithInvariantCulture("HH:mm");
+        LocalTimePattern _pattern = LocalTimePattern.CreateWithInvariantCulture("HH:mm");
+
+        public string Pattern
+        {
+            get => _pattern.PatternText;
+            set => _pattern = LocalTimePattern.CreateWithInvariantCulture(value);
+        }
 
         public string FormatValueAsString(LocalTime? value) =>
-            value.HasValue ? Pattern.Format((LocalTime) value) : string.Empty;
+            value.HasValue ? _pattern.Format((LocalTime) value) : string.Empty;
 
         public bool TryParseValueFromString(string value, out LocalTime? result)
         {
-            var success = Pattern.Parse(value).TryGetValue(default, out var r);
+            var success = _pattern.Parse(value).TryGetValue(default, out var r);
             result = r;
 
             return success;
