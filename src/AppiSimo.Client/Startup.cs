@@ -31,6 +31,7 @@ namespace AppiSimo.Client
 
             services.AddSingleton<IConverters, ConvertersMap>();
             services.AddSingleton(provider => provider.GetService<IConverters>().LocalTime);
+            services.AddSingleton(provider => provider.GetService<IConverters>().LocalDate);
 
             services.AddSingleton(new GraphQLHttpClient("http://localhost:8080/graphql"));
 
