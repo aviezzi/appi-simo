@@ -9,25 +9,21 @@ namespace AppiSimo.Client.Builders
 
         public string BuildCreateQuery(Light light) =>
             $@"{{
-                ""input"" : {{
-                    ""light"": {{
-                        ""id"": ""{light.Id}"",
-                        ""lightType"": {light.LightType},
-                        ""price"": {light.Price},
-                        ""enabled"": {light.Enabled}
-                    }}
+                ""light"":{{
+                    ""id"":""{light.Id}"",
+                    ""lightType"":""{light.LightType}"",
+                    ""price"":{light.Price},
+                    ""enabled"":{light.Enabled.ToString().ToLowerInvariant()}
                 }}
             }}";
 
         public string BuildUpdateQuery(Light light) =>
             $@"{{
-                ""input"" : {{
-                    ""id"": ""{light.Id}"",
-                    ""patch"": {{
-                        ""lightType"": {light.LightType},
-                        ""price"": {light.Price},
-                        ""enabled"": {light.Enabled}
-                    }}
+                ""id"":""{light.Id}"",
+                ""patch"":{{
+                    ""lightType"":""{light.LightType}"",
+                    ""price"":{light.Price},
+                    ""enabled"":{light.Enabled.ToString().ToLowerInvariant()}
                 }}
             }}";
     }
