@@ -38,6 +38,39 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdateQuery(Rate entity) => throw new NotImplementedException();
+        public string BuildUpdateQuery(Rate rate)
+        {
+            var update = rate.DailyRates.Where(dailyRate => dailyRate.Id != Guid.Empty);
+            var create = rate.DailyRates.Where(dailyRate => dailyRate.Id == Guid.Empty);
+
+            return $@"{{
+                    ""id"":""{rate.Id}"",
+                    ""patch"":{{
+                        ""name"":""{rate.Name}"",
+                        ""start"":""{rate.Start}"",
+                        ""end"":""{rate.End}"",
+                        ""dailyRates"": {{
+                            ""updateById"":[{
+                    string.Join(",", update.Select(dr =>
+                                                       "{" +
+                                                       $@"""id"":""{dr.Id}""," +
+                                                       @"""patch"":{" +
+                                                       $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
+                                                       $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
+                                                       $@"""price"":{dr.Price}" +
+                                                       "}}"))
+                }],
+                         ""create"":[{
+                    string.Join(",", create.Select(dr =>
+                                                                "{" +
+                                                                $@"""id"":""{Guid.NewGuid()}""," +
+                                                                $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
+                                                                $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
+                                                                $@"""price"":{dr.Price}" +
+                                                                "}"))
+                }]
+                    }}
+            }}";
+        }
     }
 }
