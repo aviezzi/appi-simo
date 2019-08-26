@@ -1,10 +1,12 @@
 @page "/"
 @namespace AppiSimo.Client.Pages
+@using EmbeddedBlazorContent
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @Html.EmbeddedBlazorContent()
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>AppiSimo.Client</title>
