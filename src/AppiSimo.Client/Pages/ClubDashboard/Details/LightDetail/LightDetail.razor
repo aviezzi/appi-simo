@@ -1,6 +1,8 @@
 @page "/club-dashboard/light/create"
 @page "/club-dashboard/light/edit/{id:guid}"
 
+@using MatBlazor;
+
 @inherits LightDetailComponent
 
 <EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
@@ -8,10 +10,18 @@
     <DataAnnotationsValidator/>
     <ValidationSummary/>
 
+    <MatTextField @bind-Value="@ViewModel.Type" Dense="true" Label="Nome" HelperText="Inserire il nome della luce."></MatTextField>
+    
+    <MatNumericUpDownField 
+        Label="With icon" 
+        @bind-Value="@ViewModel.Price"
+        DecimalPlaces=2 
+        Step=1
+        Minimum="0"> 
+    </MatNumericUpDownField> 
 
-    <InputText id="type" @bind-Value="@ViewModel.Type"></InputText>
-    <InputNumber id="price" @bind-Value="@ViewModel.Price"></InputNumber>
-    <InputCheckbox id="enabled" @bind-Value="@ViewModel.Enable"></InputCheckbox>
+    <MatCheckbox @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
 
-    <button type="submit">Submit</button>
+    <MatButton type="submit" name="action" Outlined="true">Salva</MatButton>
+
 </EditForm>

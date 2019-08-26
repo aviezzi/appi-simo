@@ -6,6 +6,7 @@ namespace AppiSimo.Client
     using AppiSimo.Client.Gateways;
     using AppiSimo.Client.Model;
     using AppiSimo.Client.Services;
+    using EmbeddedBlazorContent;
     using GraphQL.Client.Http;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -80,6 +81,8 @@ namespace AppiSimo.Client
                                  endpoints.MapBlazorHub();
                                  endpoints.MapFallbackToPage("/_Host");
                              });
+                             
+            app.UseEmbeddedBlazorContent(typeof(MatBlazor.BaseMatComponent).Assembly);
         }
     }
 }
