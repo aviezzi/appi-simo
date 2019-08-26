@@ -5,23 +5,44 @@
 
 @inherits LightDetailComponent
 
-<EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+        <MatCard class="p-4">
 
-    <MatTextField @bind-Value="@ViewModel.Type" Dense="true" Label="Nome" HelperText="Inserire il nome della luce."></MatTextField>
-    
-    <MatNumericUpDownField 
-        Label="With icon" 
-        @bind-Value="@ViewModel.Price"
-        DecimalPlaces=2 
-        Step=1
-        Minimum="0"> 
-    </MatNumericUpDownField> 
+            <div>
+                <MatHeadline6>
+                    <h2>@($"{(ViewModel.IsNew ? "Crea" : "Aggiorna")}")</h2>
+                </MatHeadline6>
+                <MatSubtitle2>
+                    <h5>@($"{(ViewModel.IsNew ? "Crea un nuova luce." : "Modifica una luce esistente")}")</h5>
+                </MatSubtitle2>
+            </div>
 
-    <MatCheckbox @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
+            <MatCardContent class="pt-3">
 
-    <MatButton type="submit" name="action" Outlined="true">Salva</MatButton>
+                <EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+                
+                    <DataAnnotationsValidator/>
+                    <ValidationSummary/>
+                
+                    <MatTextField @bind-Value="@ViewModel.Type" Dense="true" Label="Nome" HelperText="Inserire il nome della luce."></MatTextField>
+                    
+                    <MatNumericUpDownField 
+                        Label="Prezzo" 
+                        @bind-Value="@ViewModel.Price"
+                        DecimalPlaces=2 
+                        Step=(decimal)0.50
+                        Minimum=(decimal)1.00> 
+                    </MatNumericUpDownField> 
+                
+                    <MatCheckbox Class="mt-2" @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
+                
+                    <div class="d-flex flex-row-reverse">
+                                            <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
 
-</EditForm>
+                    </div>
+                
+                </EditForm>
+
+            </MatCardContent>
+
+        </MatCard>
