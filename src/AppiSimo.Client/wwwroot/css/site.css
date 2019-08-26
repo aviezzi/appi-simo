@@ -143,4 +143,10 @@ app {
     .pointer {
         cursor: pointer;
     }
+    .form {
+        max-width: 750px;
+    }
+    .submit {
+        width:25%;
+    }
 }
