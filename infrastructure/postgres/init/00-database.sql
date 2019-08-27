@@ -58,3 +58,12 @@ create table "DailyRates"
 );
 
 alter table "DailyRates" owner to "RobotBoy";
+
+create table "CourtRates"
+(
+    "RateId" uuid not null constraint "FK_CourtRate_Rate_RateId" references "Rates",
+    "CourtId" uuid not null constraint "FK_CourtRate_Court_CourtId" references "Courts"
+,    "Date" timestamp 
+);
+
+alter table "CourtRates" owner to "RobotBoy";
