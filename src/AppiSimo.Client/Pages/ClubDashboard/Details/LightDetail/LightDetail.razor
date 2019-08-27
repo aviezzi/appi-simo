@@ -1,48 +1,38 @@
 @page "/club-dashboard/light/create"
 @page "/club-dashboard/light/edit/{id:guid}"
 
-@using MatBlazor;
-
 @inherits LightDetailComponent
 
 
-        <MatCard class="p-4">
+<MatCard class="p-4">
 
-            <div>
-                <MatHeadline6>
-                    <h2>@($"{(ViewModel.IsNew ? "Crea" : "Aggiorna")}")</h2>
-                </MatHeadline6>
-                <MatSubtitle2>
-                    <h5>@($"{(ViewModel.IsNew ? "Crea un nuova luce." : "Modifica una luce esistente")}")</h5>
-                </MatSubtitle2>
-            </div>
+    <MatSubtitle2>
+        <h3>@($"{(ViewModel.IsNew ? "Crea una nuova luce" : "Modifica una luce esistente")}")</h3>
+    </MatSubtitle2>
 
-            <MatCardContent class="pt-3">
 
-                <EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
-                
-                    <DataAnnotationsValidator/>
-                    <ValidationSummary/>
-                
-                    <MatTextField @bind-Value="@ViewModel.Type" Dense="true" Label="Nome" HelperText="Inserire il nome della luce."></MatTextField>
-                    
-                    <MatNumericUpDownField 
-                        Label="Prezzo" 
-                        @bind-Value="@ViewModel.Price"
-                        DecimalPlaces=2 
-                        Step=(decimal)0.50
-                        Minimum=(decimal)1.00> 
-                    </MatNumericUpDownField> 
-                
-                    <MatCheckbox Class="mt-2" @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
-                
-                    <div class="d-flex flex-row-reverse">
-                                            <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
+    <EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-                    </div>
-                
-                </EditForm>
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
 
-            </MatCardContent>
+        <MatTextField @bind-Value="@ViewModel.Type" Dense="true" Label="Nome" HelperText="Inserire il nome della luce."></MatTextField>
 
-        </MatCard>
+        <MatNumericUpDownField
+            Label="Prezzo"
+            @bind-Value="@ViewModel.Price"
+            DecimalPlaces="2"
+            Step="(decimal)0.50"
+            Minimum="(decimal)1.00">
+        </MatNumericUpDownField>
+
+        <MatCheckbox Class="mt-2" @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
+
+        <div class="d-flex flex-row-reverse">
+            <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
+
+        </div>
+
+    </EditForm>
+
+</MatCard>
