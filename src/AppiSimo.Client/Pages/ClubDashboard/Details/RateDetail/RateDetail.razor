@@ -9,7 +9,7 @@
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
 
-    <InputText @bind-Value="@ViewModel.Name"></InputText>
+    <MatTextField @bind-Value="@ViewModel.Name" Dense="true" Label="Nome" HelperText="Inserire il nome della tariffa."></MatTextField>
 
     <InputLocalDatePickerView @bind-Value="ViewModel.StartDate" ></InputLocalDatePickerView>
     <InputLocalDatePickerView @bind-Value="ViewModel.EndDate" ></InputLocalDatePickerView>

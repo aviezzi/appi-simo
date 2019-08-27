@@ -3,15 +3,35 @@
 
 @inherits HeatDetailComponent
 
-<EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+<MatCard class="p-4">
 
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+    <MatSubtitle2>
+        <h3>@($"{(ViewModel.IsNew ? "Crea un nuovo riscaldamento" : "Modifica un riscaldamento esistente")}")</h3>
+    </MatSubtitle2>
 
 
-    <InputText id="name" @bind-Value="@ViewModel.Type"></InputText>
-    <InputNumber id="name" @bind-Value="@ViewModel.Price"></InputNumber>
-    <InputCheckbox id="valid" @bind-Value="@ViewModel.Enable"></InputCheckbox>
+    <EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-    <button type="submit">Submit</button>
-</EditForm>
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+
+        <MatTextField @bind-Value="@ViewModel.Type" Dense="true" Label="Nome" HelperText="Inserire il nome della luce."></MatTextField>
+
+        <MatNumericUpDownField
+            Label="Prezzo"
+            @bind-Value="@ViewModel.Price"
+            DecimalPlaces="2"
+            Step="(decimal)0.50"
+            Minimum="(decimal)1.00">
+        </MatNumericUpDownField>
+
+        <MatCheckbox Class="mt-2" @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
+
+        <div class="d-flex flex-row-reverse">
+            <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
+
+        </div>
+
+    </EditForm>
+
+</MatCard>

@@ -24,10 +24,10 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
         }
 
         [Required(ErrorMessage = "È obbligatorio inserire un prezzo.")]
-        public decimal Price
+        public decimal? Price
         {
             get => Entity.Price;
-            set => Entity.Price = value;
+            set => Entity.Price = value ?? 0;
         }
 
         public bool Enable
