@@ -31,5 +31,6 @@ namespace AppiSimo.Client.Pages.Tools
                                                                             CurrentValueAsString));
             builder.CloseElement();
         }
+        
     }
 }
