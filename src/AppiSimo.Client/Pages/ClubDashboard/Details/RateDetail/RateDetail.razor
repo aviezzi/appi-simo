@@ -11,8 +11,8 @@
 
     <InputText @bind-Value="@ViewModel.Name"></InputText>
 
-    <InputLocalDate @bind-Value="@ViewModel.StartDate"></InputLocalDate>
-    <InputLocalDate @bind-Value="@ViewModel.EndDate"></InputLocalDate>
+    <InputLocalDatePickerView @bind-Value="ViewModel.StartDate" ></InputLocalDatePickerView>
+    <InputLocalDatePickerView @bind-Value="ViewModel.EndDate" ></InputLocalDatePickerView>
 
     <button type="button" @onclick="Add">+++</button>
 
