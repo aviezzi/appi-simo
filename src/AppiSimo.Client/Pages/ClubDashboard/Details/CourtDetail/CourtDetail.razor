@@ -3,35 +3,47 @@
 
 @inherits CourtDetailComponent
 
-<EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+<MatCard class="p-4">
 
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+    <MatSubtitle2>
+        <h3>@($"{(ViewModel.IsNew ? "Crea una nuova luce" : "Modifica una luce esistente")}")</h3>
+    </MatSubtitle2>
 
-    <InputText id="name" @bind-Value="@ViewModel.Name"/>
 
-    <InputSelect @bind-Value="@ViewModel.Light">
+    <EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
-        <option value="@($"{Guid.Empty}")">Selezionare una luce ...</option>
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
 
-        @foreach (var light in ViewModel.Lights)
-        {
-            <option value="@light.Id">@light.LightType</option>
-        }
-    </InputSelect>
+        <MatTextField @bind-Value="@ViewModel.Name" Dense="true" Label="Nome" HelperText="Inserire il nome del campo."></MatTextField>
 
-    <InputSelect @bind-Value="@ViewModel.Heat">
+        <MatSelect Label="Seleziona una luce" @bind-Value="@ViewModel.Light">
+            
+            <MatOption Value="@($"{Guid.Empty}")"></MatOption>
 
-        <option value="@($"{Guid.Empty}")">Selezionare un riscaldamento ...</option>
+            @foreach (var light in ViewModel.Lights)
+            {
+                <MatOption Value="@($"{light.Id}")">@light.LightType</MatOption>
+            }
+        </MatSelect>
 
-        @foreach (var heats in ViewModel.Heats)
-        {
-            <option value="@heats.Id">@heats.HeatType</option>
-        }
+        <MatSelect Class="mt-3" Label="Seleziona una luce" @bind-Value="@ViewModel.Heat">
+                    
+            <MatOption value="@($"{Guid.Empty}")"></MatOption>
+            
+            @foreach (var heat in ViewModel.Heats)
+            {
+                <MatOption Value="@($"{heat.Id}")">@heat.HeatType</MatOption>
+            }
+        </MatSelect>
+                 
+        <MatCheckbox Class="mt-2" @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
 
-    </InputSelect>
+        <div class="d-flex flex-row-reverse">
+            <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
+        </div>
 
-    <InputCheckbox id="valid" @bind-Value="@ViewModel.Enable"></InputCheckbox>
 
-    <button type="submit">Submit</button>
-</EditForm>
+    </EditForm>
+
+</MatCard>
