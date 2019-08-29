@@ -4,7 +4,7 @@ namespace AppiSimo.Client.Converters
     using NodaTime;
     using NodaTime.Text;
 
-    public class LocalTimeConverter : ITypeConverter<LocalTime?>
+    public class LocalTimeConverter : ITypeConverter<LocalTime>
     {
         LocalTimePattern _pattern = LocalTimePattern.CreateWithInvariantCulture("HH:mm");
 
@@ -14,15 +14,9 @@ namespace AppiSimo.Client.Converters
             set => _pattern = LocalTimePattern.CreateWithInvariantCulture(value);
         }
 
-        public string FormatValueAsString(LocalTime? value) =>
-            value.HasValue ? _pattern.Format((LocalTime) value) : string.Empty;
+        public string FormatValueAsString(LocalTime value) =>
+            _pattern.Format(value);
 
-        public bool TryParseValueFromString(string value, out LocalTime? result)
-        {
-            var success = _pattern.Parse(value).TryGetValue(default, out var r);
-            result = r;
-
-            return success;
-        }
+        public bool TryParseValueFromString(string value, out LocalTime result) => _pattern.Parse(value).TryGetValue(default, out result);
     }
 }
