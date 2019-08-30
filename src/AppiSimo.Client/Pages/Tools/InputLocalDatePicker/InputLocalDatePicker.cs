@@ -1,16 +1,18 @@
-namespace AppiSimo.Client.Pages.Tools.Inputs
+namespace AppiSimo.Client.Pages.Tools.InputLocalDatePicker
 {
     using System;
-    using AppiSimo.Client.Abstract;
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Forms;
     using NodaTime;
 
     public class InputLocalDatePicker : ComponentBase
     {
-        [CascadingParameter]
-        protected EditContext CascadedEditContext { get; set; }
+        [CascadingParameter] EditContext CascadedEditContext { get; set; }
 
+        [Parameter] LocalDate? Value { get; set; }
+
+        [Parameter] EventCallback<LocalDate?> ValueChanged { get; set; }
+        
         protected DateTime? Date
         {
             get => Value?.ToDateTimeUnspecified();
@@ -21,11 +23,5 @@ namespace AppiSimo.Client.Pages.Tools.Inputs
                 CascadedEditContext?.NotifyValidationStateChanged();
             }
         }
-
-        [Parameter]
-        public LocalDate? Value { get; set; }
-        
-        [Parameter]
-        public EventCallback<LocalDate?> ValueChanged { get; set; }
     }
 }

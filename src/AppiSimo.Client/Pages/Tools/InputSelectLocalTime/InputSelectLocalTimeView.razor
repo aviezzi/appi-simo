@@ -1,0 +1,9 @@
+@inherits InputSelectLocalTime
+
+<MatSelect Class="mt-3" @bind-Value="@Time">
+            
+    @foreach (var item in Items)
+    {
+        <MatOption Value="@($"{Converter.FormatValueAsString(item)}")">@Converter.FormatValueAsString(item)</MatOption>
+    }
+</MatSelect>

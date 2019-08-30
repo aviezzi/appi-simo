@@ -13,9 +13,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
             : base("/club-dashboard/rates")
         {
         }
-
-        [Inject] protected ITypeConverter<LocalTime?> Converter { get; set; }
-
+        
         [Parameter] Guid Id { get; set; }
 
         protected override async Task OnParametersSetAsync()
