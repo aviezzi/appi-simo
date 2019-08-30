@@ -8,9 +8,9 @@ namespace AppiSimo.Client.Builders
 
     public class RateQueryBuilder : IStringQueryBuilder<Rate>
     {
-        readonly ITypeConverter<LocalTime?> _converter;
+        readonly ITypeConverter<LocalTime> _converter;
 
-        public RateQueryBuilder(ITypeConverter<LocalTime?> converter)
+        public RateQueryBuilder(ITypeConverter<LocalTime> converter)
         {
             _converter = converter;
         }

@@ -4,47 +4,48 @@
 @page "/club-dashboard/rates/create"
 @page "/club-dashboard/rates/edit/{id:guid}"
 
-<EditForm Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+<EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
 
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
 
     <MatTextField @bind-Value="@ViewModel.Name" Dense="true" Label="Nome" HelperText="Inserire il nome della tariffa."></MatTextField>
 
-    <InputLocalDatePickerView @bind-Value="ViewModel.StartDate" ></InputLocalDatePickerView>
-    <InputLocalDatePickerView @bind-Value="ViewModel.EndDate" ></InputLocalDatePickerView>
-
-    <button type="button" @onclick="Add">+++</button>
+    <div class="d-flex flex-fill">
+        <InputLocalDatePickerView @bind-Value="ViewModel.StartDate" ></InputLocalDatePickerView>
+        <InputLocalDatePickerView @bind-Value="ViewModel.EndDate" ></InputLocalDatePickerView>
+    </div>
 
     @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
     {
-        <InputSelectT @bind-Value="@dailyRateViewModel.Start">
+        <div class="d-flex flex-fill">
+        
+            <InputSelectLocalTimeView Items="@LocalTimeSteps.FromMidnight" @bind-Value="@dailyRateViewModel.Start"></InputSelectLocalTimeView>
+            <InputSelectLocalTimeView Items="@LocalTimeSteps.ToMidnight" @bind-Value="@dailyRateViewModel.End"></InputSelectLocalTimeView>
 
-            <option value="">...</option>
+            <MatNumericUpDownField
+                Label="Prezzo"
+                @bind-Value="@dailyRateViewModel.Price"
+                DecimalPlaces="2"
+                Step="0.50m"
+                Minimum="1.00m">
+            </MatNumericUpDownField>
 
-            @foreach (var step in LocalTimeSteps.FromMidnight)
-            {
-                <option value="@Converter.FormatValueAsString(step)">@Converter.FormatValueAsString(step)</option>
-            }
-
-        </InputSelectT>
-
-        <InputSelectT @bind-Value="@dailyRateViewModel.End">
-
-            <option value="">...</option>
-
-            @foreach (var step in LocalTimeSteps.ToMidnight)
-            {
-                <option value="@Converter.FormatValueAsString(step)">@Converter.FormatValueAsString(step)</option>
-            }
-
-        </InputSelectT>
-
-        <InputNumber @bind-Value="@dailyRateViewModel.Price"></InputNumber>
-
-        <button type="button" @onclick="() => Remove(dailyRateViewModel.Entity.Id)">---</button>
+            <MatButton type="button" @onclick="() => Remove(dailyRateViewModel.Entity.Id)">
+                <i class="oi oi-minus" aria-hidden="true"></i>
+            </MatButton>
+        
+        </div>
     }
 
-    <button type="submit">Submit</button>
+    <div class="d-flex flex-fill">
+        <MatButton type="button" @onclick="Add">
+            <i class="oi oi-plus" aria-hidden="true"></i>
+        </MatButton>
+    </div>
+
+    <div class="d-flex flex-row-reverse">
+        <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
+    </div>
 
 </EditForm>
