@@ -9,7 +9,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Heats
     {
         [Inject] IUriHelper UriHelper { get; set; }
 
-        [Parameter] protected ICollection<Heat> Heats { get; set; }
+        [Parameter] public ICollection<Heat> Heats { get; set; }
 
         protected void GoToEdit(Guid key) =>
             UriHelper.NavigateTo($"/club-dashboard/heat/edit/{key}");

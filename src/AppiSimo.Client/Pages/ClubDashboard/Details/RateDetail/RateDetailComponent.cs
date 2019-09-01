@@ -14,7 +14,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
         {
         }
         
-        [Parameter] Guid Id { get; set; }
+        [Parameter] public Guid Id { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {

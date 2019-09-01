@@ -9,9 +9,9 @@ namespace AppiSimo.Client.Pages.Tools.InputLocalDatePicker
     {
         [CascadingParameter] EditContext CascadedEditContext { get; set; }
 
-        [Parameter] LocalDate? Value { get; set; }
+        [Parameter] public LocalDate? Value { get; set; }
 
-        [Parameter] EventCallback<LocalDate?> ValueChanged { get; set; }
+        [Parameter] public EventCallback<LocalDate?> ValueChanged { get; set; }
         
         protected DateTime? Date
         {

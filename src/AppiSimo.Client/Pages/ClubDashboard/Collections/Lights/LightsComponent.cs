@@ -9,7 +9,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Lights
     {
         [Inject] IUriHelper UriHelper { get; set; }
 
-        [Parameter] protected ICollection<Light> Lights { get; set; }
+        [Parameter] public ICollection<Light> Lights { get; set; }
 
         protected void GoToEdit(Guid key) =>
             UriHelper.NavigateTo($"/club-dashboard/light/edit/{key}");

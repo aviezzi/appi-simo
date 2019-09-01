@@ -14,11 +14,11 @@ namespace AppiSimo.Client.Pages.Tools.InputSelectLocalTime
         
         [CascadingParameter] EditContext CascadedEditContext { get; set; }
 
-        [Parameter] protected IEnumerable<LocalTime> Items { get; set; }
+        [Parameter] public IEnumerable<LocalTime> Items { get; set; }
 
-        [Parameter] protected LocalTime Value { get; set; }
+        [Parameter] public LocalTime Value { get; set; }
 
-        [Parameter] EventCallback<LocalTime> ValueChanged { get; set; }
+        [Parameter] public EventCallback<LocalTime> ValueChanged { get; set; }
 
         protected string Time
         {

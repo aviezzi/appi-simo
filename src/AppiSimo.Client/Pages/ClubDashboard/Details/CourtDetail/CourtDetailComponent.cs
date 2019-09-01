@@ -17,7 +17,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
 
         [Inject] IGateway<Heat> HeatService { get; set; }
 
-        [Parameter] Guid Id { get; set; }
+        [Parameter] public Guid Id { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {

@@ -17,12 +17,12 @@
 
         <MatTextField @bind-Value="@ViewModel.Type" Dense="true" Label="Nome" HelperText="Inserire il nome della luce."></MatTextField>
 
-        <MatNumericUpDownField
+      <MatNumericUpDownField
             Label="Prezzo"
             @bind-Value="@ViewModel.Price"
             DecimalPlaces="2"
-            Step="(decimal)0.50"
-            Minimum="(decimal)1.00">
+            Step="0.50m"
+            Minimum="1.00m">
         </MatNumericUpDownField>
 
         <MatCheckbox Class="mt-2" @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
