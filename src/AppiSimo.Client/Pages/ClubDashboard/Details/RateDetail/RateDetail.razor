@@ -4,48 +4,59 @@
 @page "/club-dashboard/rates/create"
 @page "/club-dashboard/rates/edit/{id:guid}"
 
-<EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+<MatCard class="p-4">
 
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <ValidationSummary></ValidationSummary>
+    <MatSubtitle2>
+        <h3>@($"{(ViewModel.IsNew ? "Crea una nuova luce" : "Modifica una luce esistente")}")</h3>
+    </MatSubtitle2>
 
-    <MatTextField @bind-Value="@ViewModel.Name" Dense="true" Label="Nome" HelperText="Inserire il nome della tariffa."></MatTextField>
-
-    <div class="d-flex flex-fill">
-        <InputLocalDatePickerView @bind-Value="ViewModel.StartDate" ></InputLocalDatePickerView>
-        <InputLocalDatePickerView @bind-Value="ViewModel.EndDate" ></InputLocalDatePickerView>
-    </div>
-
-    @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
-    {
-        <div class="d-flex flex-fill">
-        
-            <InputSelectLocalTimeView Items="@LocalTimeSteps.FromMidnight" @bind-Value="@dailyRateViewModel.Start"></InputSelectLocalTimeView>
-            <InputSelectLocalTimeView Items="@LocalTimeSteps.ToMidnight" @bind-Value="@dailyRateViewModel.End"></InputSelectLocalTimeView>
-
-            <MatNumericUpDownField
-                Label="Prezzo"
-                @bind-Value="@dailyRateViewModel.Price"
-                DecimalPlaces="2"
-                Step="0.50m"
-                Minimum="1.00m">
-            </MatNumericUpDownField>
-
-            <MatButton type="button" @onclick="() => Remove(dailyRateViewModel.Entity.Id)">
-                <i class="oi oi-minus" aria-hidden="true"></i>
-            </MatButton>
-        
+    <EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+    
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+    
+        <MatTextField @bind-Value="@ViewModel.Name" Dense="true" Label="Nome" HelperText="Inserire il nome della tariffa."></MatTextField>
+    
+        <div class="d-flex">
+            <InputLocalDatePickerView class="flex-fill mr-3" @bind-Value="ViewModel.StartDate" ></InputLocalDatePickerView>
+            <InputLocalDatePickerView class="flex-fill" @bind-Value="ViewModel.EndDate" ></InputLocalDatePickerView>
         </div>
-    }
+    
+        @foreach (var dailyRateViewModel in ViewModel.DailyRatesViewModel)
+        {
+            <div class="d-flex">
+            
+                <div class="d-flex flex-fill flex-grow-1">
+                    <InputSelectLocalTimeView Class="flex-fill flex-grow-1 mr-3" Items="@LocalTimeSteps.FromMidnight" @bind-Value="@dailyRateViewModel.Start"></InputSelectLocalTimeView>
+                    <InputSelectLocalTimeView Class="flex-fill flex-grow-1 mr-3" Items="@LocalTimeSteps.ToMidnight" @bind-Value="@dailyRateViewModel.End"></InputSelectLocalTimeView>
+                </div>
 
-    <div class="d-flex flex-fill">
-        <MatButton type="button" @onclick="Add">
-            <i class="oi oi-plus" aria-hidden="true"></i>
-        </MatButton>
-    </div>
-
-    <div class="d-flex flex-row-reverse">
-        <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
-    </div>
-
-</EditForm>
+                <div class="d-flex flex-fill flex-grow-1">
+                    <MatNumericUpDownField
+                        Label="Prezzo"
+                        @bind-Value="@dailyRateViewModel.Price"
+                        DecimalPlaces="2"
+                        Step="0.50m"
+                        Minimum="1.00m">
+                    </MatNumericUpDownField>
+                </div>
+          
+                <MatButton type="button" @onclick="() => Remove(dailyRateViewModel.Entity.Id)">
+                    <i class="oi oi-minus" aria-hidden="true"></i>
+                </MatButton>
+            
+            </div>
+        }
+    
+        <div class="d-flex flex-fill">
+            <MatButton type="button" @onclick="Add">
+                <i class="oi oi-plus" aria-hidden="true"></i>
+            </MatButton>
+        </div>
+    
+        <div class="d-flex flex-row-reverse">
+            <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
+        </div>
+    
+    </EditForm>
+</MatCard>

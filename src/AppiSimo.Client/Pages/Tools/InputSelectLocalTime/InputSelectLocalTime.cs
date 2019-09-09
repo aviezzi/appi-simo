@@ -19,6 +19,8 @@ namespace AppiSimo.Client.Pages.Tools.InputSelectLocalTime
         [Parameter] public LocalTime Value { get; set; }
 
         [Parameter] public EventCallback<LocalTime> ValueChanged { get; set; }
+        
+        [Parameter] public string Class { get; set; }
 
         protected string Time
         {

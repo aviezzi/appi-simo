@@ -13,6 +13,8 @@ namespace AppiSimo.Client.Pages.Tools.InputLocalDatePicker
 
         [Parameter] public EventCallback<LocalDate?> ValueChanged { get; set; }
         
+        [Parameter] public string Class { get; set; }
+        
         protected DateTime? Date
         {
             get => Value?.ToDateTimeUnspecified();
