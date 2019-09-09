@@ -15,7 +15,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details
             _redirectUri = redirectUri;
         }
 
-        [Inject] IUriHelper UriHelper { get; set; }
+        [Inject] NavigationManager UriHelper { get; set; }
 
         [Inject] protected IGateway<T> Service { get; set; }
 

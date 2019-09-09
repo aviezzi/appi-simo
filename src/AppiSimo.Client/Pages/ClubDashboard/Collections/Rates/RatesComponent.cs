@@ -9,7 +9,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Rates
 
     public class RatesComponent : ComponentBase
     {
-        [Inject] IUriHelper UriHelper { get; set; }
+        [Inject] NavigationManager UriHelper { get; set; }
 
         [Inject] protected ITypeConverter<LocalTime> Converter { get; set; }
 

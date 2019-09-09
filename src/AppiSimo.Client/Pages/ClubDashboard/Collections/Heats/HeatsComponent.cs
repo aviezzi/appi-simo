@@ -7,7 +7,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Heats
 
     public class HeatsComponent : ComponentBase
     {
-        [Inject] IUriHelper UriHelper { get; set; }
+        [Inject] NavigationManager UriHelper { get; set; }
 
         [Parameter] public ICollection<Heat> Heats { get; set; }
 

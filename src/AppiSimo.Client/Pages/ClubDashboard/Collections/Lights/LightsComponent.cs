@@ -7,7 +7,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Lights
 
     public class LightsComponent : ComponentBase
     {
-        [Inject] IUriHelper UriHelper { get; set; }
+        [Inject] NavigationManager UriHelper { get; set; }
 
         [Parameter] public ICollection<Light> Lights { get; set; }
 

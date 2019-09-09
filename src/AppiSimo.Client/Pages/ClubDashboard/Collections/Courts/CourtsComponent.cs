@@ -5,9 +5,10 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Courts
     using AppiSimo.Client.Model;
     using Microsoft.AspNetCore.Components;
 
+
     public class CourtsComponent : ComponentBase
     {
-        [Inject] IUriHelper UriHelper { get; set; }
+        [Inject] NavigationManager UriHelper { get; set; }
 
         [Parameter] public ICollection<Court> Courts { get; set; }
 
