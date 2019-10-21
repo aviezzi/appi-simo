@@ -1,19 +1,20 @@
+using AppiSimo.Client.Abstract;
+using AppiSimo.Client.Builders;
+using AppiSimo.Client.Converters;
+using AppiSimo.Client.Gateways;
+using AppiSimo.Client.Model;
+using AppiSimo.Client.Services;
+using EmbeddedBlazorContent;
+using GraphQL.Client.Http;
+using MatBlazor;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 namespace AppiSimo.Client
 {
-    using AppiSimo.Client.Abstract;
-    using AppiSimo.Client.Builders;
-    using AppiSimo.Client.Converters;
-    using AppiSimo.Client.Gateways;
-    using AppiSimo.Client.Model;
-    using AppiSimo.Client.Services;
-    using EmbeddedBlazorContent;
-    using GraphQL.Client.Http;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -24,7 +25,6 @@ namespace AppiSimo.Client
         IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
@@ -77,12 +77,12 @@ namespace AppiSimo.Client
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
-                             {
-                                 endpoints.MapBlazorHub();
-                                 endpoints.MapFallbackToPage("/_Host");
-                             });
-                             
-            app.UseEmbeddedBlazorContent(typeof(MatBlazor.BaseMatComponent).Assembly);
+            {
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/_Host");
+            });
+
+            app.UseEmbeddedBlazorContent(typeof(BaseMatComponent).Assembly);
         }
     }
 }
