@@ -1,40 +1,32 @@
-using AppiSimo.Client.Abstract;
-using AppiSimo.Client.Builders;
-using AppiSimo.Client.Converters;
-using AppiSimo.Client.Gateways;
-using AppiSimo.Client.Model;
-using AppiSimo.Client.Services;
-using EmbeddedBlazorContent;
-using GraphQL.Client.Http;
-using MatBlazor;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace AppiSimo.Client
 {
+    using System;
+    using Abstract;
+    using Builders;
+    using Converters;
+    using Gateways;
+    using GraphQL.Client.Http;
+    using Microsoft.AspNetCore.Blazor.Http;
+    using Microsoft.AspNetCore.Components.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+    using Model;
+    using Services;
+
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
-
             services.AddSingleton<IConverters, ConvertersMap>();
             services.AddSingleton(provider => provider.GetService<IConverters>().LocalTime);
             services.AddSingleton(provider => provider.GetService<IConverters>().LocalDate);
 
-            services.AddSingleton(new GraphQLHttpClient("http://localhost:8080/graphql"));
+            services.AddSingleton<IAuthService, AuthService>();
+            
+            services.AddSingleton(provider => new GraphQLHttpClient(new GraphQLHttpClientOptions
+            {
+                EndPoint = new Uri("http://localhost:8080/graphql"),
+                HttpMessageHandler = new WebAssemblyHttpMessageHandler()
+            }));
 
             services.AddSingleton<IStringQueryBuilder<Light>, LightQueryBuilder>();
             services.AddSingleton<IStringQueryBuilder<Heat>, HeatQueryBuilder>();
@@ -57,32 +49,9 @@ namespace AppiSimo.Client
             services.AddSingleton<IGateway<Rate>, GraphQlGateway<Rate>>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IComponentsApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host");
-            });
-
-            app.UseEmbeddedBlazorContent(typeof(BaseMatComponent).Assembly);
+            app.AddComponent<App>("app");
         }
     }
 }

@@ -1,0 +1,12 @@
+﻿@using AppiSimo.Client.Model.Auth
+@inherits LoginBadgeComponent
+
+@if (AuthService.User != User.Anonymous)
+{
+    <span class="mr-2">Benvenuto @AuthService.User</span>
+    <input type="button" @onclick="SignOut" value="Logout"/>
+}
+else
+{
+    <input type="button" @onclick="SignIn" value="Login"/>
+}

@@ -2,7 +2,8 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using AppiSimo.Client.Model;
+    using Abstract;
+    using Model;
 
     public class HeatViewModel : IDetailViewModel<Heat>
     {

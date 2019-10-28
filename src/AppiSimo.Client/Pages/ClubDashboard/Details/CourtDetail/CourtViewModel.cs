@@ -3,7 +3,8 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using AppiSimo.Client.Model;
+    using Abstract;
+    using Model;
 
     public class CourtViewModel : IDetailViewModel<Court>
     {

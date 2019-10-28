@@ -4,8 +4,9 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using AppiSimo.Client.Attributes;
-    using AppiSimo.Client.Model;
+    using Abstract;
+    using Attributes;
+    using Model;
     using NodaTime;
 
     public class RateViewModel : IDetailViewModel<Rate>
@@ -41,7 +42,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
             get => Entity.End == new LocalDate() ? default(LocalDate?) : Entity.End;
             set => Entity.End = value ?? new LocalDate();
         }
-        
+
         [ListNotEmpty(ErrorMessage = "È obbligatorio inserire almeno una tariffa.")]
         public IEnumerable<DailyRateViewModel> DailyRatesViewModel =>
             Entity.DailyRates.Select(dr => new DailyRateViewModel(dr));

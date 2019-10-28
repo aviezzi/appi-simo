@@ -1,7 +1,5 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details
+namespace AppiSimo.Client.Abstract
 {
-    using AppiSimo.Client.Abstract;
-
     public interface IDetailViewModel<out T>
         where T : IEntity, new()
     {

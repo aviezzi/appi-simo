@@ -1,0 +1,10 @@
+﻿@page "/signed-in"
+
+@code {
+
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
+
+    protected override void OnInitialized()
+        => NavigationManager.NavigateTo("/");
+}

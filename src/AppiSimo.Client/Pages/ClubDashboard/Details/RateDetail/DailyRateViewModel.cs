@@ -1,7 +1,8 @@
 namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 {
     using System.ComponentModel.DataAnnotations;
-    using AppiSimo.Client.Model;
+    using Abstract;
+    using Model;
     using NodaTime;
 
     public class DailyRateViewModel : IDetailViewModel<DailyRate>

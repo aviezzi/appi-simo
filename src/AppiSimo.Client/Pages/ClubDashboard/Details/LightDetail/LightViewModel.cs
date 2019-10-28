@@ -2,7 +2,8 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using AppiSimo.Client.Model;
+    using Abstract;
+    using Model;
 
     public class LightViewModel : IDetailViewModel<Light>
     {

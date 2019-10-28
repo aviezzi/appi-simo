@@ -3,9 +3,9 @@ namespace AppiSimo.Client.Pages.ClubDashboard
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using AppiSimo.Client.Abstract;
-    using AppiSimo.Client.Model;
+    using Abstract;
     using Microsoft.AspNetCore.Components;
+    using Model;
 
     public class ClubDashboardComponent : ComponentBase
     {

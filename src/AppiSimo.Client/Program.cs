@@ -1,7 +1,6 @@
 namespace AppiSimo.Client
 {
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Hosting;
+    using Microsoft.AspNetCore.Blazor.Hosting;
 
     public class Program
     {
@@ -10,8 +9,8 @@ namespace AppiSimo.Client
             CreateHostBuilder(args).Build().Run();
         }
 
-        static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        public static IWebAssemblyHostBuilder CreateHostBuilder(string[] args) =>
+            BlazorWebAssemblyHost.CreateDefaultBuilder()
+                .UseBlazorStartup<Startup>();
     }
 }
