@@ -4,12 +4,15 @@ namespace AppiSimo.Client
     using Abstract;
     using Builders;
     using Converters;
+    using Factories;
     using Gateways;
     using GraphQL.Client.Http;
     using Microsoft.AspNetCore.Blazor.Http;
+    using Microsoft.AspNetCore.Components.Authorization;
     using Microsoft.AspNetCore.Components.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Model;
+    using Providers;
     using Services;
 
     public class Startup
@@ -21,6 +24,11 @@ namespace AppiSimo.Client
             services.AddSingleton(provider => provider.GetService<IConverters>().LocalDate);
 
             services.AddSingleton<IAuthService, AuthService>();
+
+            services.AddScoped<AuthenticationStateProvider, CognitoAuthStateProvider>();
+            services.AddAuthorizationCore();
+
+            services.AddSingleton<IAuthHttpClientFactory<GraphQLHttpClient>, HttpClientFactory>();
             
             services.AddSingleton(provider => new GraphQLHttpClient(new GraphQLHttpClientOptions
             {

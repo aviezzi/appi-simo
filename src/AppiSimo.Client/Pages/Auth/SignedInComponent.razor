@@ -1,21 +1,11 @@
 ﻿@page "/signed-in"
-@using AppiSimo.Client.Abstract
 
 @code {
 
     [Inject]
     NavigationManager NavigationManager { get; set; }
-    
-    [Inject]
-    IAuthService AuthService { get; set; }
 
-    protected override async void OnInitialized()
-    {
-        await AuthService.SignedIn();
-        
-        Console.WriteLine($"{AuthService.UserSubject.Value.Profile.Name}");
-        
+    protected override async void OnInitialized() =>
         NavigationManager.NavigateTo("/");
-    }
 
 }

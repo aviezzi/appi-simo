@@ -1,13 +1,14 @@
-﻿@using AppiSimo.Client.Model.Auth
+﻿@inherits LoginBadgeComponent
 
-@inherits LoginBadgeComponent
-
-@if (User != User.Anonymous)
-{
-    <span class="mr-2">Benvenuto @User.Profile.Name</span>
-    <input type="button" @onclick="SignOut" value="Logout"/>
-}
-else
-{
-    <input type="button" @onclick="SignIn" value="Login"/>
-}
+<AuthorizeView>
+    <Authorized>
+        <span class="mr-2">Benvenuto @context.User.Identity.Name!</span>
+        <input type="button" @onclick="SignOut" value="Logout"/>        
+    </Authorized>
+    <Authorizing>
+        <h1>Authentication in progress</h1>
+    </Authorizing>
+    <NotAuthorized>
+        <input type="button" @onclick="SignIn" value="Login"/>
+    </NotAuthorized>
+</AuthorizeView>

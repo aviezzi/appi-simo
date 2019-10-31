@@ -1,7 +1,22 @@
 ﻿@page "/"
 @inherits IndexComponent
 
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello, @context.User.Identity.Name!</h1>
+        <p>You can only see this content if you're authenticated.</p>
+    </Authorized>
+    <Authorizing>
+        <h1>Authentication in progress</h1>
+    </Authorizing>
+    <NotAuthorized>
+        <h1>Authentication Failure!</h1>
+        <p>You're not signed in.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
 <h3>Selected Light</h3>
+
 @if (Lights != null)
 {
     <ol>

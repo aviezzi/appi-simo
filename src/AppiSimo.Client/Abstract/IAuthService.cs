@@ -1,17 +1,13 @@
-﻿using System.Threading.Tasks;
-using AppiSimo.Client.Model.Auth;
-
-namespace AppiSimo.Client.Abstract
+﻿namespace AppiSimo.Client.Abstract
 {
-    using System.Reactive.Subjects;
+    using Model.Auth;
+    using System.Threading.Tasks;
 
     public interface IAuthService
     {
-        BehaviorSubject<User> UserSubject { get; }
-
-        Task TryLoadUser();
+        Task<User> TryLoadUser();
         Task SignIn();
-        Task SignedIn();
+        Task<User> SignedIn();
         Task SignOut();
     }
 }

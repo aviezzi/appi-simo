@@ -1,10 +1,10 @@
 namespace AppiSimo.Client.Builders
 {
+    using Abstract;
+    using Model;
+    using NodaTime;
     using System;
     using System.Linq;
-    using AppiSimo.Client.Abstract;
-    using AppiSimo.Client.Model;
-    using NodaTime;
 
     public class RateQueryBuilder : IStringQueryBuilder<Rate>
     {
@@ -15,7 +15,7 @@ namespace AppiSimo.Client.Builders
             _converter = converter;
         }
 
-        public string Fields => "id, name, start, end, dailyRates  { id, start, end, price }";
+        public string Fields => "id, name, start, end, dailyRates { id, start, end, price }";
 
         public string BuildCreateQuery(Rate rate) =>
             $@"{{
@@ -27,13 +27,13 @@ namespace AppiSimo.Client.Builders
                     ""dailyRates"": {{
                         ""create"":[{
                     string.Join(",", rate.DailyRates.Select(dr =>
-                                                                "{" +
-                                                                $@"""id"":""{Guid.NewGuid()}""," +
-                                                                $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
-                                                                $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
-                                                                $@"""price"":{dr.Price}" +
-                                                                "}"))
-                        }]
+                        "{" +
+                        $@"""id"":""{Guid.NewGuid()}""," +
+                        $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
+                        $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
+                        $@"""price"":{dr.Price}" +
+                        "}"))
+                }]
                     }}
                 }}
             }}";
@@ -51,24 +51,24 @@ namespace AppiSimo.Client.Builders
                         ""end"":""{rate.End}"",
                         ""dailyRates"": {{
                             ""updateById"":[{
-                    string.Join(",", update.Select(dr =>
-                                                       "{" +
-                                                       $@"""id"":""{dr.Id}""," +
-                                                       @"""patch"":{" +
-                                                       $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
-                                                       $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
-                                                       $@"""price"":{dr.Price}" +
-                                                       "}}"))
-                }],
-                         ""create"":[{
-                    string.Join(",", create.Select(dr =>
-                                                                "{" +
-                                                                $@"""id"":""{Guid.NewGuid()}""," +
-                                                                $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
-                                                                $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
-                                                                $@"""price"":{dr.Price}" +
-                                                                "}"))
-                }]
+                                string.Join(",", update.Select(dr =>
+                                    "{" +
+                                    $@"""id"":""{dr.Id}""," +
+                                    @"""patch"":{" +
+                                    $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
+                                    $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
+                                    $@"""price"":{dr.Price}" +
+                                    "}}"))
+                            }],
+                            ""create"":[{
+                            string.Join(",", create.Select(dr =>
+                                "{" +
+                                $@"""id"":""{Guid.NewGuid()}""," +
+                                $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
+                                $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
+                                $@"""price"":{dr.Price}" +
+                                "}"))
+                        }]
                     }}
             }}";
         }

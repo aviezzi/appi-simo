@@ -1,34 +1,12 @@
-﻿@using AppiSimo.Client.Abstract
-
-@if (AuthService.UserSubject != null)
-{
-        <Router AppAssembly="typeof(Program).Assembly">
-            <Found Context="routeData">
-                <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)"/>
-            </Found>
-            <NotFound>
-                <h1>Page not found</h1>
-                <p>Sorry, but there's nothing here!</p>
-            </NotFound>
-        </Router>
-}
-else
-{
-    <span>Loading ...</span>
-}
-
-@code {
-
-    [Inject] IAuthService AuthService { get; set; }
-
-    [Inject] NavigationManager NavigationManager { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (!NavigationManager.Uri.Contains("signed-in"))
-        {
-            await AuthService.TryLoadUser();
-        }
-    }
-
-}
+﻿<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="@typeof(MainLayout)"/>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>
