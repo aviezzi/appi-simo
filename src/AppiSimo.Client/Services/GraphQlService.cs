@@ -1,22 +1,21 @@
 namespace AppiSimo.Client.Services
 {
+    using Abstract;
+    using Extensions;
+    using GraphQL.Common.Request;
+    using Model;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Abstract;
-    using Extensions;
-    using GraphQL.Client.Http;
-    using GraphQL.Common.Request;
-    using Model;
 
     public class GraphQlService<T> : IGraphQlService<T>
         where T : Entity, new()
     {
-        readonly GraphQLHttpClient _client;
+        readonly IFactoryAsync _factoryAsync;
 
-        public GraphQlService(GraphQLHttpClient client)
+        public GraphQlService(IFactoryAsync factoryAsync)
         {
-            _client = client;
+            _factoryAsync = factoryAsync;
         }
 
         public async Task<ICollection<T>> GetAll(string query, string name)
@@ -26,7 +25,9 @@ namespace AppiSimo.Client.Services
                 Query = query
             };
 
-            var res = await _client.SendQueryAsync(req);
+            var client = await _factoryAsync.Create();
+
+            var res = await client.SendQueryAsync(req);
             return res.GetDataFieldAs<ICollection<T>>(name);
         }
 
@@ -40,7 +41,9 @@ namespace AppiSimo.Client.Services
                 Variables = new {id}
             };
 
-            var res = await _client.SendQueryAsync(req);
+            var client = await _factoryAsync.Create();
+            var res = await client.SendQueryAsync(req);
+
             return res.ExtGetDataFieldAs<T>(name);
         }
 
@@ -52,7 +55,9 @@ namespace AppiSimo.Client.Services
                 Variables = variables
             };
 
-            var res = await _client.SendMutationAsync(req);
+            var client = await _factoryAsync.Create();
+            var res = await client.SendMutationAsync(req);
+
             return res.ExtGetDataFieldAs<T>(name);
         }
     }

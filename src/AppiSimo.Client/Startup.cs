@@ -27,15 +27,15 @@ namespace AppiSimo.Client
 
             services.AddScoped<AuthenticationStateProvider, CognitoAuthStateProvider>();
             services.AddAuthorizationCore();
-
-            services.AddSingleton<IAuthHttpClientFactory<GraphQLHttpClient>, HttpClientFactory>();
             
-            services.AddSingleton(provider => new GraphQLHttpClient(new GraphQLHttpClientOptions
+            services.AddTransient(provider => new GraphQLHttpClient(new GraphQLHttpClientOptions
             {
                 EndPoint = new Uri("http://localhost:8080/graphql"),
                 HttpMessageHandler = new WebAssemblyHttpMessageHandler()
             }));
 
+            services.AddScoped<IFactoryAsync, HttpClientFactoryAsync>();
+            
             services.AddSingleton<IStringQueryBuilder<Light>, LightQueryBuilder>();
             services.AddSingleton<IStringQueryBuilder<Heat>, HeatQueryBuilder>();
             services.AddSingleton<IStringQueryBuilder<Court>, CourtsQueryBuilder>();

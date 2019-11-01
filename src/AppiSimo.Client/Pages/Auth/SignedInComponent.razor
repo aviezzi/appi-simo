@@ -5,7 +5,7 @@
     [Inject]
     NavigationManager NavigationManager { get; set; }
 
-    protected override async void OnInitialized() =>
+    protected override void OnInitialized() =>
         NavigationManager.NavigateTo("/");
 
 }

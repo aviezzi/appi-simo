@@ -1,6 +1,6 @@
 namespace AppiSimo.Client.Builders
 {
-    using AppiSimo.Client.Abstract;
+    using Abstract;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
