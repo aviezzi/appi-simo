@@ -1,7 +1,7 @@
 namespace AppiSimo.Client.Builders
 {
-    using AppiSimo.Client.Abstract;
-    using AppiSimo.Client.Model;
+    using Abstract;
+    using Model;
 
     public class CourtsQueryBuilder : IStringQueryBuilder<Court>
     {

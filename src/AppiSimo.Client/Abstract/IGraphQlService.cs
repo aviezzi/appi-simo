@@ -5,12 +5,11 @@ namespace AppiSimo.Client.Abstract
     using System.Threading.Tasks;
 
     public interface IGraphQlService<T>
-        where T : IEntity, new()
+        where T : class, IEntity, new()
     {
-        Task<ICollection<T>> GetAll(string query, string name);
-
-        Task<T> GetOne(string query, string name, Guid key);
-
-        Task<T> Mutate(string query, string name, object variables);
+        Task<ICollection<T>> GetAllAsync();
+        Task<T> GetOneAsync(Guid key);
+        Task<T> CreateAsync(T entity);
+        Task<T> UpdateAsync(T entity);
     }
 }
