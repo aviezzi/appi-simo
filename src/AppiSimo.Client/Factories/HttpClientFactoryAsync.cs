@@ -1,9 +1,10 @@
 ﻿namespace AppiSimo.Client.Factories
 {
     using Abstract;
+    using Constants;
     using GraphQL.Client.Http;
     using Microsoft.AspNetCore.Components.Authorization;
-    using System;
+    using System.Linq;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
@@ -21,8 +22,8 @@
         public async Task<GraphQLHttpClient> Create()
         {
             var provider = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            var token = provider.User.Identity.Name;
-                
+            var token = provider.User.Claims.FirstOrDefault(claim => claim.Type == CognitoClaimTypes.TokenId);
+
             _client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("bearer", $"{token}");
 
