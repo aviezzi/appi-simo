@@ -1,5 +1,9 @@
+@using Microsoft.AspNetCore.Authorization
+
 @page "/club-dashboard/court/create"
 @page "/club-dashboard/court/edit/{id:guid}"
+
+@attribute [Authorize]
 
 @inherits CourtDetailComponent
 

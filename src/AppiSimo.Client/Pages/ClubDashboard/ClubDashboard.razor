@@ -1,5 +1,9 @@
+@using Microsoft.AspNetCore.Authorization
+
 @page "/club-dashboard/{page}"
 @page "/club-dashboard"
+
+@attribute [Authorize]
 
 @inherits ClubDashboardComponent
 

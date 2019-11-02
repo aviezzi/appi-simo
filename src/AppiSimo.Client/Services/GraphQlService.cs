@@ -37,6 +37,7 @@ namespace AppiSimo.Client.Services
             var res = await client.SendQueryAsync(request);
             return res.ExtGetDataFieldAs<T>(name);
         }
+        
         public Task<T> CreateAsync(T entity)
         {
             var (name, request) = _builder.BuildCreate(entity);

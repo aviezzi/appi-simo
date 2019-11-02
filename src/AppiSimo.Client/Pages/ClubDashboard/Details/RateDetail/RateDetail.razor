@@ -1,8 +1,12 @@
 @using AppiSimo.Client.Constants
-@inherits RateDetailComponent
+@using Microsoft.AspNetCore.Authorization
 
 @page "/club-dashboard/rates/create"
 @page "/club-dashboard/rates/edit/{id:guid}"
+
+@attribute [Authorize]
+
+@inherits RateDetailComponent
 
 <MatCard class="p-4">
 

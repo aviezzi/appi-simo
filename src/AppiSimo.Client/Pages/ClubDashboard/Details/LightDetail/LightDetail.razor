@@ -1,5 +1,9 @@
+@using Microsoft.AspNetCore.Authorization
+
 @page "/club-dashboard/light/create"
 @page "/club-dashboard/light/edit/{id:guid}"
+
+@attribute [Authorize]
 
 @inherits LightDetailComponent
 

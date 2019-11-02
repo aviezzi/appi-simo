@@ -5,9 +5,6 @@
         <span class="mr-2">Benvenuto @context.User.Identity.Name!</span>
         <input type="button" @onclick="SignOut" value="Logout"/>        
     </Authorized>
-    <Authorizing>
-        <h1>Authentication in progress</h1>
-    </Authorizing>
     <NotAuthorized>
         <input type="button" @onclick="SignIn" value="Login"/>
     </NotAuthorized>

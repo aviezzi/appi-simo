@@ -1,3 +1,6 @@
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">AppiSimo.Client</a>
     <button class="navbar-toggler" @onclick="@ToggleNavMenu">
@@ -11,21 +14,31 @@
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
-            <NavLink class="nav-link" href="club-dashboard" Match="NavLinkMatch.Prefix">
-                <span class="oi oi-dashboard" aria-hidden="true"></span> Club Dashboard
-            </NavLink>
+            @if(_isAuthenticated)
+            {
+                <NavLink class="nav-link" href="club-dashboard" Match="NavLinkMatch.Prefix">
+                    <span class="oi oi-dashboard" aria-hidden="true"></span> Club Dashboard
+                </NavLink>   
+            }
         </li>
 
     </ul>
 </div>
 
 @code {
-bool collapseNavMenu = true;
+    bool _collapseNavMenu = true;
+    bool _isAuthenticated;
 
-string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-void ToggleNavMenu()
-{
-collapseNavMenu = !collapseNavMenu;
-}
+    string NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _isAuthenticated = authState.User.Identity.IsAuthenticated;
+    }
+    
+    void ToggleNavMenu()
+    {
+        _collapseNavMenu = !_collapseNavMenu;
+    }
 }
