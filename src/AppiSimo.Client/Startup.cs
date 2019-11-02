@@ -1,11 +1,9 @@
 namespace AppiSimo.Client
 {
-    using System;
     using Abstract;
     using Builders;
     using Converters;
     using Factories;
-    using Gateways;
     using GraphQL.Client.Http;
     using Microsoft.AspNetCore.Blazor.Http;
     using Microsoft.AspNetCore.Components.Authorization;
@@ -14,6 +12,7 @@ namespace AppiSimo.Client
     using Model;
     using Providers;
     using Services;
+    using System;
 
     public class Startup
     {
@@ -27,7 +26,7 @@ namespace AppiSimo.Client
 
             services.AddScoped<AuthenticationStateProvider, CognitoAuthStateProvider>();
             services.AddAuthorizationCore();
-            
+
             services.AddTransient(provider => new GraphQLHttpClient(new GraphQLHttpClientOptions
             {
                 EndPoint = new Uri("http://localhost:8080/graphql"),
@@ -35,7 +34,7 @@ namespace AppiSimo.Client
             }));
 
             services.AddScoped<IFactoryAsync, HttpClientFactoryAsync>();
-            
+
             services.AddSingleton<IQueryBuilder<Light>, LightBuilder>();
             services.AddSingleton<IQueryBuilder<Heat>, HeatBuilder>();
             services.AddSingleton<IQueryBuilder<Court>, CourtsBuilder>();
@@ -50,11 +49,6 @@ namespace AppiSimo.Client
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();
             services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
             services.AddSingleton<IGraphQlService<Rate>, GraphQlService<Rate>>();
-
-            services.AddSingleton<IGateway<Light>, GraphQlGateway<Light>>();
-            services.AddSingleton<IGateway<Heat>, GraphQlGateway<Heat>>();
-            services.AddSingleton<IGateway<Court>, GraphQlGateway<Court>>();
-            services.AddSingleton<IGateway<Rate>, GraphQlGateway<Rate>>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

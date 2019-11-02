@@ -1,23 +1,22 @@
 namespace AppiSimo.Client.Pages.ClubDashboard
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public class ClubDashboardComponent : ComponentBase
     {
         [Parameter] public string Page { get; set; }
 
-        [Inject] IGateway<Light> LightGateway { get; set; }
+        [Inject] IGraphQlService<Light> LightService { get; set; }
 
-        [Inject] IGateway<Heat> HeatGateway { get; set; }
+        [Inject] IGraphQlService<Heat> HeatService { get; set; }
 
-        [Inject] IGateway<Court> CourtGateway { get; set; }
+        [Inject] IGraphQlService<Court> CourtService { get; set; }
 
-        [Inject] IGateway<Rate> RatesGateway { get; set; }
+        [Inject] IGraphQlService<Rate> RatesService { get; set; }
 
         protected ICollection<Light> Lights { get; private set; }
         protected ICollection<Heat> Heats { get; private set; }
@@ -30,23 +29,23 @@ namespace AppiSimo.Client.Pages.ClubDashboard
             {
                 case null:
                 case "lights":
-                    if (Lights is null) Lights = await LightGateway.GetAsync();
+                    if (Lights is null) Lights = await LightService.GetAllAsync();
                     break;
 
                 case "heats":
-                    if (Heats is null) Heats = await HeatGateway.GetAsync();
+                    if (Heats is null) Heats = await HeatService.GetAllAsync();
                     break;
 
                 case "courts":
-                    if (Courts is null) Courts = await CourtGateway.GetAsync();
+                    if (Courts is null) Courts = await CourtService.GetAllAsync();
                     break;
 
                 case "rates":
-                    if (Rates is null) Rates = await RatesGateway.GetAsync();
+                    if (Rates is null) Rates = await RatesService.GetAllAsync();
                     break;
 
                 default:
-                    throw new Exception("Dashboard nested page not found!");
+                    throw new KeyNotFoundException("Dashboard nested page not found!");
             }
         }
     }
