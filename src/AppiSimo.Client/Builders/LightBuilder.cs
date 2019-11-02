@@ -1,13 +1,13 @@
 namespace AppiSimo.Client.Builders
 {
-    using AppiSimo.Client.Abstract;
-    using AppiSimo.Client.Model;
+    using Abstract;
+    using Model;
 
-    public class LightQueryBuilder : IStringQueryBuilder<Light>
+    public class LightBuilder : IQueryBuilder<Light>
     {
         public string Fields => "id, lightType, price, enabled";
 
-        public string BuildCreateQuery(Light light) =>
+        public string BuildCreate(Light light) =>
             $@"{{
                 ""light"":{{
                     ""id"":""{light.Id}"",
@@ -17,7 +17,7 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdateQuery(Light light) =>
+        public string BuildUpdate(Light light) =>
             $@"{{
                 ""id"":""{light.Id}"",
                 ""patch"":{{

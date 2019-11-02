@@ -1,8 +1,8 @@
 namespace AppiSimo.Client.Pages.ClubDashboard.Details
 {
-    using System.Threading.Tasks;
-    using AppiSimo.Client.Abstract;
+    using Abstract;
     using Microsoft.AspNetCore.Components;
+    using System.Threading.Tasks;
 
     public abstract class DetailBaseComponent<T, TViewModel> : ComponentBase
         where T : IEntity, new()
@@ -10,16 +10,16 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details
     {
         readonly string _redirectUri;
 
-        protected DetailBaseComponent(string redirectUri)
-        {
-            _redirectUri = redirectUri;
-        }
-
         [Inject] NavigationManager UriHelper { get; set; }
 
         [Inject] protected IGateway<T> Service { get; set; }
 
         protected TViewModel ViewModel { get; set; } = new TViewModel();
+
+        protected DetailBaseComponent(string redirectUri)
+        {
+            _redirectUri = redirectUri;
+        }
 
         protected async Task HandleValidSubmit()
         {

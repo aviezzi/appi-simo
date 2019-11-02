@@ -1,13 +1,13 @@
 namespace AppiSimo.Client.Builders
 {
-    using AppiSimo.Client.Abstract;
-    using AppiSimo.Client.Model;
+    using Abstract;
+    using Model;
 
-    public class HeatQueryBuilder : IStringQueryBuilder<Heat>
+    public class HeatBuilder : IQueryBuilder<Heat>
     {
         public string Fields => "id, heatType, price, enabled";
 
-        public string BuildCreateQuery(Heat heat) =>
+        public string BuildCreate(Heat heat) =>
             $@"{{
                 ""heat"": {{
                     ""id"": ""{heat.Id}"",
@@ -17,7 +17,7 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdateQuery(Heat heat) =>
+        public string BuildUpdate(Heat heat) =>
             $@"{{
                 ""id"": ""{heat.Id}"",
                 ""patch"": {{

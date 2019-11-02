@@ -1,7 +1,7 @@
 namespace AppiSimo.Client.Model
 {
+    using Abstract;
     using System;
-    using AppiSimo.Client.Abstract;
 
     public abstract class Entity : IEntity
     {

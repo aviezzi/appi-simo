@@ -6,18 +6,18 @@ namespace AppiSimo.Client.Builders
     using System;
     using System.Linq;
 
-    public class RateQueryBuilder : IStringQueryBuilder<Rate>
+    public class RateBuilder : IQueryBuilder<Rate>
     {
         readonly ITypeConverter<LocalTime> _converter;
 
-        public RateQueryBuilder(ITypeConverter<LocalTime> converter)
+        public RateBuilder(ITypeConverter<LocalTime> converter)
         {
             _converter = converter;
         }
 
         public string Fields => "id, name, start, end, dailyRates { id, start, end, price }";
 
-        public string BuildCreateQuery(Rate rate) =>
+        public string BuildCreate(Rate rate) =>
             $@"{{
                 ""rate"": {{
                     ""id"":""{rate.Id}"",
@@ -38,7 +38,7 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdateQuery(Rate rate)
+        public string BuildUpdate(Rate rate)
         {
             var update = rate.DailyRates.Where(dailyRate => dailyRate.Id != Guid.Empty);
             var create = rate.DailyRates.Where(dailyRate => dailyRate.Id == Guid.Empty);
@@ -51,26 +51,26 @@ namespace AppiSimo.Client.Builders
                         ""end"":""{rate.End}"",
                         ""dailyRates"": {{
                             ""updateById"":[{
-                                string.Join(",", update.Select(dr =>
-                                    "{" +
-                                    $@"""id"":""{dr.Id}""," +
-                                    @"""patch"":{" +
-                                    $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
-                                    $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
-                                    $@"""price"":{dr.Price}" +
-                                    "}}"))
-                            }],
+                    string.Join(",", update.Select(dr =>
+                        "{" +
+                        $@"""id"":""{dr.Id}""," +
+                        @"""patch"":{" +
+                        $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
+                        $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
+                        $@"""price"":{dr.Price}" +
+                        "}}"))
+                }],
                             ""create"":[{
-                            string.Join(",", create.Select(dr =>
-                                "{" +
-                                $@"""id"":""{Guid.NewGuid()}""," +
-                                $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
-                                $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
-                                $@"""price"":{dr.Price}" +
-                                "}"))
-                        }]
-                    }}
-            }}";
+                    string.Join(",", create.Select(dr =>
+                        "{" +
+                        $@"""id"":""{Guid.NewGuid()}""," +
+                        $@"""start"":""{_converter.FormatValueAsString(dr.Start)}""," +
+                        $@"""end"":""{_converter.FormatValueAsString(dr.End)}""," +
+                        $@"""price"":{dr.Price}" +
+                        "}"))
+                }]
+                        }}
+                }}";
         }
     }
 }

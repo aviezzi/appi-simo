@@ -11,10 +11,10 @@ namespace AppiSimo.Client.Services
     public class GraphQlService<T> : IGraphQlService<T>
         where T : Entity, new()
     {
-        readonly IQueryBuilder<T> _builder;
+        readonly IRequestBuilder<T> _builder;
         readonly IFactoryAsync _factoryAsync;
 
-        public GraphQlService(IQueryBuilder<T> builder, IFactoryAsync factoryAsync)
+        public GraphQlService(IRequestBuilder<T> builder, IFactoryAsync factoryAsync)
         {
             _builder = builder;
             _factoryAsync = factoryAsync;
@@ -22,104 +22,39 @@ namespace AppiSimo.Client.Services
 
         public async Task<ICollection<T>> GetAllAsync()
         {
-            var name = $@"{typeof(T).Name.ToCamelCase()}s";
-            var query = $@"
- 				{{
-				    {name} {{
-						{_builder.Fields}
-				    }}
-				}}";
-            
-            var req = new GraphQLRequest
-            {
-                Query = query
-            };
-
+            var (name, request) = _builder.BuildGetAllQuery();
             var client = await _factoryAsync.Create();
 
-            var res = await client.SendQueryAsync(req);
+            var res = await client.SendQueryAsync(request);
             return res.GetDataFieldAs<ICollection<T>>(name);
         }
 
         public async Task<T> GetOneAsync(Guid key)
         {
-            var name = $"{typeof(T).Name.ToCamelCase()}";
-
-            var query = $@"
-				query Get{name}ById($id: UUID!) {{
-					{name.ToCamelCase()}(id: $id) {{
-						{_builder.Fields}
-					}}                                                                         
-				}}";
-            
-            var req = new GraphQLRequest
-            {
-                Query = query,
-                Variables = new {key}
-            };
-
+            var (name, request) = _builder.BuildGetOne(key);
             var client = await _factoryAsync.Create();
-            var res = await client.SendQueryAsync(req);
 
+            var res = await client.SendQueryAsync(request);
             return res.ExtGetDataFieldAs<T>(name);
         }
         public Task<T> CreateAsync(T entity)
         {
-            entity.Id = Guid.NewGuid();
-
-            var name = typeof(T).Name;
-            var queryName = $@"create{name}";
-
-            var query = $@"
-				mutation Create{name}($input: Create{name}Input!){{
-				  {queryName}(input: $input)
-					{{
-						{name.ToCamelCase()} {{
-							{_builder.Fields}
-						}}
-					}}
-				}}";
-
-            var obj = new
-            {
-                input = _builder.BuildCreateQuery(entity)
-            };
-
-            return MutateAsync(query, queryName, obj);
+            var (name, request) = _builder.BuildCreate(entity);
+            
+            return MutateAsync(name, request);
         }
 
         public Task<T> UpdateAsync(T entity)
         {
-            var name = typeof(T).Name;
-            var queryName = $@"update{name}";
+            var (name, request) = _builder.BuildUpdate(entity);
 
-            var query = $@"
-				mutation Update{name}($input: Update{name}Input!) {{
-				  {queryName}(input: $input) {{
-					{name.ToCamelCase()} {{
-			            {_builder.Fields}
-					}}
-				  }}
-				}}";
-
-            var obj = new
-            {
-                input = _builder.BuildUpdateQuery(entity)
-            };
-
-            return MutateAsync(query, queryName, obj);
+            return MutateAsync(name, request);
         }
 
-        async Task<T> MutateAsync(string query, string name, object variables)
+        async Task<T> MutateAsync(string name, GraphQLRequest request)
         {
-            var req = new GraphQLRequest
-            {
-                Query = query,
-                Variables = variables
-            };
-
             var client = await _factoryAsync.Create();
-            var res = await client.SendMutationAsync(req);
+            var res = await client.SendMutationAsync(request);
 
             return res.ExtGetDataFieldAs<T>(name);
         }

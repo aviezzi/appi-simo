@@ -1,9 +1,9 @@
 namespace AppiSimo.Client.Extensions
 {
-    using System;
-    using System.Linq;
     using GraphQL.Common.Response;
     using Newtonsoft.Json.Linq;
+    using System;
+    using System.Linq;
 
     public static class GraphQlExtensions
     {
@@ -12,10 +12,10 @@ namespace AppiSimo.Client.Extensions
             var values = value.Split(new[] {"."}, StringSplitOptions.RemoveEmptyEntries);
             object data = response.Data as JObject;
             data = values.Aggregate(data, (current, val) => (current as JObject)?.GetValue(val));
-            return
-                data is JObject o
-                    ? o.ToObject<T>()
-                    : throw new NullReferenceException();
+
+            return data is JObject o
+                ? o.ToObject<T>()
+                : throw new NullReferenceException("ExtGetDataFieldAs");
         }
     }
 }

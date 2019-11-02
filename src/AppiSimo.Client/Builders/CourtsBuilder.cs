@@ -3,12 +3,12 @@ namespace AppiSimo.Client.Builders
     using Abstract;
     using Model;
 
-    public class CourtsQueryBuilder : IStringQueryBuilder<Court>
+    public class CourtsBuilder : IQueryBuilder<Court>
     {
         public string Fields =>
             "id, name, light { lightType, price, enabled, id }, heat { heatType, price, enabled, id }, enabled";
 
-        public string BuildCreateQuery(Court court) =>
+        public string BuildCreate(Court court) =>
             $@"{{
                 ""court"": {{
                     ""id"":""{court.Id}"",
@@ -19,7 +19,7 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdateQuery(Court court) =>
+        public string BuildUpdate(Court court) =>
             $@"{{
                 ""id"":""{court.Id}"",
                 ""patch"":
