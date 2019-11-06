@@ -1,0 +1,45 @@
+﻿@using AppiSimo.Client.Model.Auth
+@using Microsoft.AspNetCore.Authorization
+
+@page "/user/{key:guid}"
+@attribute [Authorize]
+
+@inherits UserDetailComponent
+
+@if (ViewModel == null)
+{
+    <span>Loading ...</span>
+    return;
+}
+
+<MatCard class="p-4">
+
+    <MatSubtitle2>
+        <h3>@($"{(ViewModel.IsNew ? "Crea un nuovo socio" : "Modifica un socio esistente")}")</h3>
+    </MatSubtitle2>
+
+
+    <EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+
+        <MatTextField @bind-Value="@ViewModel.Name" Dense="true" Label="Nome" HelperText="Nome"></MatTextField>
+        <MatTextField @bind-Value="@ViewModel.Surname" Dense="true" Label="Cognome" HelperText="Cognome"></MatTextField>
+ 
+        <MatSelect Id="light-dd" Label="Seleziona una luce" @bind-Value="@ViewModel.Gender">
+            
+            <MatOption Value="@($"{Gender.Male}")">Uomo</MatOption>
+            <MatOption Value="@($"{Gender.Female}")">Donna</MatOption>
+
+        </MatSelect>
+
+        <MatTextField @bind-Value="@ViewModel.Email" Dense="true" Label="Email" HelperText="Email"></MatTextField>
+
+       <div class="d-flex flex-row-reverse">
+           <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>
+       </div>
+
+    </EditForm>
+
+</MatCard>

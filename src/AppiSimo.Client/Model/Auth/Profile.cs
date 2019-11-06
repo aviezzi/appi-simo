@@ -1,9 +1,10 @@
 ﻿namespace AppiSimo.Client.Model.Auth
 {
+    using NodaTime;
     using System;
     using System.Text.Json.Serialization;
 
-    public class Profile
+    public class Profile : Entity
     {
         [JsonPropertyName("sub")] public Guid Sub { get; set; }
 
@@ -15,6 +16,9 @@
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Gender Gender { get; set; }
 
+        [JsonPropertyName("birthdate")]
+        public LocalDate BirthDate { get; set; }
+        
         [JsonPropertyName("given_name")] public string Name { get; set; }
 
         [JsonPropertyName("family_name")] public string FamilyName { get; set; }

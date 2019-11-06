@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Authorization
+
+@page "/users"
+@attribute [Authorize]
+
+@inherits UsersComponent
+
+@if (Profiles == null)
+{
+    <span>Loading ...</span>
+    return;
+}
+
+<ul>
+    @foreach (var profile in Profiles)
+    {
+        <li>@profile.Name <a href=@($"user/{profile.Id}")>Conto</a></li>
+    }
+</ul>

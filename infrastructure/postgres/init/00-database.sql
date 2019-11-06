@@ -67,3 +67,17 @@ create table "CourtRates"
 );
 
 alter table "CourtRates" owner to "RobotBoy";
+
+create table "Profiles"
+(
+    "Id" uuid not null constraint "PK_Profiles" primary key,
+    "Name" text not null,
+    "Surname" text not null,
+    "Gender" text not null,
+    "Address" text not null,
+    "Email" text not null,
+    "Birthdate" date not null,
+    "Sub" uuid not null
+);
+
+alter table "Profiles" owner to "RobotBoy";

@@ -4,6 +4,7 @@ namespace AppiSimo.Client.Services
     using Extensions;
     using GraphQL.Common.Request;
     using Model;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace AppiSimo.Client.Services
     {
         readonly IRequestBuilder<T> _builder;
         readonly IFactoryAsync _factoryAsync;
+        readonly JsonSerializerSettings _jsonSettings;
 
-        public GraphQlService(IRequestBuilder<T> builder, IFactoryAsync factoryAsync)
+        public GraphQlService(IRequestBuilder<T> builder, IFactoryAsync factoryAsync, JsonSerializerSettings jsonSettings)
         {
             _builder = builder;
             _factoryAsync = factoryAsync;
+            _jsonSettings = jsonSettings;
         }
 
         public async Task<ICollection<T>> GetAllAsync()
@@ -35,7 +38,7 @@ namespace AppiSimo.Client.Services
             var client = await _factoryAsync.Create();
 
             var res = await client.SendQueryAsync(request);
-            return res.ExtGetDataFieldAs<T>(name);
+            return res.ExtGetDataFieldAs<T>(name, _jsonSettings);
         }
         
         public Task<T> CreateAsync(T entity)
@@ -57,7 +60,7 @@ namespace AppiSimo.Client.Services
             var client = await _factoryAsync.Create();
             var res = await client.SendMutationAsync(request);
 
-            return res.ExtGetDataFieldAs<T>(name);
+            return res.ExtGetDataFieldAs<T>(name, _jsonSettings);
         }
     }
 }

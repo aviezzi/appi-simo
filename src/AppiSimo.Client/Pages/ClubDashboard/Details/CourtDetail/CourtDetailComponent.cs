@@ -9,7 +9,6 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
     public class CourtDetailComponent : DetailBaseComponent<Court, CourtViewModel>
     {
         [Inject] IGraphQlService<Light> LightService { get; set; }
-
         [Inject] IGraphQlService<Heat> HeatService { get; set; }
 
         [Parameter] public Guid Id { get; set; }

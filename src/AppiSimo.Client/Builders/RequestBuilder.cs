@@ -28,7 +28,7 @@ namespace AppiSimo.Client.Builders
 						{_builder.Fields}
 					}}                                                                         
 				}}";
-
+            
             return (name, request: new GraphQLRequest
             {
                 Query = query,
