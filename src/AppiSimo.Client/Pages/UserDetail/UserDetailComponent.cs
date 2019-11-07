@@ -11,18 +11,16 @@
     {
         [Inject] IGraphQlService<Profile> ProfileService{ get; set; }
         [Inject] NavigationManager NavigationManager { get; set; }
-        [Inject] ITypeConverter<LocalDate> Converter { get; set; }
+        
         [Parameter] public Guid Key { get; set; }
         
-        protected UserDetailViewModel ViewModel { get; set; }
+        protected UserDetailViewModel ViewModel { get; private set; }
         
         protected override async Task OnParametersSetAsync()
         {
-            var profile = await ProfileService.GetOneAsync(Key);
+            var profile = Key == default ? new Profile() : await ProfileService.GetOneAsync(Key);
             
-            Console.WriteLine($"NAME: {profile.Name}");
-            
-            ViewModel = new UserDetailViewModel(profile, Converter);
+            ViewModel = new UserDetailViewModel(profile);
             StateHasChanged();
         }
         

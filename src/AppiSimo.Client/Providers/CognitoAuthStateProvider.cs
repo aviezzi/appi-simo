@@ -32,7 +32,7 @@
                 : new ClaimsPrincipal(new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, user.Profile.Name),
-                    new Claim(ClaimTypes.Surname, user.Profile.FamilyName),
+                    new Claim(ClaimTypes.Surname, user.Profile.Surname),
                     new Claim(ClaimTypes.Email, user.Profile.Email),
                     new Claim(ClaimTypes.StreetAddress, user.Profile.Address),
                     new Claim(ClaimTypes.Gender, user.Profile.Gender.ToString()),

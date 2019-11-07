@@ -29,7 +29,7 @@ namespace AppiSimo.Client.Services
             var client = await _factoryAsync.Create();
 
             var res = await client.SendQueryAsync(request);
-            return res.GetDataFieldAs<ICollection<T>>(name);
+            return res.ExtGetDataFieldAs2<ICollection<T>>(name, _jsonSettings);
         }
 
         public async Task<T> GetOneAsync(Guid key)

@@ -21,7 +21,7 @@
         
         [JsonPropertyName("given_name")] public string Name { get; set; }
 
-        [JsonPropertyName("family_name")] public string FamilyName { get; set; }
+        [JsonPropertyName("family_name")] public string Surname { get; set; }
 
         [JsonPropertyName("email")] public string Email { get; set; }
     }
