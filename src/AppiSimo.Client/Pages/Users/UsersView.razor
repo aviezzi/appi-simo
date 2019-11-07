@@ -1,8 +1,7 @@
-﻿@using Microsoft.AspNetCore.Authorization
-
-@page "/users"
+﻿@page "/users"
 @attribute [Authorize]
 
+@using Microsoft.AspNetCore.Authorization
 @inherits UsersComponent
 
 @if (Profiles == null)
@@ -11,9 +10,35 @@
     return;
 }
 
-<ul>
-    @foreach (var profile in Profiles)
-    {
-        <li>@profile.Name <a href=@($"user/{profile.Id}")>Conto</a></li>
-    }
-</ul>
+<div class="d-flex justify-content-end mb-2">
+    <MatButton Type="button" Outlined="true" OnClick="GoToCreate">Crea</MatButton>
+</div>
+
+<div class="d-flex justify-content-end mb-2">
+
+    <table class="table table-striped">
+    
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                <span>#</span>
+            </th>
+            <th>Socio</th>
+            <th>Data di Nascita</th>
+            <th></th>
+        </tr>
+        </thead>
+    
+        <tbody>
+        @foreach (var (profile, index) in Profiles.Select((value, i) => (new UserDetailViewModel(value), i)))
+        {
+            <tr>
+                <th>@($"{index + 1}")</th>
+                <td>@($"{profile.Name} {profile.Surname}")</td>
+                <td>@($"{profile.Birthdate}")</td>
+                <td><MatButton Type="button" Outlined="true" OnClick="() => GoToEdit(profile.Profile.Id)">Modifica</MatButton></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

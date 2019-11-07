@@ -1,7 +1,6 @@
 namespace AppiSimo.Client.Model
 {
     using Abstract;
-    using Newtonsoft.Json;
     using System;
 
     public abstract class Entity : IEntity

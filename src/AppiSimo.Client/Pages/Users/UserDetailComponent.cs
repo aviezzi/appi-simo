@@ -1,9 +1,8 @@
-﻿namespace AppiSimo.Client.Pages.UserDetail
+﻿namespace AppiSimo.Client.Pages.Users
 {
     using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model.Auth;
-    using NodaTime;
     using System;
     using System.Threading.Tasks;
 

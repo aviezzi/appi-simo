@@ -1,4 +1,4 @@
-﻿namespace AppiSimo.Client.Pages.UserDetail
+﻿namespace AppiSimo.Client.Pages.Users
 {
     using Model.Auth;
     using NodaTime;
