@@ -8,6 +8,8 @@
     {
         public Profile Profile { get; }
 
+        public Guid Id => Profile.Id;
+        
         public string Name
         {
             get => Profile.Name;
