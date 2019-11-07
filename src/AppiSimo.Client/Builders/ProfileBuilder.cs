@@ -41,7 +41,7 @@
                     ""gender"":""{profile.Gender.ToString()}"",
                     ""birthdate"":""{profile.BirthDate}"",
                     ""address"":""{profile.Address}"",
-                    ""Email"":""{profile.Email}""
+                    ""email"":""{profile.Email}""
                 }}
             }}";
     }
