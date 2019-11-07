@@ -17,6 +17,7 @@ namespace AppiSimo.Client.Converters
         public string FormatValueAsString(LocalTime value) =>
             _pattern.Format(value);
 
-        public bool TryParseValueFromString(string value, out LocalTime result) => _pattern.Parse(value).TryGetValue(default, out result);
+        public bool TryParseValueFromString(string value, out LocalTime result) => 
+            _pattern.Parse(value).TryGetValue(default, out result);
     }
 }

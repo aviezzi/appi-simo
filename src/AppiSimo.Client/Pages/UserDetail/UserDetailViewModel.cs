@@ -41,7 +41,7 @@
         public string Email
         {
             get => Profile.Email;
-            set => Profile.Name = value;
+            set => Profile.Email = value;
         }
 
         public bool IsNew => Profile.Id == Guid.Empty;

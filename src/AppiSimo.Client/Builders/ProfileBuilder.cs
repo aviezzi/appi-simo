@@ -2,11 +2,19 @@
 {
     using Abstract;
     using Model.Auth;
+    using NodaTime;
     using System;
-    using System.Globalization;
 
     public class ProfileBuilder : IQueryBuilder<Profile>
     {
+        readonly ITypeConverter<LocalDate> _converter;
+
+        public ProfileBuilder(ITypeConverter<LocalDate> converter)
+        {
+            _converter = converter;
+            _converter.Pattern = "yyyy-MM-dd";
+        }
+        
         public string Fields => "id, name, surname, gender, address, email, birthdate";
 
         public string BuildCreate(Profile profile) =>
@@ -16,9 +24,10 @@
                     ""name"":""{profile.Name}"",
                     ""surname"":""{profile.Surname}"",
                     ""gender"":""{profile.Gender.ToString()}"",
-                    ""birthdate"":""{profile.BirthDate}"",
+                    ""birthdate"":""{_converter.FormatValueAsString(profile.BirthDate)}"",
                     ""address"":""{profile.Address}"",
-                    ""Email"":""{profile.Email}""
+                    ""email"":""{profile.Email}"",
+                    ""sub"":""{Guid.Empty}""
                 }}
             }}";
 

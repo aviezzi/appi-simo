@@ -26,6 +26,9 @@
         
         protected async Task HandleValidSubmit()
         {
+            Console.WriteLine($"Name: {ViewModel.Profile.Name}");
+            Console.WriteLine($"Email: {ViewModel.Profile.Email}");
+            
             if (ViewModel.IsNew)
                 await ProfileService.CreateAsync(ViewModel.Profile);
             else

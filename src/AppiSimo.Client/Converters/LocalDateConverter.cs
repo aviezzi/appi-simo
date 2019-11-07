@@ -1,13 +1,13 @@
 namespace AppiSimo.Client.Converters
 {
-    using System.Globalization;
-    using AppiSimo.Client.Abstract;
+    using Abstract;
     using NodaTime;
     using NodaTime.Text;
+    using System.Globalization;
 
     public class LocalDateConverter : ITypeConverter<LocalDate>
     {
-        LocalDatePattern _pattern = LocalDatePattern.CreateWithInvariantCulture("dd:MM:yyyy");
+        LocalDatePattern _pattern = LocalDatePattern.CreateWithInvariantCulture("dd/MM/yyyy");
 
         public string Pattern
         {
@@ -18,12 +18,12 @@ namespace AppiSimo.Client.Converters
         public string FormatValueAsString(LocalDate value) =>
             value == new LocalDate()
                 ? string.Empty
-                : value.ToString(Pattern,
-                                 CultureInfo.InvariantCulture);
+                : value.ToString(Pattern, CultureInfo.InvariantCulture);
 
         public bool TryParseValueFromString(string value, out LocalDate result)
         {
-            if (value != string.Empty) return _pattern.Parse(value).TryGetValue(default, out result);
+            if (value != string.Empty)
+                return _pattern.Parse(value).TryGetValue(default, out result);
 
             result = new LocalDate();
             return true;
