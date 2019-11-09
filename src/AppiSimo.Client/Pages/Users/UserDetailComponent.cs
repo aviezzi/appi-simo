@@ -1,7 +1,6 @@
 ﻿namespace AppiSimo.Client.Pages.Users
 {
     using Abstract;
-    using Factories;
     using Microsoft.AspNetCore.Components;
     using Model.Auth;
     using System;
@@ -9,27 +8,21 @@
 
     public class UserDetailComponent : ComponentBase
     {
-        [Inject] IGraphQlService<Profile> ProfileService{ get; set; }
+        [Inject] IGraphQlService<Profile> ProfileService { get; set; }
         [Inject] NavigationManager NavigationManager { get; set; }
         [Inject] IViewModelFactory<Profile, ProfileViewModel> ViewModelFactory { get; set; }
 
         [Parameter] public Guid Key { get; set; }
-        
+
         protected ProfileViewModel ViewModel { get; private set; }
-        
-        protected override async Task OnParametersSetAsync()
-        {
+
+        protected override async Task OnParametersSetAsync() =>
             ViewModel = Key == default
                 ? ViewModelFactory.Create()
                 : ViewModelFactory.Create(await ProfileService.GetOneAsync(Key));
-            StateHasChanged();
-        }
-        
+
         protected async Task HandleValidSubmit()
         {
-            Console.WriteLine($"Name: {ViewModel.Entity.Name}");
-            Console.WriteLine($"Email: {ViewModel.Entity.Email}");
-            
             if (ViewModel.IsNew)
                 await ProfileService.CreateAsync(ViewModel.Entity);
             else
