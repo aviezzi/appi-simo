@@ -16,11 +16,10 @@ namespace AppiSimo.Client
     using NodaTime;
     using NodaTime.Serialization.JsonNet;
     using NodaTime.Text;
-    using NodaTime.TimeZones;
+    using Pages.Users;
     using Providers;
     using Services;
     using System;
-    using System.Globalization;
 
     public class Startup
     {
@@ -45,7 +44,7 @@ namespace AppiSimo.Client
                 .ConfigureForNodaTime(DateTimeZoneProviders.Tzdb)
                 .ReplaceExistingConverters<LocalDate>(
                     new NodaPatternConverter<LocalDate>(LocalDatePattern.CreateWithInvariantCulture("yyyy-MM-dd")));
-            
+
             services.AddSingleton(jsonSerializerSettings);
             services.AddTransient(provider => new GraphQLHttpClient(new GraphQLHttpClientOptions
             {
@@ -68,6 +67,20 @@ namespace AppiSimo.Client
             services.AddSingleton<IRequestBuilder<Rate>, RequestBuilder<Rate>>();
             services.AddSingleton<IRequestBuilder<Profile>, RequestBuilder<Profile>>();
 
+            services.AddSingleton<IViewModelFactory<Profile, ProfileViewModel>>(provider =>
+                new ViewModelFactory<Profile, ProfileViewModel>(provider.GetService<IConverters>())
+                {
+                    Builder = delegate(IConverters converters, Profile profile)
+                    {
+                        var viewModel = new ProfileViewModel(converters);
+
+                        if (profile == default) return viewModel;
+
+                        viewModel.Entity = profile;
+                        return viewModel;
+                    }
+                });
+
             services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();
             services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
@@ -79,23 +92,18 @@ namespace AppiSimo.Client
         {
             app.AddComponent<App>("app");
         }
-       
-
     }
 
     public static class Ext
     {
-        public static JsonSerializerSettings ReplaceExistingConverters<T>(this JsonSerializerSettings settings, JsonConverter newConverter)
+        public static JsonSerializerSettings ReplaceExistingConverters<T>(this JsonSerializerSettings settings,
+            JsonConverter newConverter)
         {
             var converters = settings.Converters;
             for (var i = converters.Count - 1; i >= 0; i--)
-            {
                 if (converters[i].CanConvert(typeof(T)))
-                {
                     converters.RemoveAt(i);
-                }
-            }
-            
+
             converters.Add(newConverter);
 
             return settings;

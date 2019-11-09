@@ -30,12 +30,12 @@
         </thead>
     
         <tbody>
-        @foreach (var (viewModel, index) in Profiles.Select((value, i) => (new UserDetailViewModel(value), i)))
+        @foreach (var (viewModel, index) in Profiles.Select((value, i) => (value, i)))
         {
             <tr>
                 <th>@($"{index + 1}")</th>
                 <td>@($"{viewModel.Name} {viewModel.Surname}")</td>
-                <td>@($"{viewModel.Birthdate}")</td>
+                <td>@($"{viewModel.FormattedBirthDate()}")</td>
                 <td><MatButton Type="button" Outlined="true" OnClick="() => GoToEdit(viewModel.Id)">Modifica</MatButton></td>
             </tr>
         }

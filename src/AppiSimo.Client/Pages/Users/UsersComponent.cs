@@ -5,17 +5,21 @@
     using Model.Auth;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class UsersComponent : ComponentBase
     {
         [Inject] IGraphQlService<Profile> ProfileService { get; set; }
         [Inject] NavigationManager NavigationManager { get; set; }
+        [Inject] IViewModelFactory<Profile, ProfileViewModel> ViewModelFactory { get; set; }
 
-        protected ICollection<Profile> Profiles { get; private set; }
+        protected ICollection<ProfileViewModel> Profiles { get; private set; }
 
         protected override async Task OnInitializedAsync() =>
-            Profiles = await ProfileService.GetAllAsync();
+            Profiles = (await ProfileService.GetAllAsync())
+                .Select(p => ViewModelFactory.Create(p))
+                .ToList();
 
         protected void GoToCreate() =>
             NavigationManager.NavigateTo("user");
