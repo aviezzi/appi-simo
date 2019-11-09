@@ -66,19 +66,10 @@ namespace AppiSimo.Client
             services.AddSingleton<IRequestBuilder<Court>, RequestBuilder<Court>>();
             services.AddSingleton<IRequestBuilder<Rate>, RequestBuilder<Rate>>();
             services.AddSingleton<IRequestBuilder<Profile>, RequestBuilder<Profile>>();
-
-            services.AddSingleton<ProfileViewModel>();
-
-            services.AddSingleton<IViewModelFactory<Profile, ProfileViewModel>>(provider =>
-                new ViewModelFactory<Profile, ProfileViewModel>
-                {
-                    ViewModel = provider.GetService<ProfileViewModel>(),
-                    Build = (profile, viewModel) =>
-                    {
-                        viewModel.Entity = profile;
-                        return viewModel;
-                    }
-                });
+            
+            services.AddSingleton<
+                IViewModelFactory<Profile, ProfileViewModel>, 
+                ViewModelFactory<Profile, ProfileViewModel>>();
 
             services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
             services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();

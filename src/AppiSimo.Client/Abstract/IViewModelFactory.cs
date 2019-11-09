@@ -6,6 +6,6 @@
         where TIn: Entity, new()
         where TOut: ViewModelBase<TIn>
     {
-        TOut Create(TIn entity);
+        TOut Create(TIn entity = default);
     }
 }

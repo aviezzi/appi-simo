@@ -6,12 +6,10 @@
 
     public class ViewModelFactory<TIn, TOut> : IViewModelFactory<TIn, TOut>
         where TIn : Entity, new()
-        where TOut : ViewModelBase<TIn>
+        where TOut : ViewModelBase<TIn>, new()
     {
-        public TOut ViewModel { get; set; }
 
-        public Func<TIn, TOut, TOut> Build { get; set; }
-
-        public TOut Create(TIn entity) => entity == default ? ViewModel : Build(entity, ViewModel);
+        public TOut Create(TIn entity = default) => 
+            new TOut {Entity = entity == default ? new TIn() : entity};
     }
 }
