@@ -1,6 +1,7 @@
 ﻿namespace AppiSimo.Client.Pages.Users
 {
     using Abstract;
+    using Factories;
     using Microsoft.AspNetCore.Components;
     using Model.Auth;
     using System;
@@ -18,9 +19,9 @@
         
         protected override async Task OnParametersSetAsync()
         {
-            var profile = Key == default ? new Profile() : await ProfileService.GetOneAsync(Key);
-            
-            ViewModel = ViewModelFactory.Create(profile);
+            ViewModel = Key == default
+                ? ViewModelFactory.Create()
+                : ViewModelFactory.Create(await ProfileService.GetOneAsync(Key));
             StateHasChanged();
         }
         
