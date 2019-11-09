@@ -67,15 +67,14 @@ namespace AppiSimo.Client
             services.AddSingleton<IRequestBuilder<Rate>, RequestBuilder<Rate>>();
             services.AddSingleton<IRequestBuilder<Profile>, RequestBuilder<Profile>>();
 
+            services.AddSingleton<ProfileViewModel>();
+
             services.AddSingleton<IViewModelFactory<Profile, ProfileViewModel>>(provider =>
-                new ViewModelFactory<Profile, ProfileViewModel>(provider.GetService<IConverters>())
+                new ViewModelFactory<Profile, ProfileViewModel>
                 {
-                    Builder = delegate(IConverters converters, Profile profile)
+                    ViewModel = provider.GetService<ProfileViewModel>(),
+                    Build = (profile, viewModel) =>
                     {
-                        var viewModel = new ProfileViewModel(converters);
-
-                        if (profile == default) return viewModel;
-
                         viewModel.Entity = profile;
                         return viewModel;
                     }
