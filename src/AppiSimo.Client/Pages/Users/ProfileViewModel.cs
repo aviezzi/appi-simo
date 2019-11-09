@@ -43,6 +43,7 @@
             set => Entity.Email = value;
         }
 
-        public string FormattedBirthDate() => Converters.LocalDate.FormatValueAsString(Entity.BirthDate);
+        public string FormattedBirthDate() => 
+            Converters.LocalDate.FormatValueAsString(Entity.BirthDate);
     }
 }

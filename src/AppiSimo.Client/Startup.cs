@@ -25,7 +25,7 @@ namespace AppiSimo.Client
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IConverters, ConvertersMap>();
+            services.AddTransient<IConverters, ConvertersMap>();
             services.AddSingleton(provider => provider.GetService<IConverters>().LocalTime);
             services.AddSingleton(provider => provider.GetService<IConverters>().LocalDate);
 
@@ -66,9 +66,9 @@ namespace AppiSimo.Client
             services.AddSingleton<IRequestBuilder<Court>, RequestBuilder<Court>>();
             services.AddSingleton<IRequestBuilder<Rate>, RequestBuilder<Rate>>();
             services.AddSingleton<IRequestBuilder<Profile>, RequestBuilder<Profile>>();
-            
+
             services.AddSingleton<
-                IViewModelFactory<Profile, ProfileViewModel>, 
+                IViewModelFactory<Profile, ProfileViewModel>,
                 ViewModelFactory<Profile, ProfileViewModel>>();
 
             services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
