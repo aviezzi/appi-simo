@@ -1,8 +1,8 @@
 namespace AppiSimo.Client
 {
     using Abstract;
-    using Builders;
     using Converters;
+    using Extensions;
     using Factories;
     using GraphQL.Client.Http;
     using Microsoft.AspNetCore.Blazor.Http;
@@ -54,28 +54,13 @@ namespace AppiSimo.Client
             }));
 
             services.AddScoped<IFactoryAsync, HttpClientFactoryAsync>();
+            services.AddSingleton<GraphQlExtensions>();
 
-            services.AddSingleton<IQueryBuilder<Light>, LightBuilder>();
-            services.AddSingleton<IQueryBuilder<Heat>, HeatBuilder>();
-            services.AddSingleton<IQueryBuilder<Court>, CourtsBuilder>();
-            services.AddSingleton<IQueryBuilder<Rate>, RateBuilder>();
-            services.AddSingleton<IQueryBuilder<Profile>, ProfileBuilder>();
-
-            services.AddSingleton<IRequestBuilder<Light>, RequestBuilder<Light>>();
-            services.AddSingleton<IRequestBuilder<Heat>, RequestBuilder<Heat>>();
-            services.AddSingleton<IRequestBuilder<Court>, RequestBuilder<Court>>();
-            services.AddSingleton<IRequestBuilder<Rate>, RequestBuilder<Rate>>();
-            services.AddSingleton<IRequestBuilder<Profile>, RequestBuilder<Profile>>();
-
-            services.AddSingleton<
-                IViewModelFactory<Profile, ProfileViewModel>,
-                ViewModelFactory<Profile, ProfileViewModel>>();
-
-            services.AddSingleton<IGraphQlService<Light>, GraphQlService<Light>>();
-            services.AddSingleton<IGraphQlService<Heat>, GraphQlService<Heat>>();
-            services.AddSingleton<IGraphQlService<Court>, GraphQlService<Court>>();
-            services.AddSingleton<IGraphQlService<Rate>, GraphQlService<Rate>>();
-            services.AddSingleton<IGraphQlService<Profile>, GraphQlService<Profile>>();
+            services.AddSingleton<IGraphQlService<Light>, LightService>();
+            services.AddSingleton<IGraphQlService<Heat>, HeatService>();
+            services.AddSingleton<IGraphQlService<Court>, CourtService>();
+            services.AddSingleton<IGraphQlService<Rate>, RateService>();
+            services.AddSingleton<IGraphQlService<Profile>, ProfileService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

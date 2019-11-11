@@ -1,23 +1,19 @@
-namespace AppiSimo.Client.Builders
+﻿namespace AppiSimo.Client.Services
 {
     using Abstract;
+    using Extensions;
     using Model;
     using NodaTime;
     using System;
     using System.Linq;
 
-    public class RateBuilder : IQueryBuilder<Rate>
+    public class RateService : GraphQlServiceBase<Rate>
     {
         readonly ITypeConverter<LocalTime> _converter;
 
-        public RateBuilder(ITypeConverter<LocalTime> converter)
-        {
-            _converter = converter;
-        }
+        protected override string Fields { get; } = "id, name, start, end, dailyRates { id, start, end, price }";
 
-        public string Fields => "id, name, start, end, dailyRates { id, start, end, price }";
-
-        public string BuildCreate(Rate rate) =>
+        protected override Func<Rate, string> CreateQuery => rate =>
             $@"{{
                 ""rate"": {{
                     ""id"":""{rate.Id}"",
@@ -25,7 +21,7 @@ namespace AppiSimo.Client.Builders
                     ""start"":""{rate.Start}"",
                     ""end"":""{rate.End}"",
                     ""dailyRates"": {{
-                        ""create"":[{
+                        ""create"": [{
                     string.Join(",", rate.DailyRates.Select(dr =>
                         "{" +
                         $@"""id"":""{Guid.NewGuid()}""," +
@@ -38,7 +34,7 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdate(Rate rate)
+        protected override Func<Rate, string> UpdateQuery => rate =>
         {
             var update = rate.DailyRates.Where(dailyRate => dailyRate.Id != Guid.Empty);
             var create = rate.DailyRates.Where(dailyRate => dailyRate.Id == Guid.Empty);
@@ -71,6 +67,13 @@ namespace AppiSimo.Client.Builders
                 }]
                         }}
                 }}";
+        };
+
+        public RateService(IFactoryAsync factoryAsync, GraphQlExtensions extensions,
+            ITypeConverter<LocalTime> converter)
+            : base(factoryAsync, extensions)
+        {
+            _converter = converter;
         }
     }
 }

@@ -1,5 +1,7 @@
 namespace AppiSimo.Client.Abstract
 {
+    using Model;
+
     public interface ITypeConverter<T>
     {
         string Pattern { get; set; }

@@ -1,14 +1,16 @@
-namespace AppiSimo.Client.Builders
+﻿namespace AppiSimo.Client.Services
 {
     using Abstract;
+    using Extensions;
     using Model;
+    using System;
 
-    public class CourtsBuilder : IQueryBuilder<Court>
+    public class CourtService : GraphQlServiceBase<Court>
     {
-        public string Fields =>
+        protected override string Fields { get; } =
             "id, name, light { lightType, price, enabled, id }, heat { heatType, price, enabled, id }, enabled";
 
-        public string BuildCreate(Court court) =>
+        protected override Func<Court, string> CreateQuery { get; } = court =>
             $@"{{
                 ""court"": {{
                     ""id"":""{court.Id}"",
@@ -19,7 +21,7 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdate(Court court) =>
+        protected override Func<Court, string> UpdateQuery { get; } = court =>
             $@"{{
                 ""id"":""{court.Id}"",
                 ""patch"":
@@ -30,5 +32,10 @@ namespace AppiSimo.Client.Builders
                     ""enabled"":{court.Enabled.ToString().ToLowerInvariant()}
                 }}
             }}";
+
+        public CourtService(IFactoryAsync factoryAsync, GraphQlExtensions extensions)
+            : base(factoryAsync, extensions)
+        {
+        }
     }
 }

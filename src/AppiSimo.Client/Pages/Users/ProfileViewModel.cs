@@ -7,6 +7,8 @@
 
     public class ProfileViewModel : ViewModelBase<Profile>
     {
+        readonly ITypeConverter<LocalDate> _converter;
+
         public string Name
         {
             get => Entity.Name;
@@ -42,8 +44,13 @@
             get => Entity.Email;
             set => Entity.Email = value;
         }
+        
+        public ProfileViewModel(ITypeConverter<LocalDate> converter)
+        {
+            _converter = converter;
+        }
 
-        public string FormattedBirthDate() => 
-            Converters.LocalDate.FormatValueAsString(Entity.BirthDate);
+        public string FormattedBirthDate() =>
+            _converter.FormatValueAsString(Entity.BirthDate);
     }
 }

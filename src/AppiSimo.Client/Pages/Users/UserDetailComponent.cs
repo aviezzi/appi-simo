@@ -3,6 +3,7 @@
     using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model.Auth;
+    using NodaTime;
     using System;
     using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@
     {
         [Inject] IGraphQlService<Profile> ProfileService { get; set; }
         [Inject] NavigationManager NavigationManager { get; set; }
-        [Inject] IViewModelFactory<Profile, ProfileViewModel> ViewModelFactory { get; set; }
+        [Inject] ITypeConverter<LocalDate> LocalDateConverter { get; set; }
 
         [Parameter] public Guid Key { get; set; }
 
@@ -18,8 +19,11 @@
 
         protected override async Task OnParametersSetAsync() =>
             ViewModel = Key == default
-                ? ViewModelFactory.Create()
-                : ViewModelFactory.Create(await ProfileService.GetOneAsync(Key));
+                ? new ProfileViewModel(LocalDateConverter)
+                : new ProfileViewModel(LocalDateConverter)
+                {
+                    Entity = await ProfileService.GetOneAsync(Key)
+                };
 
         protected async Task HandleValidSubmit()
         {

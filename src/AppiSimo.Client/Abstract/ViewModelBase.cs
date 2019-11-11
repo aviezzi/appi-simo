@@ -6,8 +6,6 @@
     public abstract class ViewModelBase<T>
         where T : Entity, new()
     {
-        public IConverters Converters { get; set; }
-        
         public T Entity { get; set; } = new T();
 
         public Guid Id => Entity.Id;

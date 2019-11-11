@@ -1,13 +1,15 @@
-namespace AppiSimo.Client.Builders
+﻿namespace AppiSimo.Client.Services
 {
     using Abstract;
+    using Extensions;
     using Model;
+    using System;
 
-    public class HeatBuilder : IQueryBuilder<Heat>
+    public class HeatService : GraphQlServiceBase<Heat>
     {
-        public string Fields => "id, heatType, price, enabled";
+        protected override string Fields { get; } = "id, heatType, price, enabled";
 
-        public string BuildCreate(Heat heat) =>
+        protected override Func<Heat, string> CreateQuery { get; } = heat =>
             $@"{{
                 ""heat"": {{
                     ""id"": ""{heat.Id}"",
@@ -17,7 +19,7 @@ namespace AppiSimo.Client.Builders
                 }}
             }}";
 
-        public string BuildUpdate(Heat heat) =>
+        protected override Func<Heat, string> UpdateQuery { get; } = heat =>
             $@"{{
                 ""id"": ""{heat.Id}"",
                 ""patch"": {{
@@ -26,5 +28,10 @@ namespace AppiSimo.Client.Builders
                     ""enabled"": {heat.Enabled.ToString().ToLowerInvariant()}
                 }}
             }}";
+
+        public HeatService(IFactoryAsync factoryAsync, GraphQlExtensions extensions)
+            : base(factoryAsync, extensions)
+        {
+        }
     }
 }

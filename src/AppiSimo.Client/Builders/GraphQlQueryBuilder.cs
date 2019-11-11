@@ -1,34 +1,25 @@
-namespace AppiSimo.Client.Builders
+﻿namespace AppiSimo.Client.Builders
 {
-    using Abstract;
     using Extensions;
     using GraphQL.Common.Request;
+    using Model;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using System;
 
-    public class RequestBuilder<T> : IRequestBuilder<T>
-        where T : class, IEntity
+    public static class GraphQlQueryBuilder
     {
-        readonly IQueryBuilder<T> _builder;
-
-        public RequestBuilder(IQueryBuilder<T> builder)
-        {
-            _builder = builder;
-        }
-
-        public string Fields => _builder.Fields;
-
-        public (string name, GraphQLRequest request) BuildGetOne(Guid key)
+        public static (string name, GraphQLRequest request) BuildGetOne<T>(string fields, Guid key)
+            where T : Entity, new()
         {
             var name = $"{typeof(T).Name.ToCamelCase()}";
             var query = $@"
 				query Get{name}ById($id: UUID!) {{
 					{name.ToCamelCase()}(id: $id) {{
-						{_builder.Fields}
+						{fields}
 					}}                                                                         
 				}}";
-            
+
             return (name, request: new GraphQLRequest
             {
                 Query = query,
@@ -36,13 +27,13 @@ namespace AppiSimo.Client.Builders
             });
         }
 
-        public (string name, GraphQLRequest request) BuildGetAllQuery()
+        public static (string name, GraphQLRequest request) BuildGetAllQuery<T>(string fields) where T : Entity, new()
         {
             var name = $@"{typeof(T).Name.ToCamelCase()}s";
             var query = $@"
  				{{
 				    {name} {{
-						{_builder.Fields}
+						{fields}
 				    }}
 				}}";
 
@@ -52,10 +43,9 @@ namespace AppiSimo.Client.Builders
             });
         }
 
-        public (string name, GraphQLRequest request) BuildCreate(T entity)
+        public static (string name, GraphQLRequest request) BuildCreate<T>(Func<T, string> createQuery, string fields, T entity)
+            where T : Entity, new()
         {
-            entity.Id = Guid.NewGuid();
-
             var name = typeof(T).Name;
             var queryName = $@"create{name}";
 
@@ -64,24 +54,27 @@ namespace AppiSimo.Client.Builders
 				  {queryName}(input: $input)
 					{{
 						{name.ToCamelCase()} {{
-							{_builder.Fields}
+							{fields}
 						}}
 					}}
 				}}";
 
+            Console.WriteLine($"Entity: {entity.Id}");
+            
             var request = new GraphQLRequest
             {
                 Query = query,
                 Variables = new
                 {
-                    input = ParseValueFromString(_builder.BuildCreate(entity))
+                    input = ParseValueFromString(createQuery(entity))
                 }
             };
 
             return (queryName, request);
         }
 
-        public (string name, GraphQLRequest request) BuildUpdate(T entity)
+        public static (string name, GraphQLRequest request) BuildUpdate<T>(Func<T, string> updateQuery, string fields, T entity)
+            where T : Entity, new()
         {
             var name = typeof(T).Name;
             var queryName = $@"update{name}";
@@ -90,7 +83,7 @@ namespace AppiSimo.Client.Builders
 				mutation Update{name}($input: Update{name}Input!) {{
 				  {queryName}(input: $input) {{
 					{name.ToCamelCase()} {{
-			            {_builder.Fields}
+			            {fields}
 					}}
 				  }}
 				}}";
@@ -100,7 +93,7 @@ namespace AppiSimo.Client.Builders
                 Query = query,
                 Variables = new
                 {
-                    input = ParseValueFromString(_builder.BuildUpdate(entity))
+                    input = ParseValueFromString(updateQuery(entity))
                 }
             };
 

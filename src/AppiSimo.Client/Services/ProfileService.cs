@@ -1,23 +1,17 @@
-﻿namespace AppiSimo.Client.Builders
+﻿namespace AppiSimo.Client.Services
 {
     using Abstract;
+    using Extensions;
     using Model.Auth;
     using NodaTime;
     using System;
 
-    public class ProfileBuilder : IQueryBuilder<Profile>
+    public class ProfileService : GraphQlServiceBase<Profile>
     {
         readonly ITypeConverter<LocalDate> _converter;
+        protected override string Fields { get; } = "id, name, surname, gender, address, email, birthdate";
 
-        public ProfileBuilder(ITypeConverter<LocalDate> converter)
-        {
-            _converter = converter;
-            _converter.Pattern = "yyyy-MM-dd";
-        }
-        
-        public string Fields => "id, name, surname, gender, address, email, birthdate";
-
-        public string BuildCreate(Profile profile) =>
+        protected override Func<Profile, string> CreateQuery => profile =>
             $@"{{
                 ""profile"": {{
                     ""id"":""{profile.Id}"",
@@ -31,7 +25,8 @@
                 }}
             }}";
 
-        public string BuildUpdate(Profile profile) =>
+
+        protected override Func<Profile, string> UpdateQuery => profile =>
             $@"{{
                 ""id"":""{profile.Id}"",
                 ""patch"":
@@ -39,10 +34,18 @@
                     ""name"":""{profile.Name}"",
                     ""surname"":""{profile.Surname}"",
                     ""gender"":""{profile.Gender.ToString()}"",
-                    ""birthdate"":""{profile.BirthDate}"",
+                    ""birthdate"":""{_converter.FormatValueAsString(profile.BirthDate)}"",
                     ""address"":""{profile.Address}"",
                     ""email"":""{profile.Email}""
                 }}
             }}";
+
+        public ProfileService(IFactoryAsync factoryAsync, GraphQlExtensions extensions,
+            ITypeConverter<LocalDate> converter) : base(factoryAsync,
+            extensions)
+        {
+            _converter = converter;
+            _converter.Pattern = "yyyy-MM-dd";
+        }
     }
 }

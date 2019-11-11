@@ -4,22 +4,30 @@ namespace AppiSimo.Client.Extensions
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
-    public static class GraphQlExtensions
+    public class GraphQlExtensions
     {
-        public static T ExtGetDataFieldAs<T>(this GraphQLResponse response, string value, JsonSerializerSettings jsonSettings)
+        readonly JsonSerializerSettings _jsonSettings;
+
+        public GraphQlExtensions(JsonSerializerSettings jsonSettings)
+        {
+            _jsonSettings = jsonSettings;
+        }
+
+        public T ExtGetDataFieldAs<T>(GraphQLResponse response, string value)
         {
             var values = value.Split(new[] {"."}, StringSplitOptions.RemoveEmptyEntries);
             object data = response.Data as JObject;
             data = values.Aggregate(data, (current, val) => (current as JObject)?.GetValue(val));
-            
+
             return data is JObject o
-                ? o.ToObject<T>(JsonSerializer.Create(jsonSettings))
-                : throw new NullReferenceException("ExtGetDataFieldAs");
+                ? o.ToObject<T>(JsonSerializer.Create(_jsonSettings))
+                : throw new NullReferenceException("ExtGetDataFieldAs !!!Exception!!!");
         }
 
-        public static T ExtGetDataFieldAs2<T>(this GraphQLResponse response, string value, JsonSerializerSettings jsonSettings) =>
-            ((JObject) response.Data).GetValue(value).ToObject<T>(JsonSerializer.Create(jsonSettings));
+        public IEnumerable<T> ExtGetDataFieldAs2<T>(GraphQLResponse response, string value) =>
+            ((JObject) response.Data).GetValue(value).ToObject<IEnumerable<T>>(JsonSerializer.Create(_jsonSettings));
     }
 }
