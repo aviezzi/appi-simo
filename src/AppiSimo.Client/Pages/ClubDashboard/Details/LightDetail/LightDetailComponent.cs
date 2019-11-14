@@ -1,10 +1,11 @@
 namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
 {
+    using Abstract;
     using Model;
     using System;
     using ViewModels;
 
-    public class LightDetailComponent : DetailBaseComponent<Light, LightViewModel>
+    public class LightDetailComponent : DetailComponentBase<Light, LightViewModel>
     {
         protected override Func<Light, LightViewModel> BuildViewModel =>
             light => new LightViewModel

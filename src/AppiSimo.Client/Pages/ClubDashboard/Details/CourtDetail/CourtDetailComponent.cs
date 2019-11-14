@@ -8,7 +8,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
     using System.Threading.Tasks;
     using ViewModels;
 
-    public class CourtDetailComponent : DetailBaseComponent<Court, CourtViewModel>
+    public class CourtDetailComponent : DetailComponentBase<Court, CourtViewModel>
     {
         IEnumerable<Heat> _heats;
         IEnumerable<Light> _lights;

@@ -6,7 +6,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
     using System;
     using ViewModels;
 
-    public class HeatDetailComponent : DetailBaseComponent<Heat, HeatViewModel>
+    public class HeatDetailComponent : DetailComponentBase<Heat, HeatViewModel>
     {
         [Inject] IGraphQlService<Heat> HeatService { get; set; }
 

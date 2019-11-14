@@ -1,10 +1,11 @@
 namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 {
+    using Abstract;
     using Model;
     using System;
     using ViewModels;
 
-    public class RateDetailComponent : DetailBaseComponent<Rate, RateViewModel>
+    public class RateDetailComponent : DetailComponentBase<Rate, RateViewModel>
     {
         protected override Func<Rate, RateViewModel> BuildViewModel =>
             rate => new RateViewModel

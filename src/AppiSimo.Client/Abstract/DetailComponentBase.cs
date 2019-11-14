@@ -1,13 +1,12 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details
+namespace AppiSimo.Client.Abstract
 {
-    using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
     using System;
     using System.Threading.Tasks;
     using ViewModels;
 
-    public abstract class DetailBaseComponent<T, TViewModel> : ComponentBase
+    public abstract class DetailComponentBase<T, TViewModel> : ComponentBase
         where T : Entity, new()
         where TViewModel : ViewModelBase<T>
     {
@@ -22,7 +21,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details
 
         protected abstract Func<T, TViewModel> BuildViewModel { get; }
 
-        protected DetailBaseComponent(string redirectUri)
+        protected DetailComponentBase(string redirectUri)
         {
             _redirectUri = redirectUri;
         }

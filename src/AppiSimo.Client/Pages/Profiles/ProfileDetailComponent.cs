@@ -8,7 +8,7 @@
     using System;
     using ViewModels;
 
-    public class ProfileDetailComponent : DetailBaseComponent<Profile, ProfileViewModel>
+    public class ProfileDetailComponent : DetailComponentBase<Profile, ProfileViewModel>
     {
         [Inject] ITypeConverter<LocalDate> LocalDateConverter { get; set; }
 
