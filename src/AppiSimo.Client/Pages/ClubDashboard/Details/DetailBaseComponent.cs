@@ -2,23 +2,35 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details
 {
     using Abstract;
     using Microsoft.AspNetCore.Components;
+    using Model;
+    using System;
     using System.Threading.Tasks;
+    using ViewModels;
 
     public abstract class DetailBaseComponent<T, TViewModel> : ComponentBase
-        where T : class, IEntity, new()
-        where TViewModel : IDetailViewModel<T>, new()
+        where T : Entity, new()
+        where TViewModel : ViewModelBase<T>
     {
         readonly string _redirectUri;
 
-        [Inject] NavigationManager UriHelper { get; set; }
+        [Inject] IGraphQlService<T> Service { get; set; }
+        [Inject] NavigationManager NavigationManager { get; set; }
 
-        [Inject] protected IGraphQlService<T> Service { get; set; }
+        [Parameter] public Guid Key { get; set; }
 
-        protected TViewModel ViewModel { get; set; } = new TViewModel();
+        protected TViewModel ViewModel { get; private set; }
+
+        protected abstract Func<T, TViewModel> BuildViewModel { get; }
 
         protected DetailBaseComponent(string redirectUri)
         {
             _redirectUri = redirectUri;
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            var entity = Key == default ? new T() : await Service.GetOneAsync(Key);
+            ViewModel = BuildViewModel(entity);
         }
 
         protected async Task HandleValidSubmit()
@@ -28,7 +40,7 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details
             else
                 await Service.UpdateAsync(ViewModel.Entity);
 
-            UriHelper.NavigateTo(_redirectUri);
+            NavigationManager.NavigateTo(_redirectUri);
         }
     }
 }

@@ -1,22 +1,10 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
+namespace AppiSimo.Client.ViewModels
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using Abstract;
     using Model;
+    using System.ComponentModel.DataAnnotations;
 
-    public class LightViewModel : IDetailViewModel<Light>
+    public class LightViewModel : ViewModelBase<Light>
     {
-        public LightViewModel()
-            : this(new Light())
-        {
-        }
-
-        public LightViewModel(Light light)
-        {
-            Entity = light ?? throw new NullReferenceException("Light cannot be null.");
-        }
-
         [Required(ErrorMessage = "È obbligatorio inserire la tipologia della luce.")]
         public string Type
         {
@@ -37,8 +25,8 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
             set => Entity.Enabled = value;
         }
 
-        public Light Entity { get; }
-
-        public bool IsNew => Entity.Id == Guid.Empty;
+        public LightViewModel() : base(typeof(LightViewModel))
+        {
+        }
     }
 }

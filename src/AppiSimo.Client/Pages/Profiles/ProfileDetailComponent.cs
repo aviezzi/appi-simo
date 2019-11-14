@@ -1,39 +1,26 @@
 ﻿namespace AppiSimo.Client.Pages.Profiles
 {
     using Abstract;
+    using ClubDashboard.Details;
     using Microsoft.AspNetCore.Components;
     using Model.Auth;
     using NodaTime;
     using System;
-    using System.Threading.Tasks;
     using ViewModels;
 
-    public class ProfileDetailComponent : ComponentBase
+    public class ProfileDetailComponent : DetailBaseComponent<Profile, ProfileViewModel>
     {
-        [Inject] IGraphQlService<Profile> ProfileService { get; set; }
-        [Inject] NavigationManager NavigationManager { get; set; }
         [Inject] ITypeConverter<LocalDate> LocalDateConverter { get; set; }
 
-        [Parameter] public Guid Key { get; set; }
+        protected override Func<Profile, ProfileViewModel> BuildViewModel =>
+            profile => new ProfileViewModel(LocalDateConverter)
+            {
+                Entity = profile
+            };
 
-        protected ProfileViewModel ViewModel { get; private set; }
-
-        protected override async Task OnParametersSetAsync() =>
-            ViewModel = Key == default
-                ? new ProfileViewModel(LocalDateConverter)
-                : new ProfileViewModel(LocalDateConverter)
-                {
-                    Entity = await ProfileService.GetOneAsync(Key)
-                };
-
-        protected async Task HandleValidSubmit()
+        public ProfileDetailComponent()
+            : base("profiles")
         {
-            if (ViewModel.IsNew)
-                await ProfileService.CreateAsync(ViewModel.Entity);
-            else
-                await ProfileService.UpdateAsync(ViewModel.Entity);
-
-            NavigationManager.NavigateTo("/users");
         }
     }
 }

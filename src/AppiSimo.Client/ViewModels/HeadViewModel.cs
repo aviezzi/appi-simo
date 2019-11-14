@@ -1,22 +1,10 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
+namespace AppiSimo.Client.ViewModels
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using Abstract;
     using Model;
+    using System.ComponentModel.DataAnnotations;
 
-    public class HeatViewModel : IDetailViewModel<Heat>
+    public class HeatViewModel : ViewModelBase<Heat>
     {
-        public HeatViewModel()
-            : this(new Heat())
-        {
-        }
-
-        public HeatViewModel(Heat heat)
-        {
-            Entity = heat ?? throw new NullReferenceException("Heat cannot be null.");
-        }
-
         [Required(ErrorMessage = "È obbligatorio inserire la tipologia del riscladamento.")]
         public string Type
         {
@@ -37,8 +25,9 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
             set => Entity.Enabled = value;
         }
 
-        public Heat Entity { get; }
-
-        public bool IsNew => Entity.Id == Guid.Empty;
+        public HeatViewModel()
+            : base(typeof(HeatViewModel))
+        {
+        }
     }
 }

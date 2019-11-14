@@ -1,26 +1,24 @@
 namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
 {
+    using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
     using System;
-    using System.Threading.Tasks;
+    using ViewModels;
 
     public class HeatDetailComponent : DetailBaseComponent<Heat, HeatViewModel>
     {
-        [Parameter] public Guid Id { get; set; }
+        [Inject] IGraphQlService<Heat> HeatService { get; set; }
+
+        protected override Func<Heat, HeatViewModel> BuildViewModel =>
+            heat => new HeatViewModel
+            {
+                Entity = heat
+            };
 
         protected HeatDetailComponent()
             : base("/club-dashboard/heats")
         {
-        }
-
-        protected override async Task OnParametersSetAsync()
-        {
-            if (Id != Guid.Empty)
-            {
-                var heat = await Service.GetOneAsync(Id);
-                ViewModel = new HeatViewModel(heat);
-            }
         }
     }
 }

@@ -1,33 +1,21 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
+namespace AppiSimo.Client.ViewModels
 {
+    using Attributes;
+    using Model;
+    using NodaTime;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using Abstract;
-    using Attributes;
-    using Model;
-    using NodaTime;
 
-    public class RateViewModel : IDetailViewModel<Rate>
+    public class RateViewModel : ViewModelBase<Rate>
     {
-        public RateViewModel()
-            : this(new Rate())
-        {
-        }
-
-        public RateViewModel(Rate rate)
-        {
-            Entity = rate ?? throw new NullReferenceException("Rate cannot be null.");
-        }
-
         [Required(ErrorMessage = "È obbligatorio inserire un nome per questa tariffa.")]
         public string Name
         {
             get => Entity.Name;
             set => Entity.Name = value;
         }
-
 
         [Required(ErrorMessage = "È obbligatorio inserire la data di inizio validita'.")]
         public LocalDate? StartDate
@@ -45,11 +33,15 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 
         [ListNotEmpty(ErrorMessage = "È obbligatorio inserire almeno una tariffa.")]
         public IEnumerable<DailyRateViewModel> DailyRatesViewModel =>
-            Entity.DailyRates.Select(dr => new DailyRateViewModel(dr));
+            Entity.DailyRates.Select(dr => new DailyRateViewModel
+            {
+                Entity = dr
+            });
 
-        public Rate Entity { get; }
-
-        public bool IsNew => Entity.Id == Guid.Empty;
+        public RateViewModel()
+            : base(typeof(RateViewModel))
+        {
+        }
 
         public void AddDailyRate() => Entity.DailyRates.Add(new DailyRate());
 

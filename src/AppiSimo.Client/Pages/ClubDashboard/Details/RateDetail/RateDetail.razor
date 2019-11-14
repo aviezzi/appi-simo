@@ -1,12 +1,16 @@
 @using AppiSimo.Client.Constants
-@using Microsoft.AspNetCore.Authorization
 
 @page "/club-dashboard/rates/create"
-@page "/club-dashboard/rates/edit/{id:guid}"
+@page "/club-dashboard/rates/edit/{key:guid}"
 
 @attribute [Authorize]
-
 @inherits RateDetailComponent
+
+@if (ViewModel == null)
+{
+    <span>Loading ...</span>
+    return;
+}
 
 <MatCard class="p-4">
 

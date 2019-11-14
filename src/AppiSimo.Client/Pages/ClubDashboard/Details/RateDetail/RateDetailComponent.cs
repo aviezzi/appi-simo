@@ -1,26 +1,20 @@
 namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
 {
-    using Microsoft.AspNetCore.Components;
     using Model;
     using System;
-    using System.Threading.Tasks;
+    using ViewModels;
 
     public class RateDetailComponent : DetailBaseComponent<Rate, RateViewModel>
     {
-        [Parameter] public Guid Id { get; set; }
+        protected override Func<Rate, RateViewModel> BuildViewModel =>
+            rate => new RateViewModel
+            {
+                Entity = rate
+            };
 
         protected RateDetailComponent()
             : base("/club-dashboard/rates")
         {
-        }
-
-        protected override async Task OnParametersSetAsync()
-        {
-            if (Id != Guid.Empty)
-            {
-                var rate = await Service.GetOneAsync(Id);
-                ViewModel = new RateViewModel(rate);
-            }
         }
 
         protected void Add() => ViewModel.AddDailyRate();

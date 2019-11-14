@@ -4,34 +4,33 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.CourtDetail
     using Microsoft.AspNetCore.Components;
     using Model;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using ViewModels;
 
     public class CourtDetailComponent : DetailBaseComponent<Court, CourtViewModel>
     {
+        IEnumerable<Heat> _heats;
+        IEnumerable<Light> _lights;
+
         [Inject] IGraphQlService<Light> LightService { get; set; }
         [Inject] IGraphQlService<Heat> HeatService { get; set; }
 
-        [Parameter] public Guid Id { get; set; }
+        protected override Func<Court, CourtViewModel> BuildViewModel =>
+            court => new CourtViewModel(_lights, _heats)
+            {
+                Entity = court
+            };
 
         protected CourtDetailComponent()
             : base("/club-dashboard/courts")
         {
         }
 
-        protected override async Task OnParametersSetAsync()
+        protected override async Task OnInitializedAsync()
         {
-            var lights = await LightService.GetAllAsync();
-            var heats = await HeatService.GetAllAsync();
-
-            if (Id != Guid.Empty)
-            {
-                var court = await Service.GetOneAsync(Id);
-                ViewModel = new CourtViewModel(lights, heats, court);
-            }
-            else
-            {
-                ViewModel = new CourtViewModel(lights, heats);
-            }
+            _lights = await LightService.GetAllAsync();
+            _heats = await HeatService.GetAllAsync();
         }
     }
 }

@@ -1,11 +1,14 @@
-@using Microsoft.AspNetCore.Authorization
-
 @page "/club-dashboard/court/create"
-@page "/club-dashboard/court/edit/{id:guid}"
+@page "/club-dashboard/court/edit/{key:guid}"
 
 @attribute [Authorize]
-
 @inherits CourtDetailComponent
+
+@if (ViewModel == null)
+{
+    <span>Loading ...</span>
+    return;
+}
 
 <MatCard class="p-4">
 

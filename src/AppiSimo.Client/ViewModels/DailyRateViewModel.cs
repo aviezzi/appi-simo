@@ -1,22 +1,11 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
+namespace AppiSimo.Client.ViewModels
 {
-    using System.ComponentModel.DataAnnotations;
-    using Abstract;
     using Model;
     using NodaTime;
+    using System.ComponentModel.DataAnnotations;
 
-    public class DailyRateViewModel : IDetailViewModel<DailyRate>
+    public class DailyRateViewModel : ViewModelBase<DailyRate>
     {
-        public DailyRateViewModel()
-            : this(new DailyRate())
-        {
-        }
-
-        public DailyRateViewModel(DailyRate entity)
-        {
-            Entity = entity;
-        }
-
         [Required(ErrorMessage = "È obbligatorio inserire l'ora di inizio validita'.")]
         public LocalTime Start
         {
@@ -35,11 +24,12 @@ namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
         public decimal? Price
         {
             get => Entity.Price;
-            set => Entity.Price = value.Value;
+            set => Entity.Price = value ?? 0;
         }
 
-        public DailyRate Entity { get; }
-
-        public bool IsNew { get; }
+        public DailyRateViewModel()
+            : base(typeof(DailyRateViewModel))
+        {
+        }
     }
 }
