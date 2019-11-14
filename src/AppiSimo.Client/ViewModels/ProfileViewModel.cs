@@ -49,6 +49,7 @@
             : base(typeof(ProfileViewModel))
         {
             _converter = converter;
+            Console.WriteLine(_converter.Pattern);
         }
 
         public string FormattedBirthDate() =>

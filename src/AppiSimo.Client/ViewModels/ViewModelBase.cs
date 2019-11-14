@@ -1,4 +1,4 @@
-﻿namespace AppiSimo.Client.Abstract
+﻿namespace AppiSimo.Client.ViewModels
 {
     using Model;
     using System;
