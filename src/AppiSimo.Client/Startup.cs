@@ -16,7 +16,6 @@ namespace AppiSimo.Client
     using NodaTime;
     using NodaTime.Serialization.JsonNet;
     using NodaTime.Text;
-    using Pages.Users;
     using Providers;
     using Services;
     using System;

@@ -1,4 +1,4 @@
-﻿namespace AppiSimo.Client.Pages.Users
+﻿namespace AppiSimo.Client.ViewModels
 {
     using Abstract;
     using Model.Auth;
@@ -44,8 +44,9 @@
             get => Entity.Email;
             set => Entity.Email = value;
         }
-        
+
         public ProfileViewModel(ITypeConverter<LocalDate> converter)
+            : base(typeof(ProfileViewModel))
         {
             _converter = converter;
         }

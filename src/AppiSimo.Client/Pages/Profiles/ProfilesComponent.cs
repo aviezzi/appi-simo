@@ -1,4 +1,4 @@
-﻿namespace AppiSimo.Client.Pages.Users
+﻿namespace AppiSimo.Client.Pages.Profiles
 {
     using Abstract;
     using Microsoft.AspNetCore.Components;
@@ -8,22 +8,22 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using ViewModels;
 
-    public class UsersComponent : ComponentBase
+    public class ProfilesComponent : ComponentBase
     {
         [Inject] IGraphQlService<Profile> ProfileService { get; set; }
         [Inject] NavigationManager NavigationManager { get; set; }
         [Inject] ITypeConverter<LocalDate> LocalDateConverter { get; set; }
 
-        protected ICollection<ProfileViewModel> Profiles { get; private set; }
+        protected IEnumerable<ProfileViewModel> Profiles { get; private set; }
 
         protected override async Task OnInitializedAsync() =>
             Profiles = (await ProfileService.GetAllAsync())
                 .Select(p => new ProfileViewModel(LocalDateConverter)
                 {
                     Entity = p
-                })
-                .ToList();
+                });
 
         protected void GoToCreate() =>
             NavigationManager.NavigateTo("user");

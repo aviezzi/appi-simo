@@ -1,11 +1,11 @@
 ﻿@using AppiSimo.Client.Model.Auth
-@using Microsoft.AspNetCore.Authorization
 
 @page "/user"
 @page "/user/{key:guid}"
+
 @attribute [Authorize]
 
-@inherits UserDetailComponent
+@inherits ProfileDetailComponent
 
 @if (ViewModel == null)
 {
