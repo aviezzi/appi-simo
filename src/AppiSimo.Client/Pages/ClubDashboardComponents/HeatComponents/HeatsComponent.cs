@@ -1,9 +1,9 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Heats
+namespace AppiSimo.Client.Pages.ClubDashboardComponents.HeatComponents
 {
+    using Microsoft.AspNetCore.Components;
+    using Model;
     using System;
     using System.Collections.Generic;
-    using AppiSimo.Client.Model;
-    using Microsoft.AspNetCore.Components;
 
     public class HeatsComponent : ComponentBase
     {

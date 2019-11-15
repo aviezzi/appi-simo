@@ -1,11 +1,11 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Rates
+namespace AppiSimo.Client.Pages.ClubDashboardComponents.RateComponents
 {
+    using Abstract;
+    using Microsoft.AspNetCore.Components;
+    using Model;
+    using NodaTime;
     using System;
     using System.Collections.Generic;
-    using AppiSimo.Client.Abstract;
-    using AppiSimo.Client.Model;
-    using Microsoft.AspNetCore.Components;
-    using NodaTime;
 
     public class RatesComponent : ComponentBase
     {

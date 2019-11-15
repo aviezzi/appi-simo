@@ -1,7 +1,6 @@
-﻿namespace AppiSimo.Client.Pages.Profiles
+﻿namespace AppiSimo.Client.Pages.ProfileComponent
 {
     using Abstract;
-    using ClubDashboard.Details;
     using Microsoft.AspNetCore.Components;
     using Model.Auth;
     using NodaTime;

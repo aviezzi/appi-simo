@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details.LightDetail
+namespace AppiSimo.Client.Pages.ClubDashboardComponents.LightComponents
 {
     using Abstract;
     using Model;

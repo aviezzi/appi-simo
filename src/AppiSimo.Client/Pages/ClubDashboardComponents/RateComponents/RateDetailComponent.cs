@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details.RateDetail
+namespace AppiSimo.Client.Pages.ClubDashboardComponents.RateComponents
 {
     using Abstract;
     using Model;

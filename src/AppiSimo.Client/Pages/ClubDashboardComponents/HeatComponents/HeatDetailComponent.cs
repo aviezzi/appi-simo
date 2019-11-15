@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Details.HeatDetail
+namespace AppiSimo.Client.Pages.ClubDashboardComponents.HeatComponents
 {
     using Abstract;
     using Microsoft.AspNetCore.Components;

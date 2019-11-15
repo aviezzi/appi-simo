@@ -1,4 +1,4 @@
-﻿namespace AppiSimo.Client.Pages.Profiles
+﻿namespace AppiSimo.Client.Pages.ProfileComponent
 {
     using Abstract;
     using Microsoft.AspNetCore.Components;

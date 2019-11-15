@@ -1,4 +1,4 @@
-namespace AppiSimo.Client.Pages.ClubDashboard
+namespace AppiSimo.Client.Pages.ClubDashboardComponents
 {
     using Abstract;
     using Microsoft.AspNetCore.Components;

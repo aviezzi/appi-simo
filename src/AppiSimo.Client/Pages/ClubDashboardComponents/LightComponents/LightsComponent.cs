@@ -1,9 +1,9 @@
-namespace AppiSimo.Client.Pages.ClubDashboard.Collections.Lights
+namespace AppiSimo.Client.Pages.ClubDashboardComponents.LightComponents
 {
+    using Microsoft.AspNetCore.Components;
+    using Model;
     using System;
     using System.Collections.Generic;
-    using AppiSimo.Client.Model;
-    using Microsoft.AspNetCore.Components;
 
     public class LightsComponent : ComponentBase
     {
