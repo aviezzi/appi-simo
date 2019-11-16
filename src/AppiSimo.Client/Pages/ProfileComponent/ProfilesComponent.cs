@@ -19,11 +19,7 @@
         protected IEnumerable<ProfileViewModel> Profiles { get; private set; }
 
         protected override async Task OnInitializedAsync() =>
-            Profiles = (await ProfileService.GetAllAsync())
-                .Select(p => new ProfileViewModel(LocalDateConverter)
-                {
-                    Entity = p
-                });
+            Profiles = (await ProfileService.GetAllAsync()).Select(p => new ProfileViewModel(p, LocalDateConverter));
 
         protected void GoToCreate() =>
             NavigationManager.NavigateTo("user");

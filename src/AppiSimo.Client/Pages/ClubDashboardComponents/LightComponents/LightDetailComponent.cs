@@ -7,11 +7,7 @@ namespace AppiSimo.Client.Pages.ClubDashboardComponents.LightComponents
 
     public class LightDetailComponent : DetailComponentBase<Light, LightViewModel>
     {
-        protected override Func<Light, LightViewModel> BuildViewModel =>
-            light => new LightViewModel
-            {
-                Entity = light
-            };
+        private protected override Func<Light, LightViewModel> BuildViewModel => light => new LightViewModel(light);
 
         protected LightDetailComponent()
             : base("/club-dashboard/lights")

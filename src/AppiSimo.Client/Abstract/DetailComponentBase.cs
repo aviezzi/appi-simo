@@ -12,25 +12,21 @@ namespace AppiSimo.Client.Abstract
     {
         readonly string _redirectUri;
 
-        [Inject] IGraphQlService<T> Service { get; set; }
-        [Inject] NavigationManager NavigationManager { get; set; }
-
         [Parameter] public Guid Key { get; set; }
 
-        protected TViewModel ViewModel { get; private set; }
+        [Inject] protected IGraphQlService<T> Service { get; set; }
+        [Inject] NavigationManager NavigationManager { get; set; }
 
-        protected abstract Func<T, TViewModel> BuildViewModel { get; }
+        protected TViewModel ViewModel { get; private set; }
+        private protected abstract Func<T, TViewModel> BuildViewModel { get; }
 
         protected DetailComponentBase(string redirectUri)
         {
             _redirectUri = redirectUri;
         }
 
-        protected override async Task OnParametersSetAsync()
-        {
-            var entity = Key == default ? new T() : await Service.GetOneAsync(Key);
-            ViewModel = BuildViewModel(entity);
-        }
+        protected override async Task OnParametersSetAsync() =>
+            ViewModel = BuildViewModel(Key == default ? new T() : await Service.GetOneAsync(Key));
 
         protected async Task HandleValidSubmit()
         {

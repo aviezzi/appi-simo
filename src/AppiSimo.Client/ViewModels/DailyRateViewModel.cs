@@ -27,8 +27,7 @@ namespace AppiSimo.Client.ViewModels
             set => Entity.Price = value ?? 0;
         }
 
-        public DailyRateViewModel()
-            : base(typeof(DailyRateViewModel))
+        public DailyRateViewModel(DailyRate entity) : base(entity)
         {
         }
     }

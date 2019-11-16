@@ -45,11 +45,10 @@
             set => Entity.Email = value;
         }
 
-        public ProfileViewModel(ITypeConverter<LocalDate> converter)
-            : base(typeof(ProfileViewModel))
+        public ProfileViewModel(Profile profile, ITypeConverter<LocalDate> converter)
+            :base(profile)
         {
             _converter = converter;
-            Console.WriteLine(_converter.Pattern);
         }
 
         public string FormattedBirthDate() =>

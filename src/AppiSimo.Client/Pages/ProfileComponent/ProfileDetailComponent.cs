@@ -11,11 +11,8 @@
     {
         [Inject] ITypeConverter<LocalDate> LocalDateConverter { get; set; }
 
-        protected override Func<Profile, ProfileViewModel> BuildViewModel =>
-            profile => new ProfileViewModel(LocalDateConverter)
-            {
-                Entity = profile
-            };
+        private protected override Func<Profile, ProfileViewModel> BuildViewModel =>
+            profile => new ProfileViewModel(profile, LocalDateConverter);
 
         public ProfileDetailComponent()
             : base("profiles")

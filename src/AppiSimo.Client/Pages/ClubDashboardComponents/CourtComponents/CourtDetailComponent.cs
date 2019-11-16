@@ -16,11 +16,8 @@ namespace AppiSimo.Client.Pages.ClubDashboardComponents.CourtComponents
         [Inject] IGraphQlService<Light> LightService { get; set; }
         [Inject] IGraphQlService<Heat> HeatService { get; set; }
 
-        protected override Func<Court, CourtViewModel> BuildViewModel =>
-            court => new CourtViewModel(_lights, _heats)
-            {
-                Entity = court
-            };
+        private protected override Func<Court, CourtViewModel> BuildViewModel =>
+            court => new CourtViewModel(court, _lights, _heats);
 
         protected CourtDetailComponent()
             : base("/club-dashboard/courts")

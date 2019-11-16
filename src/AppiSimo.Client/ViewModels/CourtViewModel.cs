@@ -35,8 +35,8 @@ namespace AppiSimo.Client.ViewModels
             set => Entity.Enabled = value;
         }
 
-        public CourtViewModel(IEnumerable<Light> lights, IEnumerable<Heat> heats)
-            : base(typeof(CourtViewModel))
+        public CourtViewModel(Court court, IEnumerable<Light> lights, IEnumerable<Heat> heats)
+            : base(court)
         {
             Lights = lights ?? throw new NullReferenceException("Lights cannot be null.");
             Heats = heats ?? throw new NullReferenceException("Heats cannot be null.");

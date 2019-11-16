@@ -7,11 +7,8 @@ namespace AppiSimo.Client.Pages.ClubDashboardComponents.RateComponents
 
     public class RateDetailComponent : DetailComponentBase<Rate, RateViewModel>
     {
-        protected override Func<Rate, RateViewModel> BuildViewModel =>
-            rate => new RateViewModel
-            {
-                Entity = rate
-            };
+        private protected override Func<Rate, RateViewModel> BuildViewModel =>
+            rate => new RateViewModel(rate);
 
         protected RateDetailComponent()
             : base("/club-dashboard/rates")

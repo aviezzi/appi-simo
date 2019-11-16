@@ -25,8 +25,7 @@ namespace AppiSimo.Client.ViewModels
             set => Entity.Enabled = value;
         }
 
-        public HeatViewModel()
-            : base(typeof(HeatViewModel))
+        public HeatViewModel(Heat entity) : base(entity)
         {
         }
     }
