@@ -24,7 +24,7 @@
 
         <MatTextField @bind-Value="@ViewModel.Name" Dense="true" Label="Nome" HelperText="Inserire il nome del campo."></MatTextField>
 
-        <MatSelect Id="light-dd" Label="Seleziona una luce" @bind-Value="@ViewModel.Light">
+        <MatSelect Id="light-dd" Label="Seleziona una luce" @bind-Value="@ViewModel.LightId">
             
             <MatOption Value="@($"{Guid.Empty}")"></MatOption>
 
@@ -34,7 +34,7 @@
             }
         </MatSelect>
 
-        <MatSelect Class="mt-3" Label="Seleziona una luce" @bind-Value="@ViewModel.Heat">
+        <MatSelect Class="mt-3" Label="Seleziona una luce" @bind-Value="@ViewModel.HeatId">
                     
             <MatOption value="@($"{Guid.Empty}")"></MatOption>
             
@@ -44,7 +44,7 @@
             }
         </MatSelect>
                  
-        <MatCheckbox Class="mt-2" @bind-Checked="@ViewModel.Enable" Label="Abilitato"></MatCheckbox>
+        <MatCheckbox Class="mt-2" @bind-Checked="@ViewModel.Enabled" Label="Abilitato"></MatCheckbox>
 
         <div class="d-flex flex-row-reverse">
             <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>

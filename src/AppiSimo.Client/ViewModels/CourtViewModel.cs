@@ -17,22 +17,26 @@ namespace AppiSimo.Client.ViewModels
             set => Entity.Name = value;
         }
 
-        public string Light
+        public string LightId
         {
             get => $"{Entity.Light.Id}";
             set => Entity.Light.Id = Guid.Parse(value);
         }
 
-        public string Heat
+        public string HeatId
         {
             get => $"{Entity.Heat.Id}";
             set => Entity.Heat.Id = Guid.Parse(value);
         }
-
-        public bool Enable
+        public bool Enabled
         {
             get => Entity.Enabled;
             set => Entity.Enabled = value;
+        }
+
+        public CourtViewModel(Court court)
+            : this(court, new List<Light>(), new List<Heat>())
+        {
         }
 
         public CourtViewModel(Court court, IEnumerable<Light> lights, IEnumerable<Heat> heats)

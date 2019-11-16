@@ -19,7 +19,7 @@ namespace AppiSimo.Client.ViewModels
             set => Entity.Price = value ?? 0;
         }
 
-        public bool Enable
+        public bool Enabled
         {
             get => Entity.Enabled;
             set => Entity.Enabled = value;

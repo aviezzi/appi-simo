@@ -1,6 +1,7 @@
 namespace AppiSimo.Client.ViewModels
 {
     using Model;
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     public class LightViewModel : ViewModelBase<Light>
@@ -19,7 +20,7 @@ namespace AppiSimo.Client.ViewModels
             set => Entity.Price = value ?? 0;
         }
 
-        public bool Enable
+        public bool Enabled
         {
             get => Entity.Enabled;
             set => Entity.Enabled = value;
@@ -28,6 +29,8 @@ namespace AppiSimo.Client.ViewModels
 
         public LightViewModel(Light entity) : base(entity)
         {
+            Console.WriteLine($"PUNTO 2");
+
         }
     }
 }

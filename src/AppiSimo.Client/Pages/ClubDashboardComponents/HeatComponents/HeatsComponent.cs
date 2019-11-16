@@ -1,20 +1,22 @@
 namespace AppiSimo.Client.Pages.ClubDashboardComponents.HeatComponents
 {
+    using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using ViewModels;
 
-    public class HeatsComponent : ComponentBase
+    public class HeatsComponent : CollectionComponentBase<Heat, HeatViewModel>
     {
-        [Inject] NavigationManager UriHelper { get; set; }
+        [Parameter] public IEnumerable<Heat> Heats { get; set; }
 
-        [Parameter] public ICollection<Heat> Heats { get; set; }
+        public HeatsComponent() : base("/club-dashboard/heat")
+        {
+        }
 
-        protected void GoToEdit(Guid key) =>
-            UriHelper.NavigateTo($"/club-dashboard/heat/edit/{key}");
-
-        protected void GoToCreate() =>
-            UriHelper.NavigateTo("/club-dashboard/heat/create");
+        private protected override Task<IEnumerable<HeatViewModel>> BuildViewModel() =>
+            Task.FromResult(Heats?.Select(heat => new HeatViewModel(heat)) ?? new List<HeatViewModel>());
     }
 }

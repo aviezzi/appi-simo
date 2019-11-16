@@ -14,7 +14,7 @@ namespace AppiSimo.Client.Abstract
 
         [Parameter] public Guid Key { get; set; }
 
-        [Inject] protected IGraphQlService<T> Service { get; set; }
+        [Inject] IGraphQlService<T> Service { get; set; }
         [Inject] NavigationManager NavigationManager { get; set; }
 
         protected TViewModel ViewModel { get; private set; }

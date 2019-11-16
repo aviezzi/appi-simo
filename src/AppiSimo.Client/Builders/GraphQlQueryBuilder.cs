@@ -58,8 +58,6 @@
 						}}
 					}}
 				}}";
-
-            Console.WriteLine($"Entity: {entity.Id}");
             
             var request = new GraphQLRequest
             {

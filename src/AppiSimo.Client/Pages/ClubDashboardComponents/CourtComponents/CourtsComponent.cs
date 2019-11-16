@@ -1,20 +1,22 @@
 namespace AppiSimo.Client.Pages.ClubDashboardComponents.CourtComponents
 {
+    using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using ViewModels;
 
-    public class CourtsComponent : ComponentBase
+    public class CourtsComponent : CollectionComponentBase<Court, CourtViewModel>
     {
-        [Inject] NavigationManager UriHelper { get; set; }
+        [Parameter] public IEnumerable<Court> Courts { get; set; }
 
-        [Parameter] public ICollection<Court> Courts { get; set; }
+        public CourtsComponent() : base("club-dashboard/court")
+        {
+        }
 
-        protected void GoToEdit(Guid key) =>
-            UriHelper.NavigateTo($"/club-dashboard/court/edit/{key}");
-
-        protected void GoToCreate() =>
-            UriHelper.NavigateTo("/club-dashboard/court/create");
+        private protected override Task<IEnumerable<CourtViewModel>> BuildViewModel() =>
+            Task.FromResult(Courts?.Select(court => new CourtViewModel(court)) ?? new List<CourtViewModel>());
     }
 }

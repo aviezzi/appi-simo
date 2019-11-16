@@ -3,7 +3,7 @@
 
 @inherits ProfilesComponent
 
-@if (Profiles == null)
+@if (ViewModel == null)
 {
     <span>Loading ...</span>
     return;
@@ -29,7 +29,7 @@
         </thead>
     
         <tbody>
-        @foreach (var (viewModel, index) in Profiles.Select((value, i) => (value, i)))
+        @foreach (var (viewModel, index) in ViewModel.Select((value, i) => (value, i)))
         {
             <tr>
                 <th>@($"{index + 1}")</th>

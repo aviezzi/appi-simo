@@ -32,8 +32,8 @@ namespace AppiSimo.Client.ViewModels
         }
 
         [ListNotEmpty(ErrorMessage = "È obbligatorio inserire almeno una tariffa.")]
-        public IEnumerable<DailyRateViewModel> DailyRatesViewModel =>
-            Entity.DailyRates.Select(dr => new DailyRateViewModel(new DailyRate()));
+        public IEnumerable<DailyRateViewModel> DailyRates =>
+            Entity.DailyRates.Select(dr => new DailyRateViewModel(dr));
 
         public RateViewModel(Rate entity) : base(entity)
         {

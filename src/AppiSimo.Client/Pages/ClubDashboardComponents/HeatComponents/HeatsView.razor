@@ -1,6 +1,6 @@
 @inherits HeatsComponent
 
-@if (Heats == null)
+@if (ViewModel == null)
 {
     <span>Loading ...</span>
     return;
@@ -12,33 +12,37 @@
 
 <div class="d-flex justify-content-end mb-2">
 
-    <TableTemplate Items="@Heats" Context="heat">
+    <CascadingValue Value="@ViewModel" Name="Value">
 
-        <TableHeader>
+        <TableTemplate TItem="HeatViewModel" Context="heat">
+    
+            <TableHeader>
+    
+                <th>Tipo</th>
+                <th>Prezzo</th>
+                <th>
+                    <span class="oi oi-circle-check"></span>
+                </th>
+                <th></th>
+    
+            </TableHeader>
+    
+            <RowTemplate>
+    
+                <td>@heat.Type</td>
+                <td>@heat.Price</td>
+                <td>
+                    <span class="@($"oi {(heat.Enabled ? "oi-check" : string.Empty)}")"></span>
+                </td>
+    
+                <td class="pointer align-middle" @onclick="() => GoToEdit(heat.Id)">
+                    <span class="oi oi-external-link"></span>
+                </td>
+    
+            </RowTemplate>
+    
+        </TableTemplate>
 
-            <th>Tipo</th>
-            <th>Prezzo</th>
-            <th>
-                <span class="oi oi-circle-check"></span>
-            </th>
-            <th></th>
-
-        </TableHeader>
-
-        <RowTemplate>
-
-            <td>@($"{heat.HeatType}")</td>
-            <td>@($"{heat.Price:0.00}")</td>
-            <td>
-                <span class="@($"oi {(heat.Enabled ? "oi-check" : string.Empty)}")"></span>
-            </td>
-
-            <td class="pointer align-middle" @onclick="() => GoToEdit(heat.Id)">
-                <span class="oi oi-external-link"></span>
-            </td>
-
-        </RowTemplate>
-
-    </TableTemplate>
+    </CascadingValue>
 
 </div>

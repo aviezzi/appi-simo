@@ -1,6 +1,6 @@
 @inherits RatesComponent
 
-@if (Rates == null)
+@if (ViewModel == null)
 {
     <span>Loading ...</span>
     return;
@@ -12,47 +12,51 @@
 
 <div class="d-flex justify-content-end mb-2">
 
-    <TableTemplate Items="@Rates" Context="rate">
+    <CascadingValue Value="@ViewModel" Name="Value">
 
-        <TableHeader>
+        <TableTemplate TItem="RateViewModel" Context="rate">
+    
+            <TableHeader>
+    
+                <th>Name</th>
+                <th>Data Inzio</th>
+                <th>Data Fine</th>
+                <th>Orari</th>
+                <th>Prezzi</th>
+                <th></th>
+    
+            </TableHeader>
+    
+            <RowTemplate>
+    
+                <td class="align-middle">@rate.Entity.Name</td>
+                <td class="align-middle">@rate.Entity.Start</td>
+                <td class="align-middle">@rate.Entity.End")</td>
+                <td class="align-middle">
+                    @foreach (var dailyRate in rate.DailyRates)
+                    {
+                        <div>
+                            <span>@($"dalle {dailyRate.Entity.Start}")</span>
+                            <span>@($"alle {dailyRate.Entity.End}")</span>
+                        </div>
+                    }
+                </td>
+    
+                <td class="align-middle">
+                    @foreach (var dailyRate in rate.DailyRates)
+                    {
+                        <div>@dailyRate.Entity.Price &euro;</div>
+                    }
+                </td>
+    
+                <td class="pointer align-middle" @onclick="() => GoToEdit(rate.Id)">
+                    <span class="oi oi-external-link"></span>
+                </td>
+    
+            </RowTemplate>
+    
+        </TableTemplate>
 
-            <th>Name</th>
-            <th>Data Inzio</th>
-            <th>Data Fine</th>
-            <th>Orari</th>
-            <th>Prezzi</th>
-            <th></th>
-
-        </TableHeader>
-
-        <RowTemplate>
-
-            <td class="align-middle">@rate.Name</td>
-            <td class="align-middle">@($"{rate.Start:d}")</td>
-            <td class="align-middle">@($"{rate.End:d}")</td>
-            <td class="align-middle">
-                @foreach (var dailyRate in rate.DailyRates)
-                {
-                    <div>
-                        <span>@($"dalle {Converter.FormatValueAsString(dailyRate.Start)}")</span>
-                        <span>@($"alle {Converter.FormatValueAsString(dailyRate.End)}")</span>
-                    </div>
-                }
-            </td>
-
-            <td class="align-middle">
-                @foreach (var dailyRate in rate.DailyRates)
-                {
-                    <div>@($"{dailyRate.Price:0.00}") &euro;</div>
-                }
-            </td>
-
-            <td class="pointer align-middle" @onclick="() => GoToEdit(rate.Id)">
-                <span class="oi oi-external-link"></span>
-            </td>
-
-        </RowTemplate>
-
-    </TableTemplate>
+    </CascadingValue>
 
 </div>

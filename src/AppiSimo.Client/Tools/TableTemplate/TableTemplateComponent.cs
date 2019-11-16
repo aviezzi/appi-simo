@@ -5,8 +5,9 @@ namespace AppiSimo.Client.Tools.TableTemplate
 
     public class TableTemplateComponent<TItem> : ComponentBase
     {
+        [CascadingParameter(Name = "Value")] protected IEnumerable<TItem> Items { get; set; }
+
         [Parameter] public RenderFragment TableHeader { get; set; }
         [Parameter] public RenderFragment<TItem> RowTemplate { get; set; }
-        [Parameter] public ICollection<TItem> Items { get; set; }
     }
 }

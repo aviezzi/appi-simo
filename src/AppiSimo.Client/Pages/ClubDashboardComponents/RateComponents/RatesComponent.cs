@@ -4,19 +4,22 @@ namespace AppiSimo.Client.Pages.ClubDashboardComponents.RateComponents
     using Microsoft.AspNetCore.Components;
     using Model;
     using NodaTime;
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using ViewModels;
 
-    public class RatesComponent : ComponentBase
+    public class RatesComponent : CollectionComponentBase<Rate, RateViewModel>
     {
-        [Inject] NavigationManager UriHelper { get; set; }
+        [Parameter] public ICollection<Rate> Rates { get; set; }
 
         [Inject] protected ITypeConverter<LocalTime> Converter { get; set; }
 
-        [Parameter] public ICollection<Rate> Rates { get; set; }
+        public RatesComponent() : base("/club-dashboard/rates")
+        {
+        }
 
-        protected void GoToEdit(Guid key) => UriHelper.NavigateTo($"/club-dashboard/rates/edit/{key}");
-
-        protected void GoToCreate() => UriHelper.NavigateTo("/club-dashboard/rates/create");
+        private protected override Task<IEnumerable<RateViewModel>> BuildViewModel() =>
+            Task.FromResult(Rates?.Select(rate => new RateViewModel(rate)) ?? new List<RateViewModel>());
     }
 }

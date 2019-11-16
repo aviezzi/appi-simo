@@ -1,20 +1,22 @@
 namespace AppiSimo.Client.Pages.ClubDashboardComponents.LightComponents
 {
+    using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using ViewModels;
 
-    public class LightsComponent : ComponentBase
+    public class LightsComponent : CollectionComponentBase<Light, LightViewModel>
     {
-        [Inject] NavigationManager UriHelper { get; set; }
+        [Parameter] public IEnumerable<Light> Lights { get; set; } = new List<Light>();
 
-        [Parameter] public ICollection<Light> Lights { get; set; }
+        public LightsComponent() : base("/club-dashboard/light")
+        {
+        }
 
-        protected void GoToEdit(Guid key) =>
-            UriHelper.NavigateTo($"/club-dashboard/light/edit/{key}");
-
-        protected void GoToCreate() =>
-            UriHelper.NavigateTo("/club-dashboard/light/create");
+        private protected override Task<IEnumerable<LightViewModel>> BuildViewModel() =>
+            Task.FromResult(Lights?.Select(light => new LightViewModel(light)) ?? new List<LightViewModel>());
     }
 }
