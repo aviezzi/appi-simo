@@ -9,16 +9,16 @@ namespace AppiSimo.Client.Tools.InputLocalDatePicker
     {
         [CascadingParameter] EditContext CascadedEditContext { get; set; }
 
-        [Parameter] public LocalDate? Value { get; set; }
-        [Parameter] public EventCallback<LocalDate?> ValueChanged { get; set; }
+        [Parameter] public LocalDate Value { get; set; }
+        [Parameter] public EventCallback<LocalDate> ValueChanged { get; set; }
         [Parameter] public string Class { get; set; }
-        
+
         protected DateTime? Date
         {
-            get => Value?.ToDateTimeUnspecified();
+            get => Value == default(LocalDate) ? Value.ToDateTimeUnspecified() : default();
             set
             {
-                Value = value.HasValue ? (LocalDate?) LocalDate.FromDateTime(value.Value) : null;
+                Value = LocalDate.FromDateTime(value ?? new DateTime());
                 ValueChanged.InvokeAsync(Value);
                 CascadedEditContext?.NotifyValidationStateChanged();
             }

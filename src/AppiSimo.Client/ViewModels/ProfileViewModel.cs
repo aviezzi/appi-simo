@@ -1,14 +1,11 @@
 ﻿namespace AppiSimo.Client.ViewModels
 {
-    using Abstract;
     using Model.Auth;
     using NodaTime;
     using System;
 
     public class ProfileViewModel : ViewModelBase<Profile>
     {
-        readonly ITypeConverter<LocalDate> _converter;
-
         public string Name
         {
             get => Entity.Name;
@@ -27,10 +24,10 @@
             set => Entity.Gender = (Gender) Enum.Parse(typeof(Gender), value);
         }
 
-        public LocalDate? Birthdate
+        public LocalDate Birthdate
         {
-            get => Entity.BirthDate == new LocalDate() ? default(LocalDate?) : Entity.BirthDate;
-            set => Entity.BirthDate = value ?? new LocalDate();
+            get => Entity.BirthDate;
+            set => Entity.BirthDate = value;
         }
 
         public string Address
@@ -45,13 +42,9 @@
             set => Entity.Email = value;
         }
 
-        public ProfileViewModel(Profile profile, ITypeConverter<LocalDate> converter)
-            :base(profile)
+        public ProfileViewModel(Profile profile)
+            : base(profile)
         {
-            _converter = converter;
         }
-
-        public string FormattedBirthDate() =>
-            _converter.FormatValueAsString(Entity.BirthDate);
     }
 }

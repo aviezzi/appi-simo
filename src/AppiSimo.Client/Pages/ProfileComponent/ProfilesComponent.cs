@@ -12,14 +12,14 @@
     public class ProfilesComponent : CollectionComponentBase<Profile, ProfileViewModel>
     {
         [Inject] IGraphQlService<Profile> ProfileService { get; set; }
-        [Inject] ITypeConverter<LocalDate> LocalDateConverter { get; set; }
+        [Inject] protected ITypeConverter<LocalDate> Converter { get; set; }
 
-        public ProfilesComponent() : base("user")
+        public ProfilesComponent() : base("profile")
         {
         }
 
         private protected override async Task<IEnumerable<ProfileViewModel>> BuildViewModel() =>
             (await ProfileService.GetAllAsync()).Select(profile =>
-                new ProfileViewModel(profile, LocalDateConverter));
+                new ProfileViewModel(profile));
     }
 }

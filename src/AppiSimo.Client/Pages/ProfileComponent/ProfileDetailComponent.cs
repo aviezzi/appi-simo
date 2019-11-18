@@ -9,10 +9,8 @@
 
     public class ProfileDetailComponent : DetailComponentBase<Profile, ProfileViewModel>
     {
-        [Inject] ITypeConverter<LocalDate> LocalDateConverter { get; set; }
-
         private protected override Func<Profile, ProfileViewModel> BuildViewModel =>
-            profile => new ProfileViewModel(profile, LocalDateConverter);
+            profile => new ProfileViewModel(profile);
 
         public ProfileDetailComponent()
             : base("profiles")

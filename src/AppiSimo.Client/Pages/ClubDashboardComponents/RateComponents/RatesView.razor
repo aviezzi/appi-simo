@@ -29,15 +29,15 @@
     
             <RowTemplate>
     
-                <td class="align-middle">@rate.Entity.Name</td>
-                <td class="align-middle">@rate.Entity.Start</td>
-                <td class="align-middle">@rate.Entity.End")</td>
+                <td class="align-middle">@rate.Name</td>
+                <td class="align-middle">@Converters.LocalDate.FormatValueAsString(rate.StartDate)</td>
+                <td class="align-middle">@Converters.LocalDate.FormatValueAsString(rate.EndDate)</td>
                 <td class="align-middle">
                     @foreach (var dailyRate in rate.DailyRates)
                     {
                         <div>
-                            <span>@($"dalle {dailyRate.Entity.Start}")</span>
-                            <span>@($"alle {dailyRate.Entity.End}")</span>
+                            <span>@($"dalle {Converters.LocalTime.FormatValueAsString(dailyRate.Start)}")</span>
+                            <span>@($"alle {Converters.LocalTime.FormatValueAsString(dailyRate.End)}")</span>
                         </div>
                     }
                 </td>
@@ -45,7 +45,7 @@
                 <td class="align-middle">
                     @foreach (var dailyRate in rate.DailyRates)
                     {
-                        <div>@dailyRate.Entity.Price &euro;</div>
+                        <div>@dailyRate.Price &euro;</div>
                     }
                 </td>
     

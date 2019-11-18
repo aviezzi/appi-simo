@@ -13,7 +13,7 @@ namespace AppiSimo.Client.Pages.ClubDashboardComponents.RateComponents
     {
         [Parameter] public ICollection<Rate> Rates { get; set; }
 
-        [Inject] protected ITypeConverter<LocalTime> Converter { get; set; }
+        [Inject] protected IConverters Converters { get; set; }
 
         public RatesComponent() : base("/club-dashboard/rates")
         {
