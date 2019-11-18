@@ -7,18 +7,26 @@ namespace AppiSimo.Client.Tools.InputLocalDatePicker
 
     public class InputLocalDatePicker : ComponentBase
     {
+        DateTime? _date;
+
         [CascadingParameter] EditContext CascadedEditContext { get; set; }
 
-        [Parameter] public LocalDate Value { get; set; }
+        [Parameter]
+        public LocalDate Value
+        {
+            get => LocalDate.FromDateTime(Date ?? new DateTime());
+            set => Date = value == default ? (DateTime?) null : value.ToDateTimeUnspecified();
+        }
+
         [Parameter] public EventCallback<LocalDate> ValueChanged { get; set; }
         [Parameter] public string Class { get; set; }
-
+        
         protected DateTime? Date
         {
-            get => Value == default(LocalDate) ? Value.ToDateTimeUnspecified() : default();
+            get => _date;
             set
             {
-                Value = LocalDate.FromDateTime(value ?? new DateTime());
+                _date = value;
                 ValueChanged.InvokeAsync(Value);
                 CascadedEditContext?.NotifyValidationStateChanged();
             }
