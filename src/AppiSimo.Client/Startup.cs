@@ -5,7 +5,6 @@ namespace AppiSimo.Client
     using Extensions;
     using Factories;
     using GraphQL.Client.Http;
-    using Microsoft.AspNetCore.Blazor.Http;
     using Microsoft.AspNetCore.Components.Authorization;
     using Microsoft.AspNetCore.Components.Builder;
     using Microsoft.Extensions.DependencyInjection;
@@ -35,8 +34,9 @@ namespace AppiSimo.Client
             services.AddScoped<AuthenticationStateProvider, CognitoAuthStateProvider>();
             services.AddAuthorizationCore();
 
-            var handler = Assembly.Load("WebAssembly.Net.Http").GetType("WebAssembly.Net.Http.HttpClient.WasmHttpMessageHandler");
-            
+            var handler = Assembly.Load("WebAssembly.Net.Http")
+                .GetType("WebAssembly.Net.Http.HttpClient.WasmHttpMessageHandler");
+
             var jsonSerializerSettings = new JsonSerializerSettings
                 {
                     Formatting = Formatting.Indented,
@@ -52,7 +52,7 @@ namespace AppiSimo.Client
             services.AddTransient(provider => new GraphQLHttpClient(new GraphQLHttpClientOptions
             {
                 EndPoint = new Uri("https://localhost:8080/graphql"),
-                HttpMessageHandler = (HttpMessageHandler)Activator.CreateInstance(handler),
+                HttpMessageHandler = (HttpMessageHandler) Activator.CreateInstance(handler),
                 JsonSerializerSettings = jsonSerializerSettings
             }));
 

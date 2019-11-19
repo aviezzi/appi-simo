@@ -29,8 +29,6 @@ namespace AppiSimo.Client.ViewModels
 
         public LightViewModel(Light entity) : base(entity)
         {
-            Console.WriteLine($"PUNTO 2");
-
         }
     }
 }
