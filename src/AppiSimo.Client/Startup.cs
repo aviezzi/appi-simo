@@ -19,6 +19,8 @@ namespace AppiSimo.Client
     using Providers;
     using Services;
     using System;
+    using System.Net.Http;
+    using System.Reflection;
 
     public class Startup
     {
@@ -33,6 +35,8 @@ namespace AppiSimo.Client
             services.AddScoped<AuthenticationStateProvider, CognitoAuthStateProvider>();
             services.AddAuthorizationCore();
 
+            var handler = Assembly.Load("WebAssembly.Net.Http").GetType("WebAssembly.Net.Http.HttpClient.WasmHttpMessageHandler");
+            
             var jsonSerializerSettings = new JsonSerializerSettings
                 {
                     Formatting = Formatting.Indented,
@@ -48,7 +52,7 @@ namespace AppiSimo.Client
             services.AddTransient(provider => new GraphQLHttpClient(new GraphQLHttpClientOptions
             {
                 EndPoint = new Uri("https://localhost:8080/graphql"),
-                HttpMessageHandler = new WebAssemblyHttpMessageHandler(),
+                HttpMessageHandler = (HttpMessageHandler)Activator.CreateInstance(handler),
                 JsonSerializerSettings = jsonSerializerSettings
             }));
 
