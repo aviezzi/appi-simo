@@ -1,9 +1,7 @@
 ﻿namespace AppiSimo.Client.Pages.ProfileComponent
 {
     using Abstract;
-    using Microsoft.AspNetCore.Components;
-    using Model.Auth;
-    using NodaTime;
+    using Model;
     using System;
     using ViewModels;
 

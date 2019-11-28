@@ -3,6 +3,7 @@
     using Model.Auth;
     using NodaTime;
     using System;
+    using Profile = Model.Profile;
 
     public class ProfileViewModel : ViewModelBase<Profile>
     {
@@ -41,6 +42,8 @@
             get => Entity.Email;
             set => Entity.Email = value;
         }
+
+        public decimal Debt => Entity.Debt.Value;
 
         public ProfileViewModel(Profile profile)
             : base(profile)

@@ -2,12 +2,12 @@
 {
     using Abstract;
     using Extensions;
-    using Model.Auth;
+    using Model;
     using System;
 
     public class ProfileService : GraphQlServiceBase<Profile>
     {
-        protected override string Fields { get; } = "id, name, surname, gender, address, email, birthdate";
+        protected override string Fields { get; } = "id, name, surname, gender, address, email, birthdate, vDebtById{ debt ";
 
         protected override Func<Profile, string> CreateQuery => profile =>
             $@"{{

@@ -24,6 +24,7 @@
             </th>
             <th>Socio</th>
             <th>Data di Nascita</th>
+            <th>Debito</th>
             <th></th>
         </tr>
         </thead>
@@ -35,6 +36,7 @@
                 <th>@($"{index + 1}")</th>
                 <td>@($"{viewModel.Name} {viewModel.Surname}")</td>
                 <td>@($"{Converter.FormatValueAsString(viewModel.Birthdate)}")</td>
+                <td>@viewModel.Debt Euros</td>
                 <td>
                     <MatButton Type="button" Outlined="true" OnClick="() => GoToEdit(viewModel.Id)">Modifica</MatButton>
                 </td>

@@ -80,4 +80,40 @@ create table "Profiles"
     "Sub" uuid not null
 );
 
+comment on table "Profiles" is E'@foreignKey ("Id") references "vDebts" ("Id")';
 alter table "Profiles" owner to "RobotBoy";
+
+create table "Events"
+(
+    "Id" uuid not null constraint "PK_Events" primary key,
+    "StartDate" timestamp not null,
+    "EndDate" timestamp not null,
+    "LightId" uuid constraint "FK_Event_Light_LightId" references "Lights",
+    "HeadId" uuid constraint "FK_Event_Heat_HeatId" references "Heats",
+    "CourtId" uuid not null constraint "FK_Event_Court_CourtId" references "Courts",
+    "LightDuration" numeric(1,0) constraint "Max_LightDuration_Value" check ("LightDuration" <= 1 and "LightDuration" >= 0),
+    "HeatDuration" numeric(1,0) constraint "Max_HeatDuration_Value" check ("HeatDuration" <= 1 and "HeatDuration" >= 0)
+);
+
+alter table "Events" owner to "RobotBoy";
+
+create table "ProfileEvents"
+(
+    "Id" uuid not null constraint "PK_ProfileEvents" primary key,
+    "ProfileId" uuid not null constraint "FK_ProfileEvents_Profile_ProfileId" references "Profiles",
+    "EventId" uuid not null constraint "FK_ProfileEvents_Event_EventId" references "Events",
+    "Price" money not null,
+    "Paid" boolean not null default false
+);
+
+alter table "ProfileEvents" owner to "RobotBoy";
+
+create view "vDebts" as
+select p."Id", sum(pe."Price") as "Debt"
+from "Profiles" p
+         join "ProfileEvents" pe on p."Id" = pe."ProfileId"
+         join "Events" e on pe."EventId" = e."Id"
+where pe."Paid" = false
+group by p."Id", p."Name", p."Surname";
+
+alter view "vDebts" owner to "RobotBoy";

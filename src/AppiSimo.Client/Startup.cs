@@ -9,7 +9,6 @@ namespace AppiSimo.Client
     using Microsoft.AspNetCore.Components.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Model;
-    using Model.Auth;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using NodaTime;

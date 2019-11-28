@@ -2,7 +2,7 @@
 {
     using Abstract;
     using Microsoft.AspNetCore.Components;
-    using Model.Auth;
+    using Model;
     using NodaTime;
     using System.Collections.Generic;
     using System.Linq;
