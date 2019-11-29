@@ -26,6 +26,33 @@
             "end_session_endpoint": "https://appi-simo.auth.eu-central-1.amazoncognito.com/logout?logout_uri=https://localhost:5001&client_id=g3i6ro2fpgu439lrp84evc3tp&response_type=token"
         },
     };
+    
+    const map = (aws) => { 
+        
+        let map = {
+            token: aws["id_token"],
+            profile: {}
+        };
+        
+        let profile = aws["profile"];
+        
+        map.profile = {
+            sub : profile["sub"],
+            address : profile["address"],
+            gender : profile["gender"],
+            birthdate : profile["birthdate"],
+            name : profile["given_name"],
+            surname : profile["family_name"],
+            email : profile["email"],
+            emailVerified : profile["email_verified"],
+            phone : profile["phone_number"],
+            phoneVerified : profile["phone_number_verified"],
+        };
+        
+        console.log(`was: ${JSON.stringify(map)}`);
+
+        return map;
+    };
 
     self.authentication = {};
 
@@ -54,7 +81,7 @@
             user.profile.address = user.profile.address.formatted;
         }
 
-        return user;
+        return map(user);
     };
 
     self.authentication.tryLoadUser = async () => {
@@ -71,7 +98,7 @@
             user.profile.address = user.profile.address.formatted;
         }
 
-        return user;
+        return map(user);
     };
 
     self.authentication.signOut = () => {

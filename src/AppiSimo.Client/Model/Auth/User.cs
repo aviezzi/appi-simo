@@ -7,15 +7,15 @@
     {
         public static User Anonymous { get; } = new User
         {
-            IdToken = string.Empty,
+            Token = string.Empty,
             Profile = new Profile
             {
                 Name = "Anonymous User"
             }
         };
 
-        [JsonPropertyName("id_token")] public string IdToken { get; set; }
+        public string Token { get; set; }
 
-        [JsonPropertyName("profile")] public Profile Profile { get; set; }
+        public Profile Profile { get; set; }
     }
 }

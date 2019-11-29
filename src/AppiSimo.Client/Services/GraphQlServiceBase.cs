@@ -30,7 +30,16 @@ namespace AppiSimo.Client.Services
             var client = await _factoryAsync.Create();
 
             var res = await client.SendQueryAsync(request);
-            return _extensions.ExtGetDataFieldAs2<T>(res, name).ToList();
+            Console.WriteLine($"CCCC: {res.Data}");
+            Console.WriteLine($"EEEE: {res.Errors}");
+            var result = _extensions.ExtGetDataFieldAs2<T>(res, name).ToList();
+
+            foreach (var temp in result.Select(r => r as Profile))
+            {
+                Console.WriteLine($"{temp.Name}: {temp.Phone}");
+            }
+            
+            return result;
         }
 
         public async Task<T> GetOneAsync(Guid key)

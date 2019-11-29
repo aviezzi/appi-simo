@@ -3,6 +3,7 @@
     using Abstract;
     using Microsoft.JSInterop;
     using Model.Auth;
+    using System;
     using System.Threading.Tasks;
 
     public class AuthService : IAuthService
@@ -14,8 +15,13 @@
             JsRuntime = jsRuntime;
         }
 
-        public Task<User> TryLoadUser() =>
-            JsRuntime.InvokeAsync<User>("interop.authentication.tryLoadUser").AsTask();
+        public async Task<User> TryLoadUser()
+        {
+            var result = await JsRuntime.InvokeAsync<User>("interop.authentication.tryLoadUser").AsTask();
+            
+            Console.WriteLine($"Service: {result.Profile.Name}");
+            return result;
+        }
 
         public Task SignIn() =>
             JsRuntime.InvokeVoidAsync("interop.authentication.signIn").AsTask();

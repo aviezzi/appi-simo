@@ -12,7 +12,6 @@
     public class ProfilesComponent : CollectionComponentBase<Profile, ProfileViewModel>
     {
         [Inject] IGraphQlService<Profile> ProfileService { get; set; }
-        [Inject] protected ITypeConverter<LocalDate> Converter { get; set; }
 
         public ProfilesComponent() : base("profile")
         {

@@ -36,7 +36,7 @@
                     new Claim(ClaimTypes.Email, user.Profile.Email),
                     new Claim(ClaimTypes.StreetAddress, user.Profile.Address),
                     new Claim(ClaimTypes.Gender, user.Profile.Gender.ToString()),
-                    new Claim(CognitoClaimTypes.TokenId, user.IdToken)
+                    new Claim(CognitoClaimTypes.TokenId, user.Token)
                 }, "Cognito authentication type"));
 
             return new AuthenticationState(principal);

@@ -6,23 +6,21 @@
 
     public class Profile : Entity
     {
-        [JsonPropertyName("sub")] public Guid Sub { get; set; }
+        public Guid Sub { get; set; }
 
-        [JsonPropertyName("email_verified")] public bool EmailVerified { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public LocalDate BirthDate { get; set; }
 
-        [JsonPropertyName("address")] public string Address { get; set; }
-
-        [JsonPropertyName("gender")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Gender Gender { get; set; }
 
-        [JsonPropertyName("birthdate")]
-        public LocalDate BirthDate { get; set; }
-        
-        [JsonPropertyName("given_name")] public string Name { get; set; }
+        public string Address { get; set; }
 
-        [JsonPropertyName("family_name")] public string Surname { get; set; }
+        public string Email { get; set; }
+        public bool EmailVerified { get; set; }
 
-        [JsonPropertyName("email")] public string Email { get; set; }
+        public string Phone { get; set; }
+        public bool PhoneVerified { get; set; }
     }
 }

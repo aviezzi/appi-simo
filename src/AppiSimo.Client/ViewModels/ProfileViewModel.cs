@@ -1,5 +1,6 @@
 ﻿namespace AppiSimo.Client.ViewModels
 {
+    using Model;
     using Model.Auth;
     using NodaTime;
     using System;
@@ -41,6 +42,12 @@
         {
             get => Entity.Email;
             set => Entity.Email = value;
+        }
+
+        public string Phone
+        {
+            get => Entity.Phone;
+            set => Entity.Phone = value;
         }
 
         public decimal Debt => Entity.Debt.Value;

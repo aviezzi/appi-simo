@@ -7,7 +7,7 @@
 
     public class ProfileService : GraphQlServiceBase<Profile>
     {
-        protected override string Fields { get; } = "id, name, surname, gender, address, email, birthdate, vDebtById{ debt ";
+        protected override string Fields { get; } = "id, name, surname, gender, address, email, birthdate, vDebtById{ debt }, phone";
 
         protected override Func<Profile, string> CreateQuery => profile =>
             $@"{{

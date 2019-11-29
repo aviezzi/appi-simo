@@ -77,6 +77,7 @@ create table "Profiles"
     "Address" text not null,
     "Email" text not null,
     "Birthdate" date not null,
+    "Phone" text, 
     "Sub" uuid not null
 );
 
