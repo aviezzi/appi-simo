@@ -13,12 +13,13 @@
             $@"{{
                 ""profile"": {{
                     ""id"":""{profile.Id}"",
-                    ""name"":""{profile.Name}"",
-                    ""surname"":""{profile.Surname}"",
+                    ""name"":""{profile.Name.Trim()}"",
+                    ""surname"":""{profile.Surname.Trim()}"",
                     ""gender"":""{profile.Gender.ToString()}"",
                     ""birthdate"":""{profile.BirthDate}"",
-                    ""address"":""{profile.Address}"",
-                    ""email"":""{profile.Email}"",
+                    ""address"":""{profile.Address.Trim()}"",
+                    ""email"":""{profile.Email.Trim()}"",
+                    ""phone"":""{profile.Phone.Trim()}"",
                     ""sub"":""{Guid.Empty}""
                 }}
             }}";
@@ -29,12 +30,13 @@
                 ""id"":""{profile.Id}"",
                 ""patch"":
                 {{
-                    ""name"":""{profile.Name}"",
-                    ""surname"":""{profile.Surname}"",
+                    ""name"":""{profile.Name.Trim()}"",
+                    ""surname"":""{profile.Surname.Trim()}"",
                     ""gender"":""{profile.Gender.ToString()}"",
                     ""birthdate"":""{profile.BirthDate}"",
-                    ""address"":""{profile.Address}"",
-                    ""email"":""{profile.Email}""
+                    ""address"":""{profile.Address.Trim()}"",
+                    ""email"":""{profile.Email.Trim()}"",
+                    ""phone"":""{profile.Phone.Trim()}"",
                 }}
             }}";
 

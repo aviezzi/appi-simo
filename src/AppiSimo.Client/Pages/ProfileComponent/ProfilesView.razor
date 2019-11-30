@@ -35,11 +35,10 @@
             <tr>
                 <th>@($"{index + 1}")</th>
                 <td>@($"{viewModel.Name} {viewModel.Surname}")</td>
-                <td><ul>
-                        <li>@viewModel.Phone</li>
-                        <li>@viewModel.Email</li>
-                </ul></td>
-                <td>@viewModel.Debt &euro;</td>
+                <td>
+                    <div><span class="oi oi-envelope-closed mr-2">@($"{viewModel?.Email ?? string.Empty}")</span></div>
+                    <div><span class="oi oi-phone mr-2">@($"{viewModel?.Phone ?? string.Empty}")</span></div>
+                </td>
                 <td>
                     <MatButton Type="button" Outlined="true" OnClick="() => GoToEdit(viewModel.Id)">Modifica</MatButton>
                 </td>

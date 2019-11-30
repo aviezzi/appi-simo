@@ -36,11 +36,13 @@
     
             </MatSelect>
     
-            <InputLocalDatePickerView Class="w-100 mb-4" @bind-Value="ViewModel.Birthdate" ></InputLocalDatePickerView>
+            @* <InputLocalDatePickerView Class="w-100 mb-4" @bind-Value="ViewModel.Birthdate" ></InputLocalDatePickerView> *@
     
             <MatTextField @bind-Value="@ViewModel.Address" Dense="true" Label="Indirizzo" HelperText="Indirizzo"></MatTextField>
     
             <MatTextField @bind-Value="@ViewModel.Email" Dense="true" Label="Email" HelperText="Email"></MatTextField>
+            
+            <MatTextField @bind-Value="@ViewModel.Phone" Dense="true" Label="Phone" HelperText="Phone"></MatTextField>
     
             <div class="d-flex flex-row-reverse">
                 <MatButton Type="submit" Class="submit" Outlined="true">Salva</MatButton>

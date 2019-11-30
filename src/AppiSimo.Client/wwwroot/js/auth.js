@@ -1,4 +1,6 @@
-﻿(function(self) {
+﻿//TODO: Refactoring
+
+(function(self) {
 
     const config = {
         "authority": "https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_rgNLYriHz",
