@@ -87,8 +87,9 @@ alter table "Profiles" owner to "RobotBoy";
 create table "Events"
 (
     "Id" uuid not null constraint "PK_Events" primary key,
-    "StartDate" timestamp not null,
-    "EndDate" timestamp not null,
+    "Date" date not null,
+    "Start" time not null,
+    "End" time not null,
     "LightId" uuid constraint "FK_Event_Light_LightId" references "Lights",
     "HeadId" uuid constraint "FK_Event_Heat_HeatId" references "Heats",
     "CourtId" uuid not null constraint "FK_Event_Court_CourtId" references "Courts",

@@ -63,6 +63,7 @@ namespace AppiSimo.Client
             services.AddSingleton<IGraphQlService<Court>, CourtService>();
             services.AddSingleton<IGraphQlService<Rate>, RateService>();
             services.AddSingleton<IGraphQlService<Profile>, ProfileService>();
+            services.AddSingleton<IGraphQlService<Event>, EventService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

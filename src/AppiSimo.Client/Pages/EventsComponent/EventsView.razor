@@ -1,0 +1,68 @@
+﻿@attribute [Authorize]
+@page "/events"
+
+@inherits EventsComponent
+
+@if (ViewModel == null)
+{
+    <span>Loading ...</span>
+    return;
+}
+
+<div class="d-flex justify-content-end mb-2">
+    <MatButton Type="button" Outlined="true" OnClick="GoToCreate">Crea</MatButton>
+</div>
+
+<div class="d-flex justify-content-end mb-2">
+
+    <table class="table table-striped">
+
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                <span>#</span>
+            </th>
+            <th>Data</th>
+            <th>Inizio</th>
+            <th>Fine</th>
+            <th>Prezzo</th>
+            <th>Atleti</th>
+            <th>Optionals</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var (viewModel, index) in ViewModel.Select((value, i) => (value, i)))
+        {
+            <tr>
+                <th>@($"{index + 1}")</th>
+                <td>@Converters.LocalDate.FormatValueAsString(viewModel.Date)</td>
+                <td>@Converters.LocalTime.FormatValueAsString(viewModel.Start)</td>
+                <td>@Converters.LocalTime.FormatValueAsString(viewModel.End)</td>
+                <td>@viewModel.Price &euro;</td>
+                <td>
+                    @foreach (var player in viewModel.Profiles)
+                    {
+                        <div><span class="oi oi-person mr-2"></span>@player.Profile.Name @player.Profile.Surname</div>
+                    }
+                </td>
+                <td>
+                    @if(viewModel.Light != default)
+                    {
+                        <span><span class="oi oi-lightbulb mr-2"></span>@viewModel.LightDuration</span>
+                    }
+
+                    @if(viewModel.Heat != default)
+                    {
+                        <span><span class="oi oi-lightbulb mr-2"></span>@viewModel.HeatDuration</span>
+                    }
+                </td>
+                <td>
+                    <MatButton Type="button" Outlined="true" OnClick="() => GoToEdit(viewModel.Id)">Modifica</MatButton>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
