@@ -8,7 +8,7 @@
     public class EventService : GraphQlServiceBase<Event>
     {
         protected override string Fields { get; } =
-            "id, date, start, end, lightDuration, heatDuration, light{ lightType }, head { heatType }, profileEvents { profile {id, name, surname}, price, paid}";
+            "id, date, start, end, lightDuration, heatDuration, light{ lightType }, heat { heatType }, profileEvents { profile {id, name, surname}, price, paid}";
 
         protected override Func<Event, string> CreateQuery { get; }
         protected override Func<Event, string> UpdateQuery { get; }
