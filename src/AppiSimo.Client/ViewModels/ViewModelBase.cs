@@ -8,8 +8,13 @@
     {
         public T Entity { get; }
 
-        public Guid Id => Entity.Id;
         public bool IsNew => Entity.Id == default;
+
+        public string Id
+        {
+            get => $"{Entity.Id}";
+            set => Entity.Id = Guid.Parse(value);
+        }
 
         protected ViewModelBase(T entity)
         {

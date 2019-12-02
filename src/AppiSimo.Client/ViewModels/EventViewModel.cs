@@ -2,12 +2,13 @@
 {
     using Model;
     using NodaTime;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     public class EventViewModel : ViewModelBase<Event>
     {
+        public IEnumerable<CourtViewModel> Courts { get; set; }
+
         public LocalDate Date
         {
             get => Entity.Date;
@@ -26,10 +27,7 @@
             set => Entity.End = value;
         }
 
-        public LightViewModel Light { get; set; }
-
-        public HeatViewModel Heat { get; set; }
-
+        public CourtViewModel Court { get; }
 
         public double LightDuration
         {
@@ -42,22 +40,23 @@
             get => Entity.HeatDuration ?? default;
             set => Entity.HeatDuration = value;
         }
-
-        public IEnumerable<ProfileEventViewModel> Profiles { get; set; }
+        
+        public IEnumerable<ProfileEventViewModel> ProfileEvents { get; set; }
 
         public decimal Price => Entity.ProfileEvents.Sum(pe => pe.Price);
 
-        public EventViewModel(Event entity) : base(entity)
+        public EventViewModel(Event @event)
+            : this(@event, new List<Court>())
         {
-            Light = Entity.Light != null ? new LightViewModel(Entity.Light) : default;
-            Heat =  Entity.Heat != null ? new HeatViewModel(Entity.Heat) : default;
-            
-            Console.WriteLine($"light flag: {Light != default}");
-            Console.WriteLine($"light value: {Light?.Type ?? "zero"}");
-            Console.WriteLine($"heat flag: {Heat != default}");
-            Console.WriteLine($"heat value: {Heat?.Type ?? "zero"}");
-            
-            Profiles = Entity.ProfileEvents.Select(pe => new ProfileEventViewModel(pe));
+        }
+
+        public EventViewModel(Event @event, IEnumerable<Court> courts)
+            : base(@event)
+        {
+            Court = new CourtViewModel(Entity.Court);
+            Courts = courts.Select(court => new CourtViewModel(court));
+
+            ProfileEvents = Entity.ProfileEvents.Select(pe => new ProfileEventViewModel(pe));
         }
     }
 }

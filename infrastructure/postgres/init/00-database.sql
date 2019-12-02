@@ -90,8 +90,6 @@ create table "Events"
     "Date" date not null,
     "Start" time not null,
     "End" time not null,
-    "LightId" uuid constraint "FK_Event_Light_LightId" references "Lights",
-    "HeatId" uuid constraint "FK_Event_Heat_HeatId" references "Heats",
     "CourtId" uuid not null constraint "FK_Event_Court_CourtId" references "Courts",
     "LightDuration" numeric(1,0) constraint "Max_LightDuration_Value" check ("LightDuration" <= 1 and "LightDuration" >= 0),
     "HeatDuration" numeric(1,0) constraint "Max_HeatDuration_Value" check ("HeatDuration" <= 1 and "HeatDuration" >= 0)

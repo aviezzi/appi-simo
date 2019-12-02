@@ -50,8 +50,6 @@
             phone : profile["phone_number"],
             phoneVerified : profile["phone_number_verified"],
         };
-        
-        console.log(`was: ${JSON.stringify(map)}`);
 
         return map;
     };

@@ -24,23 +24,23 @@
 
         <MatTextField @bind-Value="@ViewModel.Name" Dense="true" Label="Nome" HelperText="Inserire il nome del campo."></MatTextField>
 
-        <MatSelect Id="light-dd" Label="Seleziona una luce" @bind-Value="@ViewModel.LightId">
+        <MatSelect Id="light-dd" Label="Seleziona una luce" @bind-Value="@ViewModel.Light.Id">
             
             <MatOption Value="@($"{Guid.Empty}")"></MatOption>
 
             @foreach (var light in ViewModel.Lights)
             {
-                <MatOption Value="@($"{light.Id}")">@light.LightType</MatOption>
+                <MatOption Value="@($"{light.Id}")">@light.Type</MatOption>
             }
         </MatSelect>
 
-        <MatSelect Class="mt-3" Label="Seleziona una luce" @bind-Value="@ViewModel.HeatId">
+        <MatSelect Class="mt-3" Label="Seleziona una luce" @bind-Value="@ViewModel.Heat.Id">
                     
             <MatOption value="@($"{Guid.Empty}")"></MatOption>
             
             @foreach (var heat in ViewModel.Heats)
             {
-                <MatOption Value="@($"{heat.Id}")">@heat.HeatType</MatOption>
+                <MatOption Value="@($"{heat.Id}")">@heat.Type</MatOption>
             }
         </MatSelect>
                  

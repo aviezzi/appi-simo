@@ -15,13 +15,8 @@
             JsRuntime = jsRuntime;
         }
 
-        public async Task<User> TryLoadUser()
-        {
-            var result = await JsRuntime.InvokeAsync<User>("interop.authentication.tryLoadUser").AsTask();
-            
-            Console.WriteLine($"Service: {result.Profile.Name}");
-            return result;
-        }
+        public Task<User> TryLoadUser() => 
+            JsRuntime.InvokeAsync<User>("interop.authentication.tryLoadUser").AsTask();
 
         public Task SignIn() =>
             JsRuntime.InvokeVoidAsync("interop.authentication.signIn").AsTask();

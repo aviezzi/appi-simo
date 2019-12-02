@@ -42,22 +42,23 @@
                 <td>@Converters.LocalTime.FormatValueAsString(viewModel.End)</td>
                 <td>@viewModel.Price &euro;</td>
                 <td>
-                    @foreach (var player in viewModel.Profiles)
+                    @foreach (var profileEvent in viewModel.ProfileEvents)
                     {
-                        <div><span class="oi oi-person mr-2"></span>@player.Profile.Name @player.Profile.Surname</div>
+                        <div><span class="oi oi-person mr-2"></span>@profileEvent.Profile.Name @profileEvent.Profile.Surname</div>
                     }
                 </td>
                 <td>
-                    @if(viewModel.Light != default)
+                    @if(Math.Abs(viewModel.LightDuration) > 0)
                     {
                         <span><span class="oi oi-lightbulb mr-2"></span>@viewModel.LightDuration</span>
                     }
 
-                    @if(viewModel.Heat != default)
+                    @if(Math.Abs(viewModel.HeatDuration) > 0)
                     {
                         <span><span class="oi oi-fire mr-2"></span>@viewModel.HeatDuration</span>
                     }
                 </td>
+
                 <td>
                     <MatButton Type="button" Outlined="true" OnClick="() => GoToEdit(viewModel.Id)">Modifica</MatButton>
                 </td>

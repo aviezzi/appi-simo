@@ -25,7 +25,6 @@ namespace AppiSimo.Client.ViewModels
             set => Entity.Enabled = value;
         }
 
-
         public LightViewModel(Light entity) : base(entity)
         {
         }

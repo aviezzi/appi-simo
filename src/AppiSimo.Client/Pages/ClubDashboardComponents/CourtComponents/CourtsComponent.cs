@@ -3,6 +3,8 @@ namespace AppiSimo.Client.Pages.ClubDashboardComponents.CourtComponents
     using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
+    using Newtonsoft.Json;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -16,7 +18,10 @@ namespace AppiSimo.Client.Pages.ClubDashboardComponents.CourtComponents
         {
         }
 
-        private protected override Task<IEnumerable<CourtViewModel>> BuildViewModel() =>
-            Task.FromResult(Courts?.Select(court => new CourtViewModel(court)) ?? new List<CourtViewModel>());
+        private protected override Task<IEnumerable<CourtViewModel>> BuildViewModel()
+        {
+            Console.WriteLine($"COURTS: {JsonConvert.SerializeObject(Courts)}");
+            return Task.FromResult(Courts?.Select(court => new CourtViewModel(court)) ?? new List<CourtViewModel>());
+        }
     }
 }

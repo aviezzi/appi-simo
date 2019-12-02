@@ -1,6 +1,5 @@
 ﻿namespace AppiSimo.Client.ViewModels
 {
-    using Model;
     using Model.Auth;
     using NodaTime;
     using System;

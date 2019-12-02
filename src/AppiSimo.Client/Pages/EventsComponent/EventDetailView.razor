@@ -1,0 +1,47 @@
+﻿@page "/event/create"
+@page "/event/edit/{key:guid}"
+
+@attribute [Authorize]
+@inherits EventDetailComponent
+
+@if (ViewModel == null)
+{
+    <span>Loading ...</span>
+    return;
+}
+
+<MatCard class="p-4">
+
+    <MatSubtitle2>
+        <h3>@($"{(ViewModel.IsNew ? "Crea una nuova prenotazione" : "Modifica una prenotazione esistente")}")</h3>
+    </MatSubtitle2>
+
+
+    <EditForm class="d-flex flex-column" Model="@ViewModel" OnValidSubmit="@(async () => await HandleValidSubmit())">
+
+        <div class="d-flex flex-column">
+            
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+    
+            @* <InputLocalDatePickerView Class="w-100 mb-4" @bind-Value="ViewModel.Date" ></InputLocalDatePickerView> *@
+
+            @* <InputLocalDatePickerView class="w-100" @bind-Value="ViewModel.Start" ></InputLocalDatePickerView> *@
+            @* <InputLocalDatePickerView class="w-100" @bind-Value="ViewModel.End" ></InputLocalDatePickerView> *@
+
+            @* <MatSelect Id="light-dd" Label="Seleziona una luce" @bind-Value="@ViewModel.LightId"> *@
+                
+@*                 <MatOption Value="@($"{Guid.Empty}")"></MatOption> *@
+@*      *@
+@*                 @foreach (var light in ViewModel. Courts) *@
+@*                 { *@
+@* $1$                     <MatOption Value="@($"{light.Id}")">@light.LightType</MatOption> #1# *@
+@*                 } *@
+@*             </MatSelect> *@
+@*      *@
+
+        </div>
+            
+    </EditForm>
+
+</MatCard>

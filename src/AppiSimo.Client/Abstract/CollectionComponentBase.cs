@@ -27,6 +27,6 @@
 
         protected void GoToCreate() => NavigationManager.NavigateTo($"{_uri}/create");
 
-        protected void GoToEdit(Guid key) => NavigationManager.NavigateTo($"{_uri}/edit/{key}");
+        protected void GoToEdit(string key) => NavigationManager.NavigateTo($"{_uri}/edit/{key}");
     }
 }

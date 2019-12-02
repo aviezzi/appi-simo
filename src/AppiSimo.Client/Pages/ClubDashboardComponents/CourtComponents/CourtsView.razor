@@ -30,15 +30,15 @@
     
             <RowTemplate>
     
-                <td>@($"{court.Name}")</td>
-                <td>@($"{court.Entity.Light.LightType}")</td>
-                <td>@($"{court.Entity.Heat.HeatType}")</td>
-                <td>
-                    <span class="@($"oi {(court.Enabled ? "oi-check" : string.Empty)}")"></span>
-                </td>
-                <td class="pointer align-middle" @onclick="() => GoToEdit(court.Id)">
-                    <span class="oi oi-external-link"></span>
-                </td>
+                @* <td>@($"{court.Name}")</td> *@
+                @* <td>@($"{court.Light.Type}")</td> *@
+                @* <td>@($"{court.Heat.Type}")</td> *@
+                @* <td> *@
+                @*     <span class="@($"oi {(court.Enabled ? "oi-check" : string.Empty)}")"></span> *@
+                @* </td> *@
+                @* <td class="pointer align-middle" @onclick="() => GoToEdit(court.Id)"> *@
+                @*     <span class="oi oi-external-link"></span> *@
+                @* </td> *@
     
             </RowTemplate>
     

@@ -1,14 +1,14 @@
 namespace AppiSimo.Client.ViewModels
 {
     using Model;
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     public class CourtViewModel : ViewModelBase<Court>
     {
-        public IEnumerable<Light> Lights { get; }
-        public IEnumerable<Heat> Heats { get; }
+        public IEnumerable<LightViewModel> Lights { get; }
+        public IEnumerable<HeatViewModel> Heats { get; }
 
         [Required(ErrorMessage = "È obbligatorio inserire il nome del campo.")]
         public string Name
@@ -17,17 +17,9 @@ namespace AppiSimo.Client.ViewModels
             set => Entity.Name = value;
         }
 
-        public string LightId
-        {
-            get => $"{Entity.Light.Id}";
-            set => Entity.Light.Id = Guid.Parse(value);
-        }
+        public LightViewModel Light { get; }
+        public HeatViewModel Heat { get; }
 
-        public string HeatId
-        {
-            get => $"{Entity.Heat.Id}";
-            set => Entity.Heat.Id = Guid.Parse(value);
-        }
         public bool Enabled
         {
             get => Entity.Enabled;
@@ -42,8 +34,11 @@ namespace AppiSimo.Client.ViewModels
         public CourtViewModel(Court court, IEnumerable<Light> lights, IEnumerable<Heat> heats)
             : base(court)
         {
-            Lights = lights ?? throw new NullReferenceException("Lights cannot be null.");
-            Heats = heats ?? throw new NullReferenceException("Heats cannot be null.");
+            Light = Entity.Light == null ? new LightViewModel(Entity.Light) : default;
+            Lights = lights.Select(light => new LightViewModel(light));
+
+            Heat = Entity.Heat == null ? new HeatViewModel(Entity.Heat) : default;
+            Heats = heats.Select(heat => new HeatViewModel(heat));
         }
     }
 }
