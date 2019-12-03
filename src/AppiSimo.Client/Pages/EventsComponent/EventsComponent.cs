@@ -3,8 +3,6 @@
     using Abstract;
     using Microsoft.AspNetCore.Components;
     using Model;
-    using Newtonsoft.Json;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -19,6 +17,7 @@
         {
         }
 
-        private protected override async Task<IEnumerable<EventViewModel>> BuildViewModel() => (await EventService.GetAllAsync()).Select(@event => new EventViewModel(@event));
+        private protected override async Task<IEnumerable<EventViewModel>> BuildViewModel() =>
+            (await EventService.GetAllAsync()).Select(@event => new EventViewModel(@event));
     }
 }

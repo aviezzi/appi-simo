@@ -18,10 +18,7 @@ namespace AppiSimo.Client.Pages.ClubDashboardComponents.CourtComponents
         {
         }
 
-        private protected override Task<IEnumerable<CourtViewModel>> BuildViewModel()
-        {
-            Console.WriteLine($"COURTS: {JsonConvert.SerializeObject(Courts)}");
-            return Task.FromResult(Courts?.Select(court => new CourtViewModel(court)) ?? new List<CourtViewModel>());
-        }
+        private protected override Task<IEnumerable<CourtViewModel>> BuildViewModel() => 
+            Task.FromResult(Courts?.Select(court => new CourtViewModel(court)) ?? new List<CourtViewModel>());
     }
 }

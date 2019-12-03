@@ -34,10 +34,10 @@ namespace AppiSimo.Client.ViewModels
         public CourtViewModel(Court court, IEnumerable<Light> lights, IEnumerable<Heat> heats)
             : base(court)
         {
-            Light = Entity.Light == null ? new LightViewModel(Entity.Light) : default;
+            Light = Entity.Light != default ? new LightViewModel(Entity.Light) : default;
             Lights = lights.Select(light => new LightViewModel(light));
 
-            Heat = Entity.Heat == null ? new HeatViewModel(Entity.Heat) : default;
+            Heat = Entity.Heat != default ? new HeatViewModel(Entity.Heat) : default;
             Heats = heats.Select(heat => new HeatViewModel(heat));
         }
     }
