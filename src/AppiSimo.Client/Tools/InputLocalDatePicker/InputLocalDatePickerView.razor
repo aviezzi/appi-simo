@@ -1,3 +1,85 @@
+@using System.Globalization
+@using NodaTime
 @inherits InputLocalDatePicker
 
-<MatDatePicker DateFormat="d/m/Y" @bind-Value="@Date" Required="true" Class="@Class"></MatDatePicker>
+<div class="mat-datepicker-calendar-container">
+<MatTextFieldView
+    Class="@($"{Class} {FieldClass}")"
+    Style="@Style"
+    Icon="@MatIconNames.Calendar_today"
+    IconTrailing="true"
+    Label="@Label"
+    Dense="@Dense"
+    HelperText="@HelperText"
+    Outlined="@Outlined"
+    FullWidth="@FullWidth"
+    PlaceHolder="@PlaceHolder"
+    Required="@Required"
+    Disabled="@Disabled"
+    ReadOnly="true"
+    Id="@Id"
+    Value="@(Value != null ? DateFormat.Format(Value.Value) : "")"
+    @onclick="() => IsOpen = !IsOpen">
+</MatTextFieldView>
+
+
+<div class="mat-datepicker-calendar animate arrowTop @(IsOpen ? "open" : "")" >
+    <div class="mat-datepicker-months">
+        <span class="mat-datepicker-prev-month" @onclick="() => Add(Period.FromYears(-1))">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17">
+                <g></g><path d="M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z"></path>
+            </svg>
+        </span>
+        <span class="mat-datepicker-prev-month" @onclick="() => Add(Period.FromMonths(-1))">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17">
+                <g></g><path d="M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z"></path>
+            </svg>
+        </span>
+
+        <div class="mat-datepicker-month-year">
+            @CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[RenderedValue.Month - 1] @RenderedValue.Year.ToString("0000")
+        </div>       
+
+        <span class="mat-datepicker-next-month" @onclick="() => Add(Period.FromMonths(1))">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17">
+                <g></g><path d="M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z"></path>
+            </svg>
+        </span>
+         <span class="mat-datepicker-prev-month" @onclick="() => Add(Period.FromYears(1))">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17">
+                <g></g><path d="M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z"></path>
+            </svg>
+        </span>
+    </div>
+    <div class="mat-datepicker-innerContainer">
+        <div class="mat-datepicker-rContainer">
+            <div class="mat-datepicker-weekdays">
+                <div class="mat-datepicker-weekdaycontainer">
+                    @foreach (var day in DaysOfWeek)
+                    {
+                        <span class="mat-datepicker-weekday">
+                            @CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames[(int)day - 1]
+                        </span>
+                    }
+                </div>
+            </div>
+            <div class="mat-datepicker-days" tabindex="-1" style="width: 309px;">
+                <div class="dayContainer">
+                    @for (var date = StartDate; date <= EndDate; date = date.Plus(Period.FromDays(1)))
+                    {
+                        var current = date;
+                        <span 
+                            class="mat-datepicker-day 
+                                @(RenderedValue.Month != date.Month ? "otherMonthDay" : "") 
+                                @(current == Today ? "today" : "") 
+                                @(current == Value ? "selected" : "")"
+                             @onclick="() => SetDate(current)">
+                            @date.Day
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
