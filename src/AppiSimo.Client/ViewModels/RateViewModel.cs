@@ -18,17 +18,17 @@ namespace AppiSimo.Client.ViewModels
         }
 
         [Required(ErrorMessage = "È obbligatorio inserire la data di inizio validita'.")]
-        public LocalDate StartDate
+        public LocalDate? StartDate
         {
-            get => Entity.Start;
-            set => Entity.Start = value;
+            get => Entity.Start == default ? default(LocalDate?) : Entity.Start;
+            set => Entity.Start = value ?? new LocalDate();
         }
 
         [Required(ErrorMessage = "È obbligatorio inserire la data di fine validita'.")]
-        public LocalDate EndDate
+        public LocalDate? EndDate
         {
-            get => Entity.End;
-            set => Entity.End = value;
+            get => Entity.End == default ? default(LocalDate?) : Entity.End;
+            set => Entity.End = value ?? new LocalDate();
         }
 
         [ListNotEmpty(ErrorMessage = "È obbligatorio inserire almeno una tariffa.")]
