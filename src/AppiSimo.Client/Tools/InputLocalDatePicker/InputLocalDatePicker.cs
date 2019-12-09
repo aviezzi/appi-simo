@@ -45,35 +45,15 @@ namespace AppiSimo.Client.Tools.InputLocalDatePicker
         public IsoDayOfWeek FirstDayOfWeek { get; set; } = IsoDayOfWeek.Monday;
 
         protected bool IsOpen { get; set; }
+        
+        protected bool TougleYearView { get; set; }
+
+        protected DatePickerStates State { get; set; } = DatePickerStates.Day;
 
         protected static LocalDate Today => SystemClock.Instance.InZone(DateTimeZoneProviders.Tzdb.GetSystemDefault()).GetCurrentDate();
 
         protected LocalDate RenderedValue { get; set; }
 
-        protected IEnumerable<IsoDayOfWeek> DaysOfWeek
-        {
-            get
-            {
-                var first = IsoDayOfWeek.Monday;
-                var last = IsoDayOfWeek.Sunday;
-
-                for (var day = FirstDayOfWeek; day <= last; day++)
-                {
-                    yield return day;
-                }
-
-                for (var day = first; day < FirstDayOfWeek; day++)
-                {
-                    yield return day;
-                }
-            }
-        }
-
-        protected LocalDate StartDate =>
-            RenderedValue.With(DateAdjusters.StartOfMonth).With(DateAdjusters.PreviousOrSame(FirstDayOfWeek));
-
-        protected LocalDate EndDate =>
-            RenderedValue.With(DateAdjusters.EndOfMonth).With(DateAdjusters.NextOrSame(DaysOfWeek.Last()));
 
         protected void SetDate(LocalDate date)
         {

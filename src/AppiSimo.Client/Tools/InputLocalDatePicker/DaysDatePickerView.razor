@@ -1,0 +1,35 @@
+﻿@inherits DaysDatePicker
+
+@using NodaTime
+@using System.Globalization
+
+<div class="mat-datepicker-innerContainer">
+    <div class="mat-datepicker-rContainer">
+        <div class="mat-datepicker-weekdays">
+            <div class="mat-datepicker-weekdaycontainer">
+                @foreach (var day in DaysOfWeek)
+                {
+                    <span class="mat-datepicker-weekday">
+                        @CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames[(int)day - 1]
+                    </span>
+                }
+            </div>
+        </div>
+        <div class="mat-datepicker-days" tabindex="-1" style="width: 309px;">
+            <div class="dayContainer">
+                @for (var date = StartDate; date <= EndDate; date = date.Plus(Period.FromDays(1)))
+                {
+                    var current = date;
+                    <span 
+                        class="mat-datepicker-day 
+                                @(RenderedValue.Month != date.Month ? "otherMonthDay" : "") 
+                                @(current == Today ? "today" : "") 
+                                @(current == Value ? "selected" : "")"
+                        @onclick="() => SetDay(current)">
+                        @date.Day
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
