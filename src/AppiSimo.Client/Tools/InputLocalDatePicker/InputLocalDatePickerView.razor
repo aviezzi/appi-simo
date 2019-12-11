@@ -67,7 +67,7 @@
                     <DaysDatePickerView FirstDayOfWeek="@FirstDayOfWeek" Value="@RenderedValue" ValueChanged="@((v) => SetDate(v))"></DaysDatePickerView>
                     break;
                 case  DatePickerStates.Month:
-                    <MonthsDatePickerView></MonthsDatePickerView>
+                    <MonthsDatePickerView ValueChanged="@((v) => SetMonth(v))"></MonthsDatePickerView>
                     break;
                 case DatePickerStates.Year:
                     <YearsDatePickerView></YearsDatePickerView>

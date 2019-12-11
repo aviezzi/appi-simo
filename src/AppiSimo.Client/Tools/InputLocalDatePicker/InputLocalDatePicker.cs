@@ -66,9 +66,8 @@ namespace AppiSimo.Client.Tools.InputLocalDatePicker
             RenderedValue = RenderedValue.Plus(period);
         }
 
-        protected void SetMonth(string monthText)
+        protected void SetMonth(int month)
         {
-            var month = int.Parse(monthText);
             try
             {
                 RenderedValue = RenderedValue.With(DateAdjusters.Month(month));
@@ -77,6 +76,8 @@ namespace AppiSimo.Client.Tools.InputLocalDatePicker
             {
                 RenderedValue = new LocalDate(RenderedValue.Year, month, day: 1, RenderedValue.Calendar).With(DateAdjusters.EndOfMonth);
             }
+
+            State = DatePickerStates.Day;
         }
 
         protected void SetYear(decimal? year)
@@ -94,6 +95,8 @@ namespace AppiSimo.Client.Tools.InputLocalDatePicker
             {
                 RenderedValue = new LocalDate((int) year, RenderedValue.Month, 1, RenderedValue.Calendar).With(DateAdjusters.EndOfMonth);
             }
+            
+            State = DatePickerStates.Day;
         }
 
         protected override void OnParametersSet()

@@ -1,1 +1,8 @@
-﻿
+﻿@using System.Globalization
+@inherits MonthsDatePicker
+
+@for (var month = 0; month <= 12; month++)
+{
+    var current = month + 1;
+    <a @onclick="(() => SetValue(current))">@CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[month]</a>
+}
